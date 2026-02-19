@@ -4,6 +4,7 @@ import { HotKitchenView } from './views/HotKitchenView';
 import { BarView } from './views/BarView';
 import { ColdKitchenView } from './views/ColdKitchenView';
 import { Navigation } from './components/Navigation';
+import { CompletedOrdersWidget } from './components/completed-orders/CompletedOrdersWidget';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/cocina-fria" element={<ColdKitchenView />} />
         </Routes>
       </div>
+      <CompletedOrdersWidget />
     </BrowserRouter>
   );
 }
