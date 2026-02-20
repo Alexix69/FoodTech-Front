@@ -61,16 +61,18 @@ export const CompletedOrdersWidget = () => {
         onToggle={handleToggle}
         isLoading={loading}
       />
-      <CompletedOrdersModal
-        isOpen={isOpen}
-        onClose={handleClose}
-        orders={completedOrders}
-        onInvoice={handleInvoice}
-        loading={loading}
-        error={error}
-        invoiceLoadingById={invoiceLoadingById}
-        invoiceErrorById={invoiceErrorById}
-      />
+      {isOpen && (
+        <CompletedOrdersModal
+          isOpen={isOpen}
+          onClose={handleClose}
+          orders={completedOrders}
+          onInvoice={handleInvoice}
+          loading={loading}
+          error={error}
+          invoiceLoadingById={invoiceLoadingById}
+          invoiceErrorById={invoiceErrorById}
+        />
+      )}
       <CompletedOrdersToast
         message={toastMessage}
         isVisible={toastMessage.length > 0}

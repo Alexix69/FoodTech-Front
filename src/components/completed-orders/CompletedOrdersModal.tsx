@@ -95,14 +95,6 @@ export const CompletedOrdersModal = ({
     };
   }, [isOpen, onClose]);
 
-  useEffect(() => {
-    if (!isOpen) {
-      setCustomerNames({});
-      setShowNameInput({});
-      setNameErrors({});
-    }
-  }, [isOpen]);
-
   if (!isOpen) return null;
 
   return (
