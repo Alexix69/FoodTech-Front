@@ -18,6 +18,7 @@ export interface Product {
   type: ProductType;
   description?: string;
   image?: string;
+  price: number;
 }
 
 /**
@@ -27,4 +28,5 @@ export interface OrderProduct {
   name: string;
   type: ProductType;
   quantity: number;
+  price: number;
 }
