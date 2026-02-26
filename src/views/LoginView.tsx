@@ -6,6 +6,7 @@ export const LoginView = () => {
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [rememberMe, setRememberMe] = useState(false)
   const [demoMode, setDemoMode] = useState(false)
   const [isRegisterMode, setIsRegisterMode] = useState(false)
 
@@ -30,7 +31,7 @@ export const LoginView = () => {
     if (isRegisterMode) {
       await register(email, username, password)
     } else {
-      await login(email, password)
+      await login(email, password, rememberMe)
     }
   }
 
@@ -39,6 +40,7 @@ export const LoginView = () => {
     setEmail('')
     setUsername('')
     setPassword('')
+    setRememberMe(false)
   }
 
   return (
@@ -121,6 +123,22 @@ export const LoginView = () => {
           {error && (
             <div className="text-red-400 text-sm text-center">
               {error}
+            </div>
+          )}
+
+          {/* Remember me (solo login) */}
+          {!isRegisterMode && (
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                id="rememberMe"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="h-4 w-4 accent-primary"
+              />
+              <label htmlFor="rememberMe" className="text-sm text-silver-text">
+                Recordarme
+              </label>
             </div>
           )}
 
