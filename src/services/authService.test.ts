@@ -47,6 +47,34 @@ describe('authService', () => {
         authService.login('test@email.com', 'password')
       ).rejects.toThrow('Error de conexión')
     })
+
+    it('debe guardar token sin expiración cuando rememberMe es false', async () => {
+      const mockToken = 'fake-jwt-token-12345'
+      
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ token: mockToken })
+      })
+
+      await authService.login('test@restaurant.com', 'password123', false)
+
+      expect(localStorage.getItem('auth_token')).toBe(mockToken)
+      expect(localStorage.getItem('auth_token_expiry')).toBeNull()
+    })
+
+    it('debe guardar token con expiración cuando rememberMe es true', async () => {
+      const mockToken = 'fake-jwt-token-remember'
+      
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ token: mockToken })
+      })
+
+      await authService.login('test@restaurant.com', 'password123', true)
+
+      expect(localStorage.getItem('auth_token')).toBe(mockToken)
+      expect(localStorage.getItem('auth_token_expiry')).not.toBeNull()
+    })
   })
 
   describe('logout', () => {
@@ -72,13 +100,21 @@ describe('authService', () => {
   })
 
   describe('isAuthenticated', () => {
-    it('debe retornar true cuando hay token', () => {
+    it('debe retornar true cuando hay token válido', () => {
       localStorage.setItem('auth_token', 'valid-token')
       
       expect(authService.isAuthenticated()).toBe(true)
     })
 
     it('debe retornar false cuando no hay token', () => {
+      expect(authService.isAuthenticated()).toBe(false)
+    })
+
+    it('debe retornar false cuando el token está expirado', () => {
+      const expiredDate = Date.now() - 1000
+      localStorage.setItem('auth_token', 'expired-token')
+      localStorage.setItem('auth_token_expiry', expiredDate.toString())
+      
       expect(authService.isAuthenticated()).toBe(false)
     })
   })
