@@ -82,4 +82,63 @@ describe('authService', () => {
       expect(authService.isAuthenticated()).toBe(false)
     })
   })
+
+  describe('register', () => {
+    it('debe hacer registro exitoso y guardar token en localStorage', async () => {
+      const mockToken = 'fake-jwt-token-registration'
+      
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ token: mockToken })
+      })
+
+      const result = await authService.register('test@email.com', 'newuser', 'password123')
+
+      expect(result).toBe(true)
+      expect(localStorage.getItem('auth_token')).toBe(mockToken)
+    })
+
+    it('debe lanzar error cuando el username ya existe', async () => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 400,
+        json: () => Promise.resolve({ message: 'El usuario ya existe' })
+      })
+
+      await expect(
+        authService.register('test@email.com', 'existinguser', 'password123')
+      ).rejects.toThrow('El usuario ya existe')
+    })
+
+    it('debe lanzar error cuando hay error de red', async () => {
+      global.fetch = vi.fn().mockRejectedValue(new TypeError('Failed to fetch'))
+
+      await expect(
+        authService.register('test@email.com', 'testuser', 'password')
+      ).rejects.toThrow('Error de conexión')
+    })
+
+    it('debe hacer request con los datos correctos al endpoint register', async () => {
+      const mockFetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ token: 'token' })
+      })
+      global.fetch = mockFetch
+
+      await authService.register('test@email.com', 'testuser', 'testpass')
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        expect.stringContaining('/auth/register'),
+        expect.objectContaining({
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: 'test@email.com',
+            username: 'testuser',
+            password: 'testpass'
+          })
+        })
+      )
+    })
+  })
 })
