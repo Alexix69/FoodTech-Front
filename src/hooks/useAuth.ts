@@ -7,6 +7,7 @@ interface UseAuthReturn {
   isLoading: boolean
   error: string | null
   login: (email: string, password: string) => Promise<void>
+  register: (email: string, username: string, password: string) => Promise<void>
   logout: () => void
 }
 
@@ -52,12 +53,32 @@ export const useAuth = (): UseAuthReturn => {
     setError(null)
   }
 
+  const register = async (email: string, username: string, password: string): Promise<void> => {
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      await authService.register(email, username, password)
+      const newToken = authService.getToken()
+      setToken(newToken)
+      setIsAuthenticated(true)
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Error desconocido'
+      setError(message)
+      setIsAuthenticated(false)
+      setToken(null)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return {
     isAuthenticated,
     token,
     isLoading,
     error,
     login,
+    register,
     logout,
   }
 }
