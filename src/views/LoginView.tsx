@@ -4,10 +4,12 @@ import { useAuth } from '../hooks/useAuth'
 
 export const LoginView = () => {
   const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [demoMode, setDemoMode] = useState(false)
+  const [isRegisterMode, setIsRegisterMode] = useState(false)
 
-  const { login, isLoading, error, isAuthenticated } = useAuth()
+  const { login, register, isLoading, error, isAuthenticated } = useAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -25,7 +27,18 @@ export const LoginView = () => {
       return
     }
 
-    await login(email, password)
+    if (isRegisterMode) {
+      await register(email, username, password)
+    } else {
+      await login(email, password)
+    }
+  }
+
+  const toggleMode = () => {
+    setIsRegisterMode(!isRegisterMode)
+    setEmail('')
+    setUsername('')
+    setPassword('')
   }
 
   return (
@@ -36,16 +49,16 @@ export const LoginView = () => {
         {/* Title */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-white-text">
-            FoodTech Login
+            {isRegisterMode ? 'FoodTech Registro' : 'FoodTech Login'}
           </h1>
           <p className="text-silver-text text-sm mt-2">
-            Accede al sistema de cocina
+            {isRegisterMode ? 'Crea tu cuenta en el sistema' : 'Accede al sistema de cocina'}
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
 
-          {/* Email */}
+          {/* Email (login y registro) */}
           <div>
             <label className="block text-sm text-silver-text mb-2">
               Email
@@ -63,6 +76,27 @@ export const LoginView = () => {
               placeholder="tu@email.com"
             />
           </div>
+
+          {/* Username (solo registro) */}
+          {isRegisterMode && (
+            <div>
+              <label className="block text-sm text-silver-text mb-2">
+                Username
+              </label>
+              <input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required={isRegisterMode && !demoMode}
+                disabled={demoMode}
+                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white-text 
+                           focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
+                           disabled:opacity-40"
+                placeholder="tu usuario"
+              />
+            </div>
+          )}
 
           {/* Password */}
           <div>
@@ -111,8 +145,23 @@ export const LoginView = () => {
                        hover:opacity-90 transition-all duration-200
                        disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? 'Iniciando sesión...' : 'Iniciar sesión'}
+            {isLoading 
+              ? (isRegisterMode ? 'Registrando...' : 'Iniciando sesión...') 
+              : (isRegisterMode ? 'Registrarse' : 'Iniciar sesión')}
           </button>
+
+          {/* Toggle Login/Register */}
+          <div className="text-center">
+            <button
+              type="button"
+              onClick={toggleMode}
+              className="text-sm text-primary hover:underline"
+            >
+              {isRegisterMode 
+                ? '¿Ya tienes cuenta? Iniciar sesión' 
+                : '¿No tienes cuenta? Regístrate'}
+            </button>
+          </div>
         </form>
       </div>
     </div>
