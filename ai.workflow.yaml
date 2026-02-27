@@ -1,0 +1,102 @@
+name: FoodTech AI Workflow
+version: 1.0.0
+
+description: |
+  Agente AI para gestión de restaurante FoodTech.
+  Metodología: TDD - Tests primero, código después.
+  Este workflow define el proceso estructurado para desarrollar features,
+  bug fixes y refactors siguiendo Test-Driven Development.
+
+agent:
+  role: AI Restaurant Management Assistant
+  expertise:
+    - React/TypeScript/Vite
+    - Clean Architecture
+    - TDD (Test-Driven Development)
+    - Vitest/Testing Library
+  constraints:
+    - Solo modifica archivos en src/
+    - No hace commits sin aprobación del usuario
+    - Ejecuta tests antes de entregar cambios
+
+steps:
+  - name: Load Context
+    description: Cargar estado actual del proyecto
+    tools: [glob, read package.json, read App.tsx, read tsconfig.json]
+    output: estructura del proyecto
+
+  - name: Analyze Requirements
+    description: Entender qué necesita el usuario y cómo están estructurados los tests actuales
+    tools: [read existing tests, read models/, read services/, read hooks/]
+    questions:
+      - "¿Qué comportamiento debe tener la nueva feature?"
+      - "¿Cuáles son los casos edge?"
+      - "¿Qué dependencias existen?"
+
+  - name: Write Tests First (TDD Red)
+    description: Escribir tests ANTES del código - deben fallar inicialmente
+    tools: [write test file]
+    rules:
+      - "Nombrar: *.test.ts o *.test.tsx, o *.spec.ts/*.spec.tsx"
+      - "Ubicación: mismo directorio que el componente/servicio"
+      - "Cubrir: happy path + edge cases + casos de error"
+      - "Usar las utilidades de test del proyecto (Vitest, Testing Library)"
+      - "NO escribir implementación todavía"
+    expected_result: Tests deben FALLAR (red)
+
+  - name: Run Tests (Verify Red)
+    description: Verificar que los tests fallen correctamente
+    tools: [npm test -- --run]
+    expected_result: Tests deben FALLAR - verificar que el failure es por código no implementado, no por error en el test
+
+  - name: Implement Feature (TDD Green)
+    description: Escribir código mínimo para pasar los tests
+    tools: [write implementation, read existing code patterns]
+    rules:
+      - "Solo implementar lo necesario para pasar tests"
+      - "Seguir Clean Architecture del proyecto"
+      - "Usar los hooks/services existentes"
+      - "Mantener consistencia con el código existente"
+    output: archivo de implementación
+
+  - name: Run Tests (Verify Green)
+    description: Verificar que los tests pasen
+    tools: [npm test -- --run]
+    expected_result: Tests deben PASAR (green)
+
+  - name: Refactor (TDD Refactor)
+    description: Mejorar código manteniendo tests pasando
+    tools: [edit code]
+    rules:
+      - "No cambiar comportamiento - solo estructura"
+      - "Ejecutar tests después de cada refactor"
+      - "Si algo falla, revertir inmediatamente"
+    optional: true
+
+  - name: Final Verification
+    description: Verificar que todo pasa antes de entregar
+    tools: [npm run lint, npm run typecheck, npm test -- --run]
+    rules:
+      - "lint debe pasar sin errores"
+      - "typecheck debe pasar sin errores"
+      - "tests deben pasar"
+
+outputs:
+  artifacts:
+    - test_file: "*.test.ts o *.test.tsx"
+    - implementation_file: "*.ts o *.tsx"
+  reports:
+    - test_coverage: "Resumen de coverage si está configurado"
+    - code_quality: "Estado de lint y typecheck"
+
+execution:
+  auto_approve: false
+  run_tests: true
+  fail_on_error: true
+  stop_on_lint_error: true
+
+# Flujo TDD resumido:
+# 1. Write Test → FAIL (red) ✗
+# 2. Implement Code → PASS (green) ✓
+# 3. Refactor → PASS (green) ✓
+# 4. Lint + Typecheck → ✓
