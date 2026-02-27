@@ -12,9 +12,8 @@ export const LoginView = () => {
     await login(email, password, false)
   }
 
-  const toggleMode = () => {
-    setIsRegisterMode(!isRegisterMode)
-  }
+  // toggleMode sin funcionalidad para RED
+  const toggleMode = () => {}
 
   return (
     <div>
