@@ -170,7 +170,7 @@ describe('useOrder', () => {
         result.current.addProduct(producto)
       })
       
-      let response: any = null
+      let response: unknown = null
       await act(async () => {
         response = await result.current.submitOrder('A1')
       })
@@ -182,7 +182,7 @@ describe('useOrder', () => {
     it('retorna null y error cuando el pedido está vacío', async () => {
       const { result } = renderHook(() => useOrder())
       
-      let response: any = null
+      let response: unknown = null
       await act(async () => {
         response = await result.current.submitOrder('A1')
       })
@@ -208,7 +208,7 @@ describe('useOrder', () => {
         result.current.addProduct(producto)
       })
       
-      let response: any = null
+      let response: unknown = null
       await act(async () => {
         response = await result.current.submitOrder('A1')
       })
