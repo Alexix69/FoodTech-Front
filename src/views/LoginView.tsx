@@ -155,7 +155,7 @@ export const LoginView = () => {
               className="h-4 w-4 accent-primary"
             />
             <label htmlFor="demoMode" className="text-sm text-silver-text">
-              Modo Demo(sin API)
+              Modo Demo( sin API)
             </label>
           </div>
 
