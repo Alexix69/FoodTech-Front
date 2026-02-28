@@ -57,7 +57,6 @@ export const useAuth = (): UseAuthReturn => {
     setIsLoading(true)
     setError(null)
     try {
-      debugger;
       await authService.register(email, username, password);
       navigate("/")
     } catch (err) {
