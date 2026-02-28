@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { authService } from '../services/authService'
-import { redirect } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 interface UseAuthReturn {
   isAuthenticated: boolean
@@ -29,7 +28,6 @@ export const useAuth = (): UseAuthReturn => {
   }, [])
 
   const login = async (email: string, password: string, rememberMe: boolean = false): Promise<void> => {
-    debugger;
     setIsLoading(true)
     setError(null)
 
