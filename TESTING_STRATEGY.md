@@ -43,25 +43,39 @@ Este documento define la estrategia de QA para el proyecto FoodTech, diferencian
 
 | Archivo | Test | Qué verifica |
 |---------|------|--------------|
-| `authService.test.ts` | login exitoso | Que el login retorna true y guarda token |
-| `authService.test.ts` | credenciales inválidas | Que lanza error 401 |
-| `authService.test.ts` | error de red | Que maneja TypeError |
-| `authService.test.ts` | logout | Que limpia localStorage |
-| `authService.test.ts` | getToken | Que retorna token o null |
-| `useAuth.test.ts` | estado inicial sin auth | Que isAuthenticated es false |
-| `useAuth.test.ts` | estado con auth | Que isAuthenticated es true |
-| `orderCalculator.test.ts` | pedido vacío | Retorna 0 |
-| `orderCalculator.test.ts` | precio total | Multiplica quantity × price |
+| `01-auth-login-exitoso.test.ts` | Login exitoso retorna true | Que la función retorna valor esperado |
+| `02-auth-login-invalidas.test.ts` | Login con credenciales inválidas | Que lanza error correcto |
+| `03-auth-login-error-red.test.ts` | Login con error de red | Que maneja errores de red |
+| `04-auth-login-remember-false.test.ts` | Login sin rememberMe | Que no guarda expiry |
+| `05-auth-login-remember-true.test.ts` | Login con rememberMe | Que guarda expiry |
+| `06-auth-logout-token.test.ts` | Logout remueve token | Que limpia localStorage |
+| `07-auth-getToken.test.ts` | getToken retorna token | Que retorna valor almacenado |
+| `08-auth-getToken-null.test.ts` | getToken sin token | Que retorna null |
+| `09-auth-isAuthenticated-true.test.ts` | Con token retorna true | Que verifica correctamente |
+| `10-auth-isAuthenticated-false.test.ts` | Sin token retorna false | Que maneja ausencia |
+| `11-auth-isAuthenticated-expirado.test.ts` | Token expirado | Que valida expiración |
+| `12-auth-register-exitoso.test.ts` | Register exitoso | Que crea usuario |
+| `16-useAuth-inicial.test.ts` | Hook sin auth | Que inicializa correcto |
+| `17-useAuth-inicial-token.test.ts` | Hook con token | Que detecta sesión |
+| `18-useAuth-login.test.ts` | Login en hook | Que actualiza estado |
+| `25-LoginView-formulario.test.tsx` | Render formulario | Que renderiza UI |
+| `31-LoginView-email.test.ts` | Input email | Que acepta texto |
+| `32-LoginView-password.test.ts` | Input password | Que acepta texto |
 
 ### Tests de VALIDACIÓN (¿Negocio protegido?)
 
 | Archivo | Test | Qué valida |
 |---------|------|------------|
-| `authService.test.ts` | Token se guarda correctamente | **Seguridad: Sesión persistida** |
-| `authService.test.ts` | No hay sesión con credenciales inválidas | **Seguridad: Acceso denegado** |
-| `useAuth.test.ts` | Login con error no crea sesión | **Seguridad: Estado consistente** |
-| `App.test.tsx` | Login页 muestra cuando no autenticado | **Regla: Acceso protegido** |
-| `App.test.tsx` | Navigation muestra cuando autenticado | **Regla: Vistas seguras** |
+| `01-auth-login-exitoso.test.ts` | Token se guarda en localStorage | **Seguridad: Sesión persistida** |
+| `02-auth-login-invalidas.test.ts` | Error con credenciales inválidas | **Seguridad: Acceso denegado** |
+| `06-auth-logout-token.test.ts` | Logout limpia sesión | **Seguridad: Cerrar sesión** |
+| `11-auth-isAuthenticated-expirado.test.ts` | Token expirado no permite acceso | **Seguridad: Sesión válida** |
+| `18-useAuth-login.test.ts` | Login actualiza estado | **Regla: Estado consistente** |
+| `19-useAuth-login-error.test.ts` | Error no crea sesión | **Seguridad: Estado limpio** |
+| `21-useAuth-logout.test.ts` | Hook logout | **Regla: Limpiar estado** |
+| `34-LoginView-submit-login.test.tsx` | Submit llama login | **Regla: Flujo correcto** |
+| `37-LoginView-demo.test.tsx` | Demo mode funciona | **Regla: Acceso demo** |
+| `40-LoginView-error.test.tsx` | Muestra errores | **UX: Feedback usuario** |
 
 ---
 
@@ -105,17 +119,23 @@ describe('login', () => {
 
 | Archivo | Tests | Tipo | Clasificación |
 |---------|-------|------|---------------|
-| `authService.test.ts` | 8 | Unit | 5 Verificar, 3 Validar |
-| `useAuth.test.ts` | 6 | Unit/Hook | 3 Verificar, 3 Validar |
-| `orderCalculator.test.ts` | 3 | Unit | 3 Verificar |
+| `src/tests/auth/01-15-*.test.ts` | 15 | Unit | 10 Verificar, 5 Validar |
+| `src/tests/auth/16-24-*.test.ts` | 9 | Unit/Hook | 5 Verificar, 4 Validar |
+| `src/tests/auth/25-41-*.test.tsx` | 17 | Component | 12 Verificar, 5 Validar |
+| `orderCalculator.test.ts` | 6 | Unit | 6 Verificar |
 | `useOrder.test.ts` | 1 | Unit/Hook | 1 Verificar |
-| `App.test.tsx` | 2 | Integration | 2 Validar |
 
-**Total: 20 tests (100% verdes)**
+**Total: 100 tests (100% verdes)**
+
+### Coverage Actual
+- **Statements**: 96.44%
+- **Branches**: 80%
+- **Functions**: 100%
+- **Lines**: 96.31%
 
 ---
 
-## 3. Estrategia TDD Aplicada
+## 5. Estrategia TDD Aplicada
 
 ```
 1. RED    → Escribir test que falla
