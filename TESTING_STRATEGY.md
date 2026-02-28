@@ -252,6 +252,120 @@ npm run lint && npm test -- --run && npm run build
 
 ---
 
+## 6. Human Check - Defensa de Tests
+
+El instructor puede elegir cualquier test y pedir explicaciones. Esta sección documenta los mocks y su propósito.
+
+### Ejemplo 1: Test de Validación de Negocio
+
+**Archivo:** `src/tests/auth/44-validacion-negocio.test.ts`
+**Test:** "VALIDAR: Login con error NO guarda token"
+
+```typescript
+it('VALIDAR: Login con error NO guarda token', async () => {
+  // 1. MOCK: Simulo API que retorna error 401
+  global.fetch = vi.fn().mockResolvedValue({
+    ok: false,
+    status: 401
+  })
+
+  // 2. ACT: Llamo al servicio de login
+  const { authService } = await import('../../services/authService')
+  await expect(
+    authService.login('wrong@email.com', 'wrongpass')
+  ).rejects.toThrow()
+
+  // 3. ASSERTIONS de VALIDACIÓN:
+  expect(localStorage.getItem('auth_token')).toBeNull()
+  expect(authService.isAuthenticated()).toBe(false)
+})
+```
+
+**¿Qué se mockea?**
+- `global.fetch` - Simula la respuesta del servidor
+- **¿Por qué?** Para no depender de un servidor real
+
+**¿Qué valida?**
+- Regla de negocio: "Si login falla, NO se crea sesión"
+
+---
+
+### Ejemplo 2: Test de Componente
+
+**Archivo:** `src/tests/auth/34-LoginView-submit-login.test.tsx`
+
+```typescript
+// MOCK: Simulo el hook useAuth
+vi.mocked(useAuth).mockImplementation(() => ({
+  login: mockLogin,
+  register: vi.fn(),
+  logout: vi.fn(),
+  token: null,
+  isLoading: false,
+  error: null,
+  isAuthenticated: false,
+}))
+```
+
+**¿Qué se mockea?**
+- `useAuth` - Hook de React para autenticación
+- **¿Por qué?** Aislar el componente del estado real
+
+---
+
+### Ejemplo 3: Test de Hook useAuth
+
+**Archivo:** `src/tests/auth/18-useAuth-login.test.ts`
+
+```typescript
+// MOCK: Simulo respuesta exitosa de API
+global.fetch = vi.fn().mockResolvedValue({
+  ok: true,
+  json: () => Promise.resolve({ token: mockToken })
+})
+
+// MOCK: Navegación
+vi.mock('react-router-dom', () => ({
+  useNavigate: () => vi.fn(),
+}))
+```
+
+**Mocks utilizados:**
+| Mock | Propósito |
+|------|-----------|
+| `global.fetch` | Simular llamadas HTTP |
+| `react-router-dom` | Aislar navegación |
+
+---
+
+## 7. Guía Rápida para el Human Check
+
+### Si te preguntan "¿Qué se mockea?"
+
+**Responde con:**
+1. **Qué es** - El nombre del mock (ej: `global.fetch`, `useAuth`)
+2. **Para qué sirve** - Qué funcionalidad simula
+3. **Por qué es necesario** - Para no depender de externo
+
+### Si te preguntan "¿Qué valida este test?"
+
+**Responde con:**
+1. **Qué verifica** - El comportamiento esperado
+2. **Regla de negocio** - La protección que garantiza
+3. **Qué pasaría sin el test** - El bug que evitaría
+
+### Ejemplo de respuesta:
+
+**Pregunta:** "En el test 44, ¿qué significa que se mockea `global.fetch`?"
+
+**Respuesta:**
+- "Mockeamos `global.fetch` para simular las respuestas del servidor"
+- "Sin el mock, los tests dependerían de un servidor API real"
+- "El mock nos permite controlar si la API retorna éxito o error"
+- "Esto nos permite probar casos como credenciales inválidas (401) sin necesidad de un backend"
+
+---
+
 ## 8. Glosario
 
 | Término | Definición |
