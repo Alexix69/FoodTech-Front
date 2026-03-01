@@ -254,9 +254,65 @@ npm run lint && npm test -- --run && npm run build
 
 ## 6. Human Check - Defensa de Tests
 
-El instructor puede elegir cualquier test y pedir explicaciones. Esta sección documenta los mocks y su propósito.
+### EJEMPLOS PARA LA EVALUACIÓN
 
-### Ejemplo 1: Test de Validación de Negocio
+#### 1. Test que VERIFICA la Arquitectura (llamada a puerto)
+
+**Archivo:** `src/tests/auth/45-verificar-arquitectura.test.ts`
+**Test:** "Login hace fetch al endpoint correcto"
+
+```typescript
+it('VERIFICAR: Login hace fetch al endpoint correcto', async () => {
+  const mockFetch = vi.fn().mockResolvedValue({
+    ok: true,
+    json: () => Promise.resolve({ token: 'mock-token' })
+  })
+  global.fetch = mockFetch
+
+  const { authService } = await import('../../services/authService')
+  await authService.login('test@restaurant.com', 'password123')
+
+  expect(mockFetch).toHaveBeenCalledWith(
+    expect.stringContaining('/api/auth/login'),
+    expect.objectContaining({
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    })
+  )
+})
+```
+
+**¿Qué verifica?**
+- Que el servicio llama correctamente al endpoint `/api/auth/login`
+- Verifica la arquitectura: la comunicación con el "puerto" (API) es correcta
+
+---
+
+#### 2. Test que VALIDA el Negocio (como "saldo negativo")
+
+**Archivo:** `src/tests/auth/46-validar-negocio.test.ts`
+**Test:** "Token expirado NO permite acceso"
+
+```typescript
+it('VALIDAR: Token expirado NO permite acceso - como saldo negativo', () => {
+  const expiredDate = Date.now() - 1000
+  localStorage.setItem('auth_token', 'expired-token')
+  localStorage.setItem('auth_token_expiry', expiredDate.toString())
+  
+  const { authService } = require('../../services/authService')
+  
+  expect(authService.isAuthenticated()).toBe(false)
+})
+```
+
+**¿Qué valida?**
+- Regla de negocio: "Token expirado = acceso denegado"
+- Como el "saldo negativo" en finances: si está expirado, no es válido
+- Protege el sistema de sesiones inválidas
+
+---
+
+### Ejemplo General: Test de Validación de Negocio
 
 **Archivo:** `src/tests/auth/44-validacion-negocio.test.ts`
 **Test:** "VALIDAR: Login con error NO guarda token"
@@ -358,7 +414,7 @@ vi.mock('react-router-dom', () => ({
 
 **Pregunta:** "En el test 44, ¿qué significa que se mockea `global.fetch`?"
 
-**Respuesta:**
+**Respuesta:**n
 - "Mockeamos `global.fetch` para simular las respuestas del servidor"
 - "Sin el mock, los tests dependerían de un servidor API real"
 - "El mock nos permite controlar si la API retorna éxito o error"

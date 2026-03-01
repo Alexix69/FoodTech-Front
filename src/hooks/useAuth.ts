@@ -37,8 +37,7 @@ export const useAuth = (): UseAuthReturn => {
       setToken(newToken)
       setIsAuthenticated(true)
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error desconocido'
-      setError(message)
+      setError(err ? "Credenciales inválidas" : "")
       setIsAuthenticated(false)
       setToken(null)
     } finally {

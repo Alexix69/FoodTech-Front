@@ -32,6 +32,7 @@ export const LoginView = () => {
       await register(email, username, password)
     } else {
       await login(email, password, rememberMe)
+      
     }
   }
 
@@ -63,11 +64,10 @@ export const LoginView = () => {
           {/* Email (login y registro) */}
           <div>
             <label className="block text-sm text-silver-text mb-2">
-              Email
+              {!isRegisterMode ? "Email / Username" : "Email" } 
             </label>
             <input
               id="email"
-              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required={!demoMode}
