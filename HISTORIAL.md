@@ -2,14 +2,35 @@
 
 ## Features Completadas
 
-### 🔐 Login (HU-FRONT-XXX)
-- **Estado:** ✅ Completado
-- **Componente:** `src/views/LoginView.tsx`
-- **Service:** `src/services/authService.ts`
-- **Hook:** `src/hooks/useAuth.ts`
-- **Tests:** 12 tests en `authService.test.ts`, 6 tests en `useAuth.test.ts`
+### 🔐 HU-FRONT-010: Login ✅
+- Tests: 48
+- Componentes: LoginView.tsx, authService.ts, useAuth.ts
 
 ---
+
+### 🔐 HU-FRONT-011: Logout ✅
+- Tests: 5
+- Componentes: authService.ts, useAuth.ts
+
+---
+
+### 🔐 HU-FRONT-012: Registro de Usuario ✅
+- Tests: 15
+- Componentes: authService.ts, useAuth.ts, LoginView.tsx
+
+---
+
+## Pendiente
+
+- [ ] HU-FRONT-001: Mesas en tiempo real
+- [ ] HU-FRONT-002: Pedido por categorías
+- [ ] HU-FRONT-003: Múltiples productos
+- [ ] HU-FRONT-004: Modificar pedido
+- [ ] HU-FRONT-005: Enviar pedido a cocina
+- [ ] HU-FRONT-006: Monitoreo de órdenes
+- [ ] HU-FRONT-007: Tareas por estación
+- [ ] HU-FRONT-008: Filtrar tareas
+- [ ] HU-FRONT-009: Actualización automática
 
 ## Feature Completada: Registro de Usuario ✅
 

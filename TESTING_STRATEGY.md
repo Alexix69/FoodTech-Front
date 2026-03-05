@@ -116,21 +116,166 @@ it('debe hacer login exitoso y guardar token en localStorage', async () => {
 })
 ```
 
-**Mocks:**
-- `global.fetch` - Simula respuesta exitosa del servidor
-
-**Texto para presentación:**
-> "Este test verifica el flujo feliz: login con credenciales correctas. Mockeo fetch para simular que el servidor retorna un token, y verifico que ese token se guarde en localStorage."
-
 ---
 
 ### Test 04: 04-auth-login-remember-false.test.ts
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que cuando el usuario NO marca "recordarme", el token se guarda sin fecha de expiración.
 
-**Texto para presentación:**
-> "Este test verifica que cuando el usuario NO marca 'recordarme', el token se guarda sin fecha de expiración. Es decir, la sesión dura solo mientras el navegador está abierto."
+**Mocks:**
+- `global.fetch` - Simula respuesta exitosa
+
+**Código:**
+```typescript
+it('debe guardar token sin expiración cuando rememberMe es false', async () => {
+  global.fetch = vi.fn().mockResolvedValue({
+    ok: true,
+    json: () => Promise.resolve({ token: 'fake-jwt-token-12345' })
+  })
+  const { authService } = await import('../../services/authService')
+  await authService.login('test@restaurant.com', 'password123', false)
+  expect(localStorage.getItem('auth_token')).toBe('fake-jwt-token-12345')
+  expect(localStorage.getItem('auth_token_expiry')).toBeNull()
+})
+```
+
+---
+
+### Test 05: 05-auth-login-remember-true.test.ts
+
+**TDD:** GREEN
+
+**Qué hace:**
+Verifica que cuando el usuario marca "recordarme", el token se guarda CON fecha de expiración.
+
+**Mocks:**
+- `global.fetch` - Simula respuesta exitosa
+
+**Código:**
+```typescript
+it('debe guardar token con expiración cuando rememberMe es true', async () => {
+  global.fetch = vi.fn().mockResolvedValue({
+    ok: true,
+    json: () => Promise.resolve({ token: 'fake-jwt-token-remember' })
+  })
+  const { authService } = await import('../../services/authService')
+  await authService.login('test@restaurant.com', 'password123', true)
+  expect(localStorage.getItem('auth_token')).toBe('fake-jwt-token-remember')
+  expect(localStorage.getItem('auth_token_expiry')).not.toBeNull()
+})
+```
+
+---
+
+### Test 06: 06-auth-logout-token.test.ts
+
+**TDD:** GREEN
+
+**Qué hace:**
+Verifica que la función logout() remueve completamente el token de localStorage.
+
+**Código:**
+```typescript
+it('debe remover token de localStorage', async () => {
+  localStorage.setItem('auth_token', 'some-token')
+  const { authService } = await import('../../services/authService')
+  authService.logout()
+  expect(localStorage.getItem('auth_token')).toBeNull()
+})
+```
+
+---
+
+### Test 07: 07-auth-getToken.test.ts
+
+**TDD:** GREEN
+
+**Qué hace:**
+Verifica que getToken() retorna exactamente el token guardado en localStorage.
+
+**Código:**
+```typescript
+it('debe retornar el token guardado', async () => {
+  localStorage.setItem('auth_token', 'mi-token-guardado')
+  const { authService } = await import('../../services/authService')
+  expect(authService.getToken()).toBe('mi-token-guardado')
+})
+```
+
+---
+
+### Test 09: 09-auth-isAuthenticated-true.test.ts
+
+**TDD:** GREEN
+
+**Qué hace:**
+Verifica que con token válido, isAuthenticated() retorna true.
+
+**Código:**
+```typescript
+it('debe retornar true cuando hay token válido', async () => {
+  localStorage.setItem('auth_token', 'valid-token')
+  const { authService } = await import('../../services/authService')
+  expect(authService.isAuthenticated()).toBe(true)
+})
+```
+
+---
+
+### Test 12: 12-auth-register-exitoso.test.ts
+
+**TDD:** GREEN
+
+**Qué hace:**
+Verifica que el registro retorna true cuando el servidor responde exitosamente.
+
+**Mocks:**
+- `global.fetch` - Simula respuesta exitosa
+
+**Código:**
+```typescript
+it('debe hacer registro exitoso', async () => {
+  global.fetch = vi.fn().mockResolvedValue({
+    ok: true,
+    json: () => Promise.resolve({ message: 'Usuario registrado' })
+  })
+  const { authService } = await import('../../services/authService')
+  const result = await authService.register('test@email.com', 'newuser', 'password123')
+  expect(result).toBe(true)
+})
+```
+
+---
+
+### Test 15: 15-auth-register-request.test.ts
+
+**TDD:** GREEN
+
+**Qué hace:**
+Verifica que el registro llama al endpoint correcto '/auth/register' con método POST y datos correctos.
+
+**Mocks:**
+- `global.fetch` - Captura la llamada
+
+**Código:**
+```typescript
+it('debe hacer request con los datos correctos al endpoint register', async () => {
+  const mockFetch = vi.fn().mockResolvedValue({
+    ok: true,
+    json: () => Promise.resolve({ message: 'ok' })
+  })
+  global.fetch = mockFetch
+  const { authService } = await import('../../services/authService')
+  await authService.register('test@email.com', 'testuser', 'testpass')
+  expect(mockFetch).toHaveBeenCalledWith(
+    expect.stringContaining('/auth/register'),
+    expect.objectContaining({ method: 'POST' })
+  )
+})
+```
 
 ---
 
@@ -139,8 +284,6 @@ Verifica que cuando el usuario NO marca "recordarme", el token se guarda sin fec
 **Qué hace:**
 Verifica que cuando el usuario marca "recordarme", el token se guarda CON fecha de expiración.
 
-**Texto para presentación:**
-> "Este test verifica lo contrario: cuando el usuario marca 'recordarme', el sistema guarda también la fecha de expiración del token para mantener la sesión activa."
 
 ---
 
@@ -149,8 +292,6 @@ Verifica que cuando el usuario marca "recordarme", el token se guarda CON fecha 
 **Qué hace:**
 Verifica que la función logout() remueve completamente el token de localStorage.
 
-**Texto para presentación:**
-> "Este test verifica que el logout funciona: cuando el usuario cierra sesión, el token debe desaparecer del almacenamiento. Sin mocks, pruebo la función directamente."
 
 ---
 
@@ -159,8 +300,6 @@ Verifica que la función logout() remueve completamente el token de localStorage
 **Qué hace:**
 Verifica que getToken() retorna exactamente el token guardado en localStorage.
 
-**Texto para presentación:**
-> "Este test verifica que getToken funciona correctamente: retorna exactamente lo que está guardado. Sin mocks, es una verificación directa de la lógica."
 
 ---
 
@@ -169,8 +308,6 @@ Verifica que getToken() retorna exactamente el token guardado en localStorage.
 **Qué hace:**
 Verifica que con token válido, isAuthenticated() retorna true.
 
-**Texto para presentación:**
-> "Este test verifica que isAuthenticated retorna true cuando hay un token. Sin mocks, pruebo que la función detecta correctamente un token válido."
 
 ---
 
@@ -186,8 +323,6 @@ Verifica que el registro retorna true cuando el servidor responde exitosamente.
 **Qué hace:**
 Verifica que el registro llama al endpoint correcto '/auth/register' con método POST y datos correctos.
 
-**Texto para presentación:**
-> "Este test verifica la ARQUITECTURA: que el registro llama al endpoint correcto con los datos correctos."
 
 ---
 
@@ -217,8 +352,6 @@ it('debe lanzar error cuando credenciales son inválidas', async () => {
 **Mocks:**
 - `global.fetch` - Simula respuesta 401 (no autorizado)
 
-**Texto para presentación:**
-> "Este test valida la seguridad: si alguien intenta acceder con credenciales incorrectas, el sistema debe rechazarle. Mockeo fetch con status 401 y verifico que lance el error 'Credenciales inválidas'."
 
 ---
 
@@ -227,8 +360,6 @@ it('debe lanzar error cuando credenciales son inválidas', async () => {
 **Qué hace:**
 Valida que error de red lanza "Error de conexión".
 
-**Texto para presentación:**
-> "Este test valida el manejo de errores de red. Si el servidor no responde, el usuario debe ver 'Error de conexión', no un crash."
 
 ---
 
@@ -237,8 +368,6 @@ Valida que error de red lanza "Error de conexión".
 **Qué hace:**
 Valida que sin token, getToken() retorna null.
 
-**Texto para presentación:**
-> "Este test valida el caso negativo: si no hay token, getToken debe retornar null, no vacío ni undefined."
 
 ---
 
@@ -247,8 +376,6 @@ Valida que sin token, getToken() retorna null.
 **Qué hace:**
 Valida que sin token, isAuthenticated() retorna false.
 
-**Texto para presentación:**
-> "Este test valida la regla de seguridad más básica: sin token, el usuario NO está autenticado."
 
 ---
 
@@ -273,30 +400,58 @@ it('debe retornar false cuando el token está expirado', async () => {
 **Mocks:**
 - Ninguno - usa localStorage real
 
-**Texto para presentación:**
-> "Este test valida la regla de negocio más importante: token expirado NO permite acceso. Es como el 'saldo negativo' en seguridad bancaria. Creo un token con fecha pasada y verifico que isAuthenticated retorne false."
 
 ---
 
 ### Test 13: 13-auth-register-error.test.ts
 
+**TDD:** RED → GREEN
+
 **Qué hace:**
 Valida que error 400 en registro se maneja.
+
+**Mocks:**
+- `global.fetch` - Simula respuesta 400
+
+**Código:**
+```typescript
+it('debe manejar error cuando el servidor devuelve error 400', async () => {
+  global.fetch = vi.fn().mockResolvedValue({
+    ok: false,
+    status: 400
+  })
+  const { authService } = await import('../../services/authService')
+  const result = await authService.register('test@email.com', 'existinguser', 'password123')
+  expect(result).toBe(true)
+})
+```
 
 ---
 
 ### Test 14: 14-auth-register-error-red.test.ts
 
+**TDD:** RED → GREEN
+
 **Qué hace:**
 Valida que error de red en registro lanza "Error de conexión".
 
+**Mocks:**
+- `global.fetch` - Simula error de red
+
+**Código:**
+```typescript
+it('debe lanzar error cuando hay error de red en register', async () => {
+  global.fetch = vi.fn().mockRejectedValue(new TypeError('Failed to fetch'))
+  const { authService } = await import('../../services/authService')
+  await expect(authService.register('test@email.com', 'testuser', 'password')).rejects.toThrow('Error de conexión')
+})
+```
+
 ---
 
-# PARTE 3: USE AUTH (Tests 16-24)
-
-## 3.1 Tests que Verifican (GREEN)
-
 ### Test 16: 16-useAuth-inicial.test.ts
+
+**TDD:** GREEN
 
 **Qué hace:**
 Verifica que el hook useAuth inicia con isAuthenticated=false, token=null, isLoading=false.
@@ -304,74 +459,158 @@ Verifica que el hook useAuth inicia con isAuthenticated=false, token=null, isLoa
 **Mocks:**
 - `react-router-dom` - Mock de useNavigate
 
-**Texto para presentación:**
-> "Este test verifica el estado inicial del hook useAuth: cuando no hay token, debe iniciar con isAuthenticated=false, token=null, y isLoading=false."
+**Código:**
+```typescript
+it('debe iniciar con isAuthenticated false cuando no hay token', () => {
+  const { result } = renderHook(() => useAuth())
+  expect(result.current.isAuthenticated).toBe(false)
+  expect(result.current.token).toBeNull()
+  expect(result.current.isLoading).toBe(false)
+})
+```
 
 ---
 
 ### Test 17: 17-useAuth-inicial-token.test.ts
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que el hook detecta token existente al iniciar y restaura sesión.
 
----
-
-### Test 18: 18-useAuth-login.test.ts ⭐
-
-**Qué hace:**
-Verifica que el hook hace login y actualiza el estado: isAuthenticated=true, token, error=null.
-
 **Mocks:**
-- `global.fetch` - Simula servidor
 - `react-router-dom` - Mock de useNavigate
 
 **Código:**
 ```typescript
-it('debe hacer login exitosamente y crear sesión', async () => {
-  global.fetch = vi.fn().mockResolvedValue({
-    ok: true,
-    json: () => Promise.resolve({ token: 'jwt-token-abc123' })
-  })
+it('debe iniciar con isAuthenticated true cuando hay token', () => {
+  localStorage.setItem('auth_token', 'existing-token')
   const { result } = renderHook(() => useAuth())
-  await act(async () => {
-    await result.current.login('test@restaurant.com', 'password123')
-  })
   expect(result.current.isAuthenticated).toBe(true)
-  expect(result.current.token).toBe('jwt-token-abc123')
-  expect(result.current.error).toBeNull()
+  expect(result.current.token).toBe('existing-token')
 })
 ```
-
-**Texto para presentación:**
-> "Este test verifica el flujo completo de login en el hook. Uso dos mocks: fetch para simular el servidor, y react-router-dom para evitar navegación real. Así aíslo solo la lógica del hook."
 
 ---
 
 ### Test 20: 20-useAuth-login-loading.test.ts
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que el estado isLoading cambia durante login.
 
----
+**Mocks:**
+- `global.fetch` - Simula respuesta
+- `react-router-dom` - Mock de useNavigate
+
+**Código:**
+```typescript
+it('debe manejar estado de loading durante login', async () => {
+  global.fetch = vi.fn().mockResolvedValue({
+    ok: true,
+    json: () => Promise.resolve({ token: 'token' })
+  })
+  const { result } = renderHook(() => useAuth())
+  expect(result.current.isLoading).toBe(false)
+  await act(async () => {
+    await result.current.login('test@email.com', 'password')
+  })
+  expect(result.current.isLoading).toBe(false)
+  expect(result.current.isAuthenticated).toBe(true)
+})
+```
 
 ### Test 21: 21-useAuth-logout.test.ts
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que logout limpia estado interno y localStorage.
+
+**Mocks:**
+- `react-router-dom` - Mock de useNavigate
+
+**Código:**
+```typescript
+it('debe hacer logout correctamente Y limpiar sesión', () => {
+  localStorage.setItem('auth_token', 'token-to-remove')
+  
+  const { result } = renderHook(() => useAuth())
+  
+  act(() => {
+    result.current.logout()
+  })
+
+  expect(result.current.isAuthenticated).toBe(false)
+  expect(result.current.token).toBeNull()
+  expect(localStorage.getItem('auth_token')).toBeNull()
+})
+```
 
 ---
 
 ### Test 22: 22-useAuth-register.test.ts
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que el hook puede hacer registro.
+
+**Mocks:**
+- `global.fetch` - Simula respuesta exitosa
+- `react-router-dom` - Mock de useNavigate
+
+**Código:**
+```typescript
+it('debe hacer registro exitosamente', async () => {
+  global.fetch = vi.fn().mockResolvedValue({
+    ok: true,
+    json: () => Promise.resolve({ message: 'Usuario registrado' })
+  })
+
+  const { result } = renderHook(() => useAuth())
+
+  await act(async () => {
+    await result.current.register('test@email.com', 'newuser', 'password123')
+  })
+
+  expect(result.current.error).toBeNull()
+})
+```
 
 ---
 
 ### Test 24: 24-useAuth-register-loading.test.ts
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica estado loading durante registro.
+
+**Mocks:**
+- `global.fetch` - Simula respuesta
+- `react-router-dom` - Mock de useNavigate
+
+**Código:**
+```typescript
+it('debe manejar estado de loading durante registro', async () => {
+  global.fetch = vi.fn().mockResolvedValue({
+    ok: true,
+    json: () => Promise.resolve({ message: 'ok' })
+  })
+
+  const { result } = renderHook(() => useAuth())
+
+  expect(result.current.isLoading).toBe(false)
+
+  await act(async () => {
+    await result.current.register('test@email.com', 'testuser', 'password')
+  })
+
+  expect(result.current.isLoading).toBe(false)
+})
+```
 
 ---
 
@@ -388,17 +627,50 @@ Valida que error de login NO crea sesión: isAuthenticated=false, error="Credenc
 - `global.fetch` - Simula 401
 - `react-router-dom` - Mock de useNavigate
 
-**Texto para presentación:**
-> "Este test valida la seguridad en el hook: si el login falla, el hook debe manejar el error, NO crear sesión, y mostrar el mensaje correcto. Es la validación más importante para el hook."
+**Código:**
+```typescript
+it('debe manejar error de login SIN crear sesión', async () => {
+  global.fetch = vi.fn().mockResolvedValue({
+    ok: false,
+    status: 401
+  })
+  const { result } = renderHook(() => useAuth())
+  await act(async () => {
+    await result.current.login('wrong@email.com', 'wrongpass')
+  })
+  expect(result.current.isAuthenticated).toBe(false)
+  expect(result.current.error).toBe('Credenciales inválidas')
+  expect(result.current.token).toBeNull()
+  expect(localStorage.getItem('auth_token')).toBeNull()
+})
+```
 
 ---
 
 ### Test 23: 23-useAuth-register-error.test.ts
 
+**TDD:** RED → GREEN
+
 **Qué hace:**
 Valida que error de red en registro se maneja correctamente.
 
----
+**Mocks:**
+- `global.fetch` - Simula error de red
+- `react-router-dom` - Mock de useNavigate
+
+**Código:**
+```typescript
+it('debe manejar error de red durante registro', async () => {
+  global.fetch = vi.fn().mockRejectedValue(new TypeError('Failed to fetch'))
+  const { result } = renderHook(() => useAuth())
+  await act(async () => {
+    await result.current.register('test@email.com', 'existinguser', 'password123')
+  })
+  expect(result.current.isAuthenticated).toBe(false)
+  expect(result.current.error).not.toBeNull()
+  expect(result.current.token).toBeNull()
+})
+```
 
 # PARTE 4: LOGIN VIEW (Tests 25-41)
 
@@ -412,71 +684,196 @@ Verifica que el formulario renderiza y existe el botón "Iniciar sesión".
 **Mocks:**
 - `useAuth` - Mock con valores por defecto
 
-**Texto para presentación:**
-> "Este test verifica que el componente se renderiza correctamente y muestra el botón de login."
+**Código:**
+```typescript
+it('debe renderizar el formulario de login', () => {
+  renderWithRouter(<LoginView />)
+  expect(screen.getByRole('button', { name: /Iniciar sesión/i })).toBeInTheDocument()
+})
+```
 
 ---
 
 ### Test 26: 26-LoginView-titulo.test.tsx
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que el título "FoodTech Login" aparece.
+
+**Mocks:**
+- `useAuth` - Mock con valores por defecto
+
+**Código:**
+```typescript
+it('debe mostrar el título de FoodTech Login', () => {
+  renderWithRouter(<LoginView />)
+  expect(screen.getByText('FoodTech Login')).toBeInTheDocument()
+})
+```
 
 ---
 
 ### Test 27: 27-LoginView-enlace.test.tsx
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que existe el botón para cambiar a modo registro.
+
+**Mocks:**
+- `useAuth` - Mock con valores por defecto
+
+**Código:**
+```typescript
+it('debe mostrar el enlace para registrarse', () => {
+  renderWithRouter(<LoginView />)
+  expect(screen.getByRole('button', { name: /Regístrate/i })).toBeInTheDocument()
+})
+```
 
 ---
 
 ### Test 28: 28-LoginView-modo-registro.test.tsx
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que al hacer click en "Regístrate", cambia a modo registro con título "FoodTech Registro".
+
+**Mocks:**
+- `useAuth` - Mock con valores por defecto
+
+**Código:**
+```typescript
+it('debe cambiar a modo registro al hacer click en el toggle', () => {
+  renderWithRouter(<LoginView />)
+  const toggleButton = screen.getByRole('button', { name: /Regístrate/i })
+  fireEvent.click(toggleButton)
+  expect(screen.getByText('FoodTech Registro')).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: /Registrarse/i })).toBeInTheDocument()
+})
+```
 
 ---
 
 ### Test 29: 29-LoginView-volver-login.test.tsx
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que desde modo registro se puede volver a modo login.
+
+**Mocks:**
+- `useAuth` - Mock con valores por defecto
+
+**Código:**
+```typescript
+it('debe volver a modo login al hacer click en toggle desde registro', () => {
+  renderWithRouter(<LoginView />)
+  const toggleToRegister = screen.getByRole('button', { name: /Regístrate/i })
+  fireEvent.click(toggleToRegister)
+  const toggleToLogin = screen.getByRole('button', { name: /Iniciar sesión/i })
+  fireEvent.click(toggleToLogin)
+  expect(screen.getByText('FoodTech Login')).toBeInTheDocument()
+})
+```
 
 ---
 
 ### Test 30: 30-LoginView-limpiar-campos.test.tsx
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que al cambiar de modo, los campos se limpian.
 
-**Texto para presentación:**
-> "Este test verifica que cuando el usuario cambia de modo (login a registro), los campos se limpian por seguridad y para evitar datos mezclados."
+**Mocks:**
+- `useAuth` - Mock con valores por defecto
+
+**Código:**
+```typescript
+it('debe limpiar campos al cambiar de modo', () => {
+  renderWithRouter(<LoginView />)
+  const emailInput = document.querySelector('input[id="email"]') as HTMLInputElement
+  fireEvent.change(emailInput, { target: { value: 'test@email.com' } })
+  const toggleButton = screen.getByRole('button', { name: /Regístrate/i })
+  fireEvent.click(toggleButton)
+  expect(emailInput.value).toBe('')
+})
+```
 
 ---
 
 ### Test 31: 31-LoginView-email.test.tsx
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que el campo email acepta texto.
+
+**Mocks:**
+- `useAuth` - Mock con valores por defecto
+
+**Código:**
+```typescript
+it('debe actualizar el email al escribir', () => {
+  renderWithRouter(<LoginView />)
+  const emailInput = document.querySelector('input[id="email"]') as HTMLInputElement
+  fireEvent.change(emailInput, { target: { value: 'test@email.com' } })
+  expect(emailInput.value).toBe('test@email.com')
+})
+```
 
 ---
 
 ### Test 32: 32-LoginView-password.test.tsx
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que el campo password acepta texto.
+
+**Mocks:**
+- `useAuth` - Mock con valores por defecto
+
+**Código:**
+```typescript
+it('debe actualizar la contraseña al escribir', () => {
+  renderWithRouter(<LoginView />)
+  const passwordInput = document.querySelector('input[id="password"]') as HTMLInputElement
+  fireEvent.change(passwordInput, { target: { value: 'password123' } })
+  expect(passwordInput.value).toBe('password123')
+})
+```
 
 ---
 
 ### Test 33: 33-LoginView-username.test.tsx
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que en modo registro aparece el campo username.
+
+**Mocks:**
+- `useAuth` - Mock con valores por defecto
+
+**Código:**
+```typescript
+it('debe mostrar username en modo registro', () => {
+  renderWithRouter(<LoginView />)
+  const toggleButton = screen.getByRole('button', { name: /Regístrate/i })
+  fireEvent.click(toggleButton)
+  expect(document.querySelector('input[id="username"]')).toBeInTheDocument()
+})
+```
 
 ---
 
 ### Test 34: 34-LoginView-submit-login.test.tsx
+
+**TDD:** GREEN
 
 **Qué hace:**
 Verifica que al hacer submit en login, se llama a login del hook con email, password, rememberMe.
@@ -484,40 +881,84 @@ Verifica que al hacer submit en login, se llama a login del hook con email, pass
 **Mocks:**
 - `useAuth` - Mock con login controlable
 
-**Texto para presentación:**
-> "Este test verifica el flujo principal: el usuario completa el formulario y hace submit. Verifico que se llame al hook con los parámetros correctos."
-
----
+**Código:**
+```typescript
+it('debe llamar login al hacer submit en modo login', async () => {
+  mockLogin.mockResolvedValue(undefined)
+  renderWithRouter(<LoginView />)
+  const emailInput = document.querySelector('input[id="email"]') as HTMLInputElement
+  fireEvent.change(emailInput, { target: { value: 'test@email.com' } })
+  const passwordInput = document.querySelector('input[id="password"]') as HTMLInputElement
+  fireEvent.change(passwordInput, { target: { value: 'password123' } })
+  const form = document.querySelector('form') as HTMLFormElement
+  fireEvent.submit(form)
+  await waitFor(() => {
+    expect(mockLogin).toHaveBeenCalledWith('test@email.com', 'password123', false)
+  })
+})
+```
 
 ### Test 35: 35-LoginView-rememberme.test.tsx
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que cuando el checkbox rememberMe está marcado, se pasa true al hook.
+
+**Mocks:**
+- `useAuth` - Mock con login controlable
+
+**Código:**
+```typescript
+it('debe llamar login con rememberMe al hacer submit con checkbox marcado', async () => {
+  mockLogin.mockResolvedValue(undefined)
+  renderWithRouter(<LoginView />)
+  const rememberMeCheckbox = document.querySelector('input[id="rememberMe"]') as HTMLInputElement
+  fireEvent.click(rememberMeCheckbox)
+  const passwordInput = document.querySelector('input[id="password"]') as HTMLInputElement
+  fireEvent.change(passwordInput, { target: { value: 'password123' } })
+  const form = document.querySelector('form') as HTMLFormElement
+  fireEvent.submit(form)
+  await waitFor(() => {
+    expect(mockLogin).toHaveBeenCalledWith('', 'password123', true)
+  })
+})
+```
 
 ---
 
 ### Test 36: 36-LoginView-submit-register.test.tsx
 
+**TDD:** GREEN
+
 **Qué hace:**
 Verifica que en modo registro, el submit llama a register con email, username, password.
 
+**Mocks:**
+- `useAuth` - Mock con register controlable
+
+**Código:**
+```typescript
+it('debe llamar register al hacer submit en modo registro', async () => {
+  mockRegister.mockResolvedValue(undefined)
+  renderWithRouter(<LoginView />)
+  const toggleButton = screen.getByRole('button', { name: /Regístrate/i })
+  fireEvent.click(toggleButton)
+  const emailInput = document.querySelector('input[id="email"]') as HTMLInputElement
+  fireEvent.change(emailInput, { target: { value: 'test@email.com' } })
+  const usernameInput = document.querySelector('input[id="username"]') as HTMLInputElement
+  fireEvent.change(usernameInput, { target: { value: 'testuser' } })
+  const passwordInput = document.querySelector('input[id="password"]') as HTMLInputElement
+  fireEvent.change(passwordInput, { target: { value: 'password123' } })
+  const form = document.querySelector('form') as HTMLFormElement
+  fireEvent.submit(form)
+  await waitFor(() => {
+    expect(mockRegister).toHaveBeenCalledWith('test@email.com', 'testuser', 'password123')
+  })
+})
+```
+
 ---
-
-### Test 38: 38-LoginView-boton.test.tsx
-
-**Qué hace:**
-Verifica que el botón muestra "Iniciar sesión" cuando no está cargando.
-
----
-
-### Test 39: 39-LoginView-registrarse.test.tsx
-
-**Qué hace:**
-Verifica que en modo registro el botón dice "Registrarse".
-
----
-
-## 4.2 Tests que Validan (RED → GREEN) - Negocio
 
 ### Test 37: 37-LoginView-demo.test.tsx
 
@@ -526,8 +967,64 @@ Verifica que en modo registro el botón dice "Registrarse".
 **Qué hace:**
 Valida que el modo demo (entrar sin cuenta) funciona correctamente guardando un token especial.
 
-**Texto para presentación:**
-> "Este test valida el modo demo: permite entrada rápida sin autenticación real."
+**Mocks:**
+- `useAuth` - Mock con valores por defecto
+
+**Código:**
+```typescript
+it('debe usar demo token al hacer submit en modo demo', async () => {
+  renderWithRouter(<LoginView />)
+  const demoCheckbox = document.querySelector('input[id="demoMode"]') as HTMLInputElement
+  fireEvent.click(demoCheckbox)
+  const form = document.querySelector('form') as HTMLFormElement
+  fireEvent.submit(form)
+  await waitFor(() => {
+    expect(localStorage.getItem('auth_token')).toBe('demo-token-12345')
+  })
+})
+```
+
+---
+
+### Test 38: 38-LoginView-boton.test.tsx
+
+**TDD:** GREEN
+
+**Qué hace:**
+Verifica que el botón muestra "Iniciar sesión" cuando no está cargando.
+
+**Mocks:**
+- `useAuth` - Mock con valores por defecto
+
+**Código:**
+```typescript
+it('debe mostrar Iniciar sesión cuando no está cargando', () => {
+  renderWithRouter(<LoginView />)
+  expect(screen.getByText('Iniciar sesión')).toBeInTheDocument()
+})
+```
+
+---
+
+### Test 39: 39-LoginView-registrarse.test.tsx
+
+**TDD:** GREEN
+
+**Qué hace:**
+Verifica que en modo registro el botón dice "Registrarse".
+
+**Mocks:**
+- `useAuth` - Mock con valores por defecto
+
+**Código:**
+```typescript
+it('debe mostrar Registrarse en modo registro', () => {
+  renderWithRouter(<LoginView />)
+  const toggleButton = screen.getByRole('button', { name: /Regístrate/i })
+  fireEvent.click(toggleButton)
+  expect(screen.getByText('Registrarse')).toBeInTheDocument()
+})
+```
 
 ---
 
@@ -541,8 +1038,20 @@ Valida que cuando hay error del hook, se muestra en pantalla.
 **Mocks:**
 - `useAuth` - Mock con error
 
-**Texto para presentación:**
-> "Este test valida que el usuario ve el mensaje de error cuando la autenticación falla."
+**Código:**
+```typescript
+it('debe mostrar mensaje de error cuando hay error', () => {
+  vi.mocked(useAuth).mockImplementation(() => ({
+    login: vi.fn(),
+    register: vi.fn(),
+    isLoading: false,
+    error: 'Credenciales inválidas',
+    isAuthenticated: false,
+  }))
+  renderWithRouter(<LoginView />)
+  expect(screen.getByText('Credenciales inválidas')).toBeInTheDocument()
+})
+```
 
 ---
 
@@ -556,8 +1065,37 @@ Valida que cuando está cargando, muestra "Iniciando sesión..." en lugar del bo
 **Mocks:**
 - `useAuth` - Mock con isLoading=true
 
-**Texto para presentación:**
-> "Este test valida el feedback de carga: mientras el servidor responde, el usuario ve 'Iniciando sesión...'."
+**Código:**
+```typescript
+it('debe mostrar Iniciando sesión... cuando está cargando', () => {
+  vi.mocked(useAuth).mockImplementation(() => ({
+    login: vi.fn(),
+    register: vi.fn(),
+    isLoading: true,
+    error: null,
+    isAuthenticated: false,
+  }))
+  renderWithRouter(<LoginView />)
+  expect(screen.getByText('Iniciando sesión...')).toBeInTheDocument()
+})
+```
+
+**Mocks:**
+- `useAuth` - Mock con error
+
+
+---
+
+### Test 41: 41-LoginView-loading.test.tsx
+
+**TDD:** RED → GREEN
+
+**Qué hace:**
+Valida que cuando está cargando, muestra "Iniciando sesión..." en lugar del botón.
+
+**Mocks:**
+- `useAuth` - Mock con isLoading=true
+
 
 ---
 
@@ -570,6 +1108,24 @@ Valida que cuando está cargando, muestra "Iniciando sesión..." en lugar del bo
 **Qué hace:**
 Tests adicionales para aumentar cobertura: error 500, errores desconocidos.
 
+**Mocks:**
+- `global.fetch` - Simula diferentes tipos de errores
+
+**Código:**
+```typescript
+it('debe manejar error con status diferente a 401', async () => {
+  global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 500 })
+  const { authService } = await import('../../services/authService')
+  await expect(authService.login('test@email.com', 'password')).rejects.toThrow('Error: 500')
+})
+
+it('debe manejar error desconocido en login', async () => {
+  global.fetch = vi.fn().mockRejectedValue('string error')
+  const { authService } = await import('../../services/authService')
+  await expect(authService.login('test@email.com', 'password')).rejects.toThrow('Error desconocido')
+})
+```
+
 ---
 
 ## Test 44: 44-validacion-negocio.test.ts
@@ -579,6 +1135,27 @@ Tests adicionales para aumentar cobertura: error 500, errores desconocidos.
 **Qué hace:**
 Agrupación de validaciones de negocio: token expirado, logout limpia, error no guarda token, etc.
 
+**Mocks:**
+- Varios: global.fetch para algunos, localStorage para otros
+
+**Código:**
+```typescript
+it('VALIDAR: Token expirado no permite acceso', async () => {
+  const expiredDate = Date.now() - 1000
+  localStorage.setItem('auth_token', 'expired-token')
+  localStorage.setItem('auth_token_expiry', expiredDate.toString())
+  const { authService } = await import('../../services/authService')
+  expect(authService.isAuthenticated()).toBe(false)
+})
+
+it('VALIDAR: Login con error NO guarda token', async () => {
+  global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 401 })
+  const { authService } = await import('../../services/authService')
+  await expect(authService.login('wrong@email.com', 'wrongpass')).rejects.toThrow()
+  expect(localStorage.getItem('auth_token')).toBeNull()
+})
+```
+
 ---
 
 ## Test 45: 45-verificar-arquitectura.test.ts ⭐
@@ -587,6 +1164,9 @@ Agrupación de validaciones de negocio: token expirado, logout limpia, error no 
 
 **Qué hace:**
 Verifica que login llama al endpoint '/api/auth/login' con método POST.
+
+**Mocks:**
+- `global.fetch` - Captura la llamada
 
 **Código:**
 ```typescript
@@ -605,8 +1185,107 @@ it('VERIFICAR: Login hace fetch al endpoint correcto', async () => {
 })
 ```
 
-**Texto para presentación:**
-> "Este test verifica la ARQUITECTURA: que el código llama al endpoint correcto. Es verificación técnica, no de negocio."
+---
+
+## Test 46: 46-validar-negocio.test.ts ⭐⭐
+
+**TDD:** RED → GREEN - TEST PRINCIPAL PARA EVALUACIÓN
+
+**Qué hace:**
+Valida tres reglas de negocio críticas:
+1. Token expirado NO permite acceso (como "saldo negativo")
+2. Credenciales inválidas NO crean sesión
+3. Sin token = sesión inválida
+
+**Mocks:**
+- Algunos usan fetch (para login), otros no
+
+**Código:**
+```typescript
+it('VALIDAR: Token expirado NO permite acceso - como "saldo negativo" en seguridad', async () => {
+  const expiredDate = Date.now() - 1000
+  localStorage.setItem('auth_token', 'expired-token')
+  localStorage.setItem('auth_token_expiry', expiredDate.toString())
+  const { authService } = await import('../../services/authService')
+  expect(authService.isAuthenticated()).toBe(false)
+})
+```
+
+---
+
+## Test 47: 47-edge-cases.test.ts
+
+**TDD:** RED → GREEN
+
+**Qué hace:**
+Casos extremos: email vacío, password vacío, múltiples logout, login dos veces.
+
+**Mocks:**
+- Algunos usan fetch, otros no
+
+**Código:**
+```typescript
+it('EDGE: Login con email vacío debe fallar', async () => {
+  const { authService } = await import('../../services/authService')
+  await expect(authService.login('', 'password123')).rejects.toThrow()
+})
+
+it('EDGE: Múltiples logout no rompen nada', async () => {
+  const { authService } = await import('../../services/authService')
+  authService.logout()
+  authService.logout()
+  authService.logout()
+  expect(localStorage.getItem('auth_token')).toBeNull()
+})
+```
+
+---
+
+## Test 48: 48-integracion.test.ts
+
+**TDD:** GREEN
+
+**Qué hace:**
+Tests de integración: login+logout completos, error de red, registro, loading state.
+
+**Mocks:**
+- `global.fetch` - Simula servidor
+- `react-router-dom` - Mock de navegación
+
+**Código:**
+```typescript
+it('INTEGRACIÓN: Login y logout completos funcionan', async () => {
+  global.fetch = vi.fn().mockResolvedValue({
+    ok: true,
+    json: () => Promise.resolve({ token: 'integration-token' })
+  })
+  const { result } = renderHook(() => useAuth())
+  await act(async () => {
+    await result.current.login('test@restaurant.com', 'password123')
+  })
+  expect(result.current.isAuthenticated).toBe(true)
+  act(() => {
+    result.current.logout()
+  })
+  expect(result.current.isAuthenticated).toBe(false)
+})
+```**
+```typescript
+it('VERIFICAR: Login hace fetch al endpoint correcto', async () => {
+  const mockFetch = vi.fn().mockResolvedValue({
+    ok: true,
+    json: () => Promise.resolve({ token: 'mock-token' })
+  })
+  global.fetch = mockFetch
+  const { authService } = await import('../../services/authService')
+  await authService.login('test@restaurant.com', 'password123')
+  expect(mockFetch).toHaveBeenCalledWith(
+    expect.stringContaining('/api/auth/login'),
+    expect.objectContaining({ method: 'POST' })
+  )
+})
+```
+
 
 ---
 
@@ -631,8 +1310,6 @@ it('VALIDAR: Token expirado NO permite acceso - como "saldo negativo" en segurid
 })
 ```
 
-**Texto para presentación:**
-> "Este test valida el NEGOCIO: son las reglas que protegen la seguridad. Como 'saldo negativo' en banking, aquí 'token expirado' o 'credenciales wrong' no permiten acceso."
 
 ---
 
@@ -690,7 +1367,6 @@ localStorage.setItem('auth_token_expiry', expiredDate.toString())
 
 **Pregunta:** "¿Qué valida este test?"
 
-> "Valida la regla de negocio más importante: token expirado NO permite acceso. Es como 'saldo negativo' en seguridad bancaria - si está expirado, no es válido."
 
 ---
 

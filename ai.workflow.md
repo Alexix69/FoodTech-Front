@@ -94,26 +94,26 @@ Metodología: TDD - Tests primero, código después.
 
 ---
 
-## Outputs
+### Paso 9: Update Historial
+- **Description:** Escribir en HISTORIAL.md solo lo básico de lo realizado
+- **Tools:** edit HISTORIAL.md
+- **Format (simple):**
+  ```markdown
+  ## HU-FRONT-XXX: [Nombre de Feature] ✅
+  - Tests: [número]
+  - Componentes: [archivos modificados]
+  ```
+- **Ejemplo:**
+  ```markdown
+  ## HU-FRONT-010: Login ✅
+  - Tests: 48
+  - Componentes: LoginView.tsx, authService.ts, useAuth.ts
+  ```
+- **Rules:**
+  - NO escribir commits ni detalles extensos
+  - Solo número de tests y archivos modificados
+  - Mantener el mismo formato para todas las HU
 
-### Artifacts
-- test_file: *.test.ts o *.test.tsx
-- implementation_file: *.ts o *.tsx
-
-### Reports
-- test_coverage: Resumen de coverage si está configurado
-- code_quality: Estado de lint y typecheck
-
----
-
-## Execution
-
-- auto_approve: false
-- run_tests: true
-- fail_on_error: true
-- stop_on_lint_error: true
-
----
 
 ## Flujo TDD Resumido
 
@@ -123,51 +123,3 @@ Metodología: TDD - Tests primero, código después.
 4. Lint + Typecheck → ✓
 
 ---
-
-## Relación con HU e Historial
-
-### Ciclo de vida de una HU:
-
-```
-1. Read HU → Leer HISTORIAS_DE_USUARIO_FRONT.md
-2. Load Context → Analizar estructura del proyecto
-3. Analyze Requirements → Entender qué hay que hacer
-4. Write Tests First (RED) → Crear tests
-5. Run Tests (RED) → Verificar que fallan
-6. Implement Feature (GREEN) → Escribir código
-7. Run Tests (GREEN) → Verificar que pasan
-8. Refactor → Melhor código
-9. Final Verification → Lint + Tests + Coverage
-10. Update Historial → Actualizar HISTORIAL.md
-```
-
-### Paso 10: Update Historial
-- **Description:** Actualizar HISTORIAL.md con los commits realizados
-- **Tools:** edit HISTORIAL.md
-- **Format:**
-  ```
-  ## HU-FRONT-XXX: [Nombre de la Feature]
-  
-  ### Commits TDD Realizados
-  
-  | # | Commit | Descripción |
-  |---|--------|-------------|
-  | 1 | `test: add [feature] tests (TDD RED)` | Tests de la nueva feature |
-  | 2 | `feat: implement [feature] (TDD GREEN)` | Implementación de la feature |
-  | 3 | `test: add [feature] to hook (TDD RED)` | Tests del hook |
-  | 4 | `feat: add [feature] method to hook (TDD GREEN)` | Implementación del hook |
-  
-  ### Tests Implementados
-  - ✅ [Test 1]
-  - ✅ [Test 2]
-  
-  ### Componentes Modificados
-  - ✅ `src/services/xxx.ts`
-  - ✅ `src/hooks/xxx.ts`
-  - ✅ `src/views/xxx.tsx`
-  ```
-- **Rules:**
-  - Agregar la nueva HU en "Features Completadas"
-  - Documentar cada commit TDD
-  - Listar todos los tests creados
-  - Listar todos los componentes modificados
