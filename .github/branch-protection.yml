@@ -1,0 +1,109 @@
+# GitHub Branch Protection Rules
+# Configuración de reglas de protección de ramas para FoodTech
+# Referencia: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches
+
+## Main Branch (Producción)
+# Reglas para: main
+# - Requiere 1+ aprobación de código
+# - Tests deben pasar (status checks required)
+# - No permite force push
+# - Bloquea merges de ramas obsoletas
+
+### Configuración Recomendada en Settings > Branches > Branch Protection Rules
+
+**Branch pattern:** `main`
+
+**Require a pull request before merging**
+- [x] Require approvals: 1
+- [x] Require status checks to pass before merging (CI pipeline)
+- [x] Require branches to be up to date before merging
+
+**Status checks that must pass:**
+- ✅ `lint-eslint` (ESLint validation)
+- ✅ `tsc-check` (TypeScript type checking)
+- ✅ `component-tests` (Vitest suite)
+- ✅ `integration-tests` (Cypress E2E)
+- ✅ `security-scan` (Trivy vulnerability scan)
+- ✅ `build` (Production build success)
+
+**Additional settings**
+- [x] Restrict who can push to matching branches: `admin` only
+- [x] Dismiss stale pull request approvals when new commits are pushed
+- [x] Include administrators: enabled
+
+---
+
+## Develop Branch (Integración)
+# Reglas para: develop
+# - Requiere 2+ aprobaciones
+# - Tests obligatorios
+# - Solo administradores pueden mergear
+
+**Branch pattern:** `develop`
+
+**Require a pull request before merging**
+- [x] Require approvals: 2
+- [x] Require status checks to pass (same as main)
+- [x] Require branches to be up to date before merging
+
+**Additional settings**
+- [x] Restrict who can push: `maintainers` only
+- [x] Include administrators: disabled
+
+---
+
+## Release Branches
+# Reglas para: release/*
+# - Heredan reglas de develop
+# - Auto-deploy a staging en merge
+
+**Branch pattern:** `release/*`
+
+**Require a pull request before merging**
+- [x] Require approvals: 1
+- [x] Require status checks to pass
+
+---
+
+## Comandos CLI para Configurar (GitHub API)
+
+```bash
+# Configurar main branch
+gh api repos/{owner}/{repo}/branches/main/protection \
+  -X PUT \
+  -H "Accept: application/vnd.github+json" \
+  --input branch-protection-main.json
+
+# Donde branch-protection-main.json contiene:
+{
+  "required_status_checks": {
+    "strict": true,
+    "contexts": [
+      "lint-eslint",
+      "tsc-check",
+      "component-tests",
+      "integration-tests",
+      "security-scan",
+      "build"
+    ]
+  },
+  "required_pull_request_reviews": {
+    "required_approving_review_count": 1
+  },
+  "enforce_admins": true,
+  "allow_deletions": false,
+  "allow_force_pushes": false
+}
+```
+
+---
+
+## Validación en Pipeline CI/CD
+
+El archivo `ci-cd.yml` ya implementa bloqueos similares mediante:
+- Jobs como `needs` dependencies
+- Fallos en lint/tests previenen builds
+- Security scan es obligatorio
+
+**Nota:** Para activar branch protection official de GitHub, ir a:
+`Settings > Branches > Add rule > configurar como arriba`

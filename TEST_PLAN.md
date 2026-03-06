@@ -189,15 +189,25 @@ it('debe guardar token en localStorage', async () => {
 **Definición:** Tests que NO conocen implementación. Prueban comportamiento desde fuera.
 
 **En FoodTech:**
-- Ejecución DENTRO del contenedor Docker
-- API real o simulada
-- Flujo completo: Login → API → Response
+- **Ubicación:** `tests/e2e/` (Cypress)
+- **Ejecución:** DENTRO del pipeline CI en job 'Integration Tests'
+- **Cómo funciona:** 
+  1. Pipeline ejecuta `npm run build` (construye app React)
+  2. Inicia servidor con `npm run preview` en puerto 5173
+  3. Cypress corre tests CONTRA el servidor levantado (no contra mocks)
+  4. Simula usuario real: click, input, navegación
+- **Flujo ejemplo:** Login (entrada) → API call (en servidor real) → Response → Token guardado
 
 **Características:**
-- ✅ NO conoce detalles internos
-- ✅ Prueba flujo real
-- ✅ Se ejecuta en el pipeline
-- ✅ Simula producción
+- ✅ NO conoce detalles internos (no importa localStorage, fetch)
+- ✅ Prueba flujo real (usuario → navegador → servidor)
+- ✅ Se ejecuta en el pipeline (job: Integration Tests)
+- ✅ Simula producción (servidor real, no mocks)
+
+**Test suite en tests/e2e/:**
+- `login.spec.ts` - Flujo completo de login
+- `logout.spec.ts` - Flujo de logout
+- `register.spec.ts` - Flujo de registro
 
 ```typescript
 // INTEGRATION TEST - Caja Negra  

@@ -13,13 +13,13 @@ vi.mock('react-router-dom', () => ({
   useNavigate: () => vi.fn(),
 }))
 
-describe('INTEGRACIÓN: useAuth - Casos Reales', () => {
+describe('CAJA BLANCA AVANZADA: useAuth - Escenarios Complejos con Mocks', () => {
   beforeEach(() => {
     localStorage.clear()
     vi.restoreAllMocks()
   })
 
-  it('INTEGRACIÓN: Login y logout completos funcionan', async () => {
+  it('Escenario Complejo: Login y logout funcionan correctamente', async () => {
     global.fetch = vi.fn().mockResolvedValue({
       ok: true,
       json: () => Promise.resolve({ token: 'integration-token' })
@@ -41,7 +41,7 @@ describe('INTEGRACIÓN: useAuth - Casos Reales', () => {
     expect(result.current.token).toBeNull()
   })
 
-  it('INTEGRACIÓN: Error de red muestra mensaje apropiado', async () => {
+  it('Escenario: Manejo robusto de errores de red', async () => {
     global.fetch = vi.fn().mockRejectedValue(new Error('Network Error'))
 
     const { result } = renderHook(() => useAuth())
@@ -57,7 +57,7 @@ describe('INTEGRACIÓN: useAuth - Casos Reales', () => {
     expect(result.current.error).toBeTruthy()
   })
 
-  it('INTEGRACIÓN: Registro exitoso retorna true', async () => {
+  it('Escenario: Registro exitoso actualiza estado', async () => {
     global.fetch = vi.fn().mockResolvedValue({
       ok: true,
       json: () => Promise.resolve({ token: 'register-token' })
@@ -72,7 +72,7 @@ describe('INTEGRACIÓN: useAuth - Casos Reales', () => {
     expect(result.current.error).toBeNull()
   })
 
-  it('INTEGRACIÓN: Loading state cambia correctamente', async () => {
+  it('Escenario: Loading state refleja operación en curso', async () => {
     let resolveLogin: (value: { ok: boolean; json: () => Promise<{ token: string }> }) => void
     global.fetch = vi.fn().mockImplementation(() => 
       new Promise(resolve => { resolveLogin = resolve })
