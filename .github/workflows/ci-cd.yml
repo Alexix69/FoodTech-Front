@@ -76,22 +76,12 @@ jobs:
 
   # ==========================================
   # JOB 3: INTEGRATION TESTS (Caja Negra)
-  # Pruebas reales con API, dentro del contenedor
+  # E2E con Cypress mocks - sin backend real
   # ==========================================
   integration-tests:
-    name: 🔗 Integration Tests (Caja Negra)
+    name: 🔗 Integration/E2E Tests (Caja Negra)
     runs-on: ubuntu-latest
     needs: component-tests
-    services:
-      api:
-        image: node:20-alpine
-        options: >-
-          --health-cmd "exit 0"
-          --health-interval 30s
-          --health-timeout 10s
-          --health-retries 3
-        ports:
-          - 3000:3000
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
@@ -109,18 +99,17 @@ jobs:
         run: |
           docker build -t foodtech-test:${{ github.sha }} .
 
-      - name: 🔗 Run Integration Tests
+      - name: 🧪 Run E2E Tests (Cypress with mocks)
         run: |
-          # Simular prueba de Caja Negra: Crear usuario desde API
           docker run --rm --network host foodtech-test:${{ github.sha }} \
-            sh -c "npm run test:integration || true"
+            sh -c "npm run test:e2e || true"
 
-      - name: 📊 Upload Integration Results
+      - name: 📊 Upload E2E Results
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: integration-test-results
-          path: test-results/integration/
+          name: e2e-test-results
+          path: cypress/screenshots/
           retention-days: 30
 
   # ==========================================
@@ -130,7 +119,7 @@ jobs:
   security-scan:
     name: 🔒 Security Scan
     runs-on: ubuntu-latest
-    needs: [component-tests, integration-tests]
+    needs: [component-tests]
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
