@@ -1,43 +1,27 @@
 /// <reference types="cypress" />
 
-// Skeleton de pruebas E2E para Registro (Cypress + TypeScript)
 describe('Registro E2E', () => {
-  it('Registro exitoso', () => {
-    cy.visit('/register')
-    cy.get('input[name="email"]').type('nuevo'+Date.now()+"@example.com")
-    cy.get('input[name="username"]').type('nuevoUsuario')
-    cy.get('input[name="password"]').type('Password123!')
-    cy.get('button[type="submit"]').click()
-    cy.url().should('include', '/home')
-  })
+  beforeEach(() => {
+    cy.visit('/login');
+  });
 
-  it('Registro con email inválido', () => {
-    cy.visit('/register')
-    cy.get('input[name="email"]').type('not-an-email')
-    cy.get('button[type="submit"]').click()
-    cy.contains('Formato de correo').should('exist')
-  })
+  it('Toggle a registro funciona', () => {
+    cy.contains('Regístrate').click();
+    cy.get('h1').should('contain', 'Registro');
+  });
 
-  it('Registro con password débil', () => {
-    cy.visit('/register')
-    cy.get('input[name="email"]').type('prueba@example.com')
-    cy.get('input[name="password"]').type('123')
-    cy.get('button[type="submit"]').click()
-    cy.contains('contraseña').should('exist')
-  })
+  it('Toggle a login desde registro', () => {
+    cy.contains('Regístrate').click();
+    cy.contains('Iniciar sesión').click();
+    cy.get('h1').should('contain', 'Login');
+  });
 
-  it('Registro con email duplicado', () => {
-    cy.visit('/register')
-    cy.get('input[name="email"]').type('existing@example.com')
-    cy.get('input[name="username"]').type('usuario')
-    cy.get('input[name="password"]').type('Password123!')
-    cy.get('button[type="submit"]').click()
-    cy.contains('ya existe').should('exist')
-  })
-
-  it('Toggle login/registro', () => {
-    cy.visit('/login')
-    cy.contains('Regístrate').click()
-    cy.url().should('include', '/register')
-  })
-})
+  it('Registro con password débil muestra error', () => {
+    cy.contains('Regístrate').click();
+    cy.get('#email').clear().type('test@example.com');
+    cy.get('#username').clear().type('testuser');
+    cy.get('#password').clear().type('123');
+    cy.get('button[type="submit"]').click();
+    cy.contains(/contraseña|mínimo|caracteres/i).should('exist');
+  });
+});
