@@ -1,58 +1,2262 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="20" failures="0" errors="0" time="0.537017413">
-    <testsuite name="src/App.test.tsx" timestamp="2026-02-25T00:14:14.433Z" hostname="psofkaec073.sofka.local" tests="2" failures="0" errors="0" skipped="0" time="0.421645618">
-        <testcase classname="src/App.test.tsx" name="App &gt; renders login page when not authenticated" time="0.286943937">
+<testsuites name="vitest tests" tests="159" failures="10" errors="0" time="10.17075733">
+    <testsuite name="src/App.test.tsx" timestamp="2026-03-06T06:45:10.178Z" hostname="psofkaec073.sofka.local" tests="2" failures="0" errors="0" skipped="0" time="0.525066498">
+        <testcase classname="src/App.test.tsx" name="App &gt; renders login page when not authenticated" time="0.33324012">
             <system-err>
 ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
 ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
 
             </system-err>
         </testcase>
-        <testcase classname="src/App.test.tsx" name="App &gt; renders navigation when authenticated" time="0.131867314">
+        <testcase classname="src/App.test.tsx" name="App &gt; renders navigation when authenticated" time="0.18974583">
         </testcase>
     </testsuite>
-    <testsuite name="src/helpers/orderCalculator.test.ts" timestamp="2026-02-25T00:14:14.437Z" hostname="psofkaec073.sofka.local" tests="3" failures="0" errors="0" skipped="0" time="0.006218229">
-        <testcase classname="src/helpers/orderCalculator.test.ts" name="calculateTotalPrice &gt; retorna 0 para pedido vacío" time="0.002291385">
+    <testsuite name="tests/e2e/login.spec.ts" timestamp="2026-03-06T06:45:10.181Z" hostname="psofkaec073.sofka.local" tests="3" failures="3" errors="0" skipped="0" time="0.005871445">
+        <testcase classname="tests/e2e/login.spec.ts" name="Login E2E &gt; Demo mode funciona" time="0.003488444">
+            <failure message="cy is not defined" type="ReferenceError">
+ReferenceError: cy is not defined
+ ❯ tests/e2e/login.spec.ts:5:5
+            </failure>
         </testcase>
-        <testcase classname="src/helpers/orderCalculator.test.ts" name="calculateTotalPrice &gt; retorna el precio total multiplicando quantity por price" time="0.000502957">
+        <testcase classname="tests/e2e/login.spec.ts" name="Login E2E &gt; Login con password demasiado corto muestra error" time="0.000436041">
+            <failure message="cy is not defined" type="ReferenceError">
+ReferenceError: cy is not defined
+ ❯ tests/e2e/login.spec.ts:5:5
+            </failure>
         </testcase>
-        <testcase classname="src/helpers/orderCalculator.test.ts" name="calculateTotalPrice &gt; retorna precio directo si hay un solo producto" time="0.00045106">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/hooks/useAuth.test.ts" timestamp="2026-02-25T00:14:14.439Z" hostname="psofkaec073.sofka.local" tests="6" failures="0" errors="0" skipped="0" time="0.055855762">
-        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; debe iniciar con isAuthenticated false cuando no hay token" time="0.030833254">
-        </testcase>
-        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; debe iniciar con isAuthenticated true cuando hay token" time="0.003722493">
-        </testcase>
-        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; debe hacer login exitosamente y crear sesión" time="0.007048954">
-        </testcase>
-        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; debe manejar error de login SIN crear sesión" time="0.00449113">
-        </testcase>
-        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; debe hacer logout correctamente Y limpiar sesión" time="0.003199707">
-        </testcase>
-        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; debe manejar estado de loading durante login" time="0.002601057">
+        <testcase classname="tests/e2e/login.spec.ts" name="Login E2E &gt; Toggle a registro funciona" time="0.000313991">
+            <failure message="cy is not defined" type="ReferenceError">
+ReferenceError: cy is not defined
+ ❯ tests/e2e/login.spec.ts:5:5
+            </failure>
         </testcase>
     </testsuite>
-    <testsuite name="src/hooks/useOrder.test.ts" timestamp="2026-02-25T00:14:14.443Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.037557305">
-        <testcase classname="src/hooks/useOrder.test.ts" name="useOrder &gt; agrega producto nuevo al pedido" time="0.033754504">
+    <testsuite name="tests/e2e/logout.spec.ts" timestamp="2026-03-06T06:45:10.186Z" hostname="psofkaec073.sofka.local" tests="1" failures="1" errors="0" skipped="0" time="0.009284825">
+        <testcase classname="tests/e2e/logout.spec.ts" name="Logout E2E &gt; Toggle a registro desde login" time="0.004091599">
+            <failure message="cy is not defined" type="ReferenceError">
+ReferenceError: cy is not defined
+ ❯ tests/e2e/logout.spec.ts:5:5
+            </failure>
         </testcase>
     </testsuite>
-    <testsuite name="src/services/authService.test.ts" timestamp="2026-02-25T00:14:14.444Z" hostname="psofkaec073.sofka.local" tests="8" failures="0" errors="0" skipped="0" time="0.015740499">
-        <testcase classname="src/services/authService.test.ts" name="authService &gt; login &gt; debe hacer login exitoso y guardar token en localStorage" time="0.00537711">
+    <testsuite name="tests/e2e/register.spec.ts" timestamp="2026-03-06T06:45:10.187Z" hostname="psofkaec073.sofka.local" tests="3" failures="3" errors="0" skipped="0" time="0.013885395">
+        <testcase classname="tests/e2e/register.spec.ts" name="Registro E2E &gt; Toggle a registro funciona" time="0.010014386">
+            <failure message="cy is not defined" type="ReferenceError">
+ReferenceError: cy is not defined
+ ❯ tests/e2e/register.spec.ts:5:5
+            </failure>
         </testcase>
-        <testcase classname="src/services/authService.test.ts" name="authService &gt; login &gt; debe lanzar error cuando credenciales son inválidas" time="0.003274788">
+        <testcase classname="tests/e2e/register.spec.ts" name="Registro E2E &gt; Toggle a login desde registro" time="0.000723149">
+            <failure message="cy is not defined" type="ReferenceError">
+ReferenceError: cy is not defined
+ ❯ tests/e2e/register.spec.ts:5:5
+            </failure>
         </testcase>
-        <testcase classname="src/services/authService.test.ts" name="authService &gt; login &gt; debe lanzar error cuando hay error de red" time="0.001190927">
+        <testcase classname="tests/e2e/register.spec.ts" name="Registro E2E &gt; Registro con password débil muestra error" time="0.001301767">
+            <failure message="cy is not defined" type="ReferenceError">
+ReferenceError: cy is not defined
+ ❯ tests/e2e/register.spec.ts:5:5
+            </failure>
         </testcase>
-        <testcase classname="src/services/authService.test.ts" name="authService &gt; logout &gt; debe remover token de localStorage" time="0.000841906">
+    </testsuite>
+    <testsuite name="src/hooks/useAuth.test.ts" timestamp="2026-03-06T06:45:10.190Z" hostname="psofkaec073.sofka.local" tests="9" failures="0" errors="0" skipped="0" time="0.068881234">
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; initial state &gt; debe iniciar con isAuthenticated false cuando no hay token" time="0.021365787">
         </testcase>
-        <testcase classname="src/services/authService.test.ts" name="authService &gt; getToken &gt; debe retornar el token guardado" time="0.000542585">
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; initial state &gt; debe iniciar con isAuthenticated true cuando hay token" time="0.003348661">
         </testcase>
-        <testcase classname="src/services/authService.test.ts" name="authService &gt; getToken &gt; debe retornar null cuando no hay token" time="0.000365463">
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; login &gt; debe hacer login exitosamente y crear sesión" time="0.00789819">
         </testcase>
-        <testcase classname="src/services/authService.test.ts" name="authService &gt; isAuthenticated &gt; debe retornar true cuando hay token" time="0.000381056">
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; login &gt; debe manejar error de login SIN crear sesión" time="0.004388368">
         </testcase>
-        <testcase classname="src/services/authService.test.ts" name="authService &gt; isAuthenticated &gt; debe retornar false cuando no hay token" time="0.000318137">
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; login &gt; debe manejar estado de loading durante login" time="0.004400197">
+        </testcase>
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; logout &gt; debe hacer logout correctamente Y limpiar sesión" time="0.009544247">
+        </testcase>
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; register &gt; debe hacer registro exitosamente" time="0.003192513">
+        </testcase>
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; register &gt; debe manejar error de red durante registro" time="0.003008115">
+        </testcase>
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; register &gt; debe manejar estado de loading durante registro" time="0.008797948">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/hooks/useOrder.test.ts" timestamp="2026-03-06T06:45:10.194Z" hostname="psofkaec073.sofka.local" tests="12" failures="0" errors="0" skipped="0" time="0.057789069">
+        <testcase classname="src/hooks/useOrder.test.ts" name="useOrder &gt; addProduct &gt; agrega producto nuevo al pedido" time="0.023442309">
+        </testcase>
+        <testcase classname="src/hooks/useOrder.test.ts" name="useOrder &gt; addProduct &gt; incrementa cantidad si el producto ya existe" time="0.004079063">
+        </testcase>
+        <testcase classname="src/hooks/useOrder.test.ts" name="useOrder &gt; addProduct &gt; agrega múltiples productos diferentes" time="0.004813979">
+        </testcase>
+        <testcase classname="src/hooks/useOrder.test.ts" name="useOrder &gt; removeProduct &gt; elimina producto del pedido" time="0.002965588">
+        </testcase>
+        <testcase classname="src/hooks/useOrder.test.ts" name="useOrder &gt; removeProduct &gt; decrementa cantidad cuando hay más de 1" time="0.002897582">
+        </testcase>
+        <testcase classname="src/hooks/useOrder.test.ts" name="useOrder &gt; removeProduct &gt; no hace nada si el producto no existe" time="0.001981904">
+        </testcase>
+        <testcase classname="src/hooks/useOrder.test.ts" name="useOrder &gt; clearOrder &gt; limpia todos los productos del pedido" time="0.002255698">
+        </testcase>
+        <testcase classname="src/hooks/useOrder.test.ts" name="useOrder &gt; submitOrder &gt; envía el pedido exitosamente" time="0.003490373">
+        </testcase>
+        <testcase classname="src/hooks/useOrder.test.ts" name="useOrder &gt; submitOrder &gt; retorna null y error cuando el pedido está vacío" time="0.002881196">
+        </testcase>
+        <testcase classname="src/hooks/useOrder.test.ts" name="useOrder &gt; submitOrder &gt; maneja error cuando el servicio falla" time="0.003198884">
+        </testcase>
+        <testcase classname="src/hooks/useOrder.test.ts" name="useOrder &gt; totalItems &gt; calcula el total de items correctamente" time="0.001698716">
+        </testcase>
+        <testcase classname="src/hooks/useOrder.test.ts" name="useOrder &gt; totalItems &gt; retorna 0 cuando no hay productos" time="0.001244019">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/helpers/orderCalculator.test.ts" timestamp="2026-03-06T06:45:10.199Z" hostname="psofkaec073.sofka.local" tests="6" failures="0" errors="0" skipped="0" time="0.004601656">
+        <testcase classname="src/helpers/orderCalculator.test.ts" name="calculateTotalPrice &gt; retorna 0 para pedido vacío" time="0.001433996">
+        </testcase>
+        <testcase classname="src/helpers/orderCalculator.test.ts" name="calculateTotalPrice &gt; retorna el precio total multiplicando quantity por price" time="0.000275838">
+        </testcase>
+        <testcase classname="src/helpers/orderCalculator.test.ts" name="calculateTotalPrice &gt; retorna precio directo si hay un solo producto" time="0.000214975">
+        </testcase>
+        <testcase classname="src/helpers/orderCalculator.test.ts" name="calculateTotalItems &gt; retorna 0 para pedido vacío" time="0.000311255">
+        </testcase>
+        <testcase classname="src/helpers/orderCalculator.test.ts" name="calculateTotalItems &gt; retorna la suma de quantities" time="0.000219638">
+        </testcase>
+        <testcase classname="src/helpers/orderCalculator.test.ts" name="calculateTotalItems &gt; retorna quantity directo si hay un solo producto" time="0.00014752">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/services/authService.test.ts" timestamp="2026-03-06T06:45:10.203Z" hostname="psofkaec073.sofka.local" tests="15" failures="0" errors="0" skipped="0" time="0.020376438">
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; login &gt; debe hacer login exitoso y guardar token en localStorage" time="0.005324845">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; login &gt; debe lanzar error cuando credenciales son inválidas" time="0.002443997">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; login &gt; debe lanzar error cuando hay error de red" time="0.000963698">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; login &gt; debe guardar token sin expiración cuando rememberMe es false" time="0.000801949">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; login &gt; debe guardar token con expiración cuando rememberMe es true" time="0.000775678">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; logout &gt; debe remover token de localStorage" time="0.000528582">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; getToken &gt; debe retornar el token guardado" time="0.000411842">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; getToken &gt; debe retornar null cuando no hay token" time="0.000291119">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; isAuthenticated &gt; debe retornar true cuando hay token válido" time="0.000413733">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; isAuthenticated &gt; debe retornar false cuando no hay token" time="0.000323224">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; isAuthenticated &gt; debe retornar false cuando el token está expirado" time="0.000330971">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; register &gt; debe hacer registro exitoso" time="0.000504865">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; register &gt; debe retornar true aunque el servidor devuelva error 400 (comportamiento actual)" time="0.000395478">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; register &gt; debe lanzar error cuando hay error de red" time="0.000580036">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; register &gt; debe hacer request con los datos correctos al endpoint register" time="0.003771355">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/views/LoginView.test.tsx" timestamp="2026-03-06T06:45:10.209Z" hostname="psofkaec073.sofka.local" tests="17" failures="0" errors="0" skipped="0" time="1.126919968">
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Render &gt; debe renderizar el formulario de login" time="0.435724676">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Render &gt; debe mostrar el título de FoodTech Login" time="0.013168543">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Render &gt; debe mostrar el enlace para registrarse" time="0.08487986">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Cambio de modo &gt; debe cambiar a modo registro al hacer click en el toggle" time="0.13334243">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Cambio de modo &gt; debe volver a modo login al hacer click en toggle desde registro" time="0.123604973">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Cambio de modo &gt; debe limpiar campos al cambiar de modo" time="0.05936236">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Formulario &gt; debe actualizar el email al escribir" time="0.008552778">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Formulario &gt; debe actualizar la contraseña al escribir" time="0.008188887">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Formulario &gt; debe mostrar username en modo registro" time="0.047635833">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Submit del formulario &gt; debe llamar login al hacer submit en modo login" time="0.018208944">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Submit del formulario &gt; debe llamar login con rememberMe al hacer submit con checkbox marcado" time="0.022177197">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Submit del formulario &gt; debe llamar register al hacer submit en modo registro" time="0.089874397">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Submit del formulario &gt; debe usar demo token al hacer submit en modo demo" time="0.016295554">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Botón de submit &gt; debe mostrar &quot;Iniciar sesión&quot; cuando no está cargando" time="0.005425029">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Botón de submit &gt; debe mostrar &quot;Registrarse&quot; en modo registro" time="0.044222016">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Error display &gt; debe mostrar mensaje de error cuando hay error" time="0.007355791">
+        </testcase>
+        <testcase classname="src/views/LoginView.test.tsx" name="LoginView &gt; Loading state &gt; debe mostrar &quot;Iniciando sesión...&quot; cuando está cargando" time="0.00530957">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/completed-orders/CompletedOrdersButton.test.tsx" timestamp="2026-03-06T06:45:10.220Z" hostname="psofkaec073.sofka.local" tests="3" failures="0" errors="0" skipped="0" time="0.37883637">
+        <testcase classname="src/components/completed-orders/CompletedOrdersButton.test.tsx" name="CompletedOrdersButton &gt; calls onToggle when clicked" time="0.328185488">
+        </testcase>
+        <testcase classname="src/components/completed-orders/CompletedOrdersButton.test.tsx" name="CompletedOrdersButton &gt; shows count badge when count &gt; 0" time="0.009004138">
+        </testcase>
+        <testcase classname="src/components/completed-orders/CompletedOrdersButton.test.tsx" name="CompletedOrdersButton &gt; renders loading spinner when isLoading" time="0.038685244">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/completed-orders/CompletedOrdersModal.test.tsx" timestamp="2026-03-06T06:45:10.221Z" hostname="psofkaec073.sofka.local" tests="8" failures="1" errors="0" skipped="0" time="1.72411773">
+        <testcase classname="src/components/completed-orders/CompletedOrdersModal.test.tsx" name="CompletedOrdersModal &gt; returns null when isOpen is false" time="0.020092769">
+        </testcase>
+        <testcase classname="src/components/completed-orders/CompletedOrdersModal.test.tsx" name="CompletedOrdersModal &gt; shows loader when loading flag is present" time="0.033255696">
+        </testcase>
+        <testcase classname="src/components/completed-orders/CompletedOrdersModal.test.tsx" name="CompletedOrdersModal &gt; displays error message when error prop provided" time="0.010289345">
+        </testcase>
+        <testcase classname="src/components/completed-orders/CompletedOrdersModal.test.tsx" name="CompletedOrdersModal &gt; renders empty state when there are no orders" time="0.008891485">
+        </testcase>
+        <testcase classname="src/components/completed-orders/CompletedOrdersModal.test.tsx" name="CompletedOrdersModal &gt; sorts the orders by completedAt descending" time="0.016421196">
+        </testcase>
+        <testcase classname="src/components/completed-orders/CompletedOrdersModal.test.tsx" name="CompletedOrdersModal &gt; calls onClose when close button clicked or overlay clicked or Escape pressed" time="0.343176657">
+        </testcase>
+        <testcase classname="src/components/completed-orders/CompletedOrdersModal.test.tsx" name="CompletedOrdersModal &gt; shows invoice form and errors when necessary" time="1.276942019">
+            <failure message="Found multiple elements with the text of: /Nombre del cliente/i
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m&lt;input[39m
+  [33maria-label[39m=[32m&quot;Nombre del cliente&quot;[39m
+  [33mclass[39m=[32m&quot;w-56 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;[39m
+  [33mplaceholder[39m=[32m&quot;Nombre del cliente&quot;[39m
+  [33mtype[39m=[32m&quot;text&quot;[39m
+  [33mvalue[39m=[32m&quot;Juan&quot;[39m
+[36m/&gt;[39m
+
+Ignored nodes: comments, script, style
+[36m&lt;input[39m
+  [33maria-label[39m=[32m&quot;Nombre del cliente&quot;[39m
+  [33mclass[39m=[32m&quot;w-56 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;[39m
+  [33mplaceholder[39m=[32m&quot;Nombre del cliente&quot;[39m
+  [33mtype[39m=[32m&quot;text&quot;[39m
+  [33mvalue[39m=[32m&quot;&quot;[39m
+[36m/&gt;[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m&lt;body&gt;[39m
+  [36m&lt;div&gt;[39m
+    [36m&lt;div[39m
+      [33mclass[39m=[32m&quot;fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-6&quot;[39m
+      [33mrole[39m=[32m&quot;presentation&quot;[39m
+    [36m&gt;[39m
+      [36m&lt;div[39m
+        [33maria-labelledby[39m=[32m&quot;completed-orders-title&quot;[39m
+        [33maria-modal[39m=[32m&quot;true&quot;[39m
+        [33mclass[39m=[32m&quot;w-full max-w-2xl glass-panel-dark rounded-3xl border border-white/10 shadow-2xl&quot;[39m
+        [33mrole[39m=[32m&quot;dialog&quot;[39m
+      [36m&gt;[39m
+        [36m&lt;div[39m
+          [33mclass[39m=[32m&quot;flex items-center justify-between px-8 py-6 border-b border-white/10&quot;[39m
+        [36m&gt;[39m
+          [36m&lt;div&gt;[39m
+            [36m&lt;p[39m
+              [33mclass[39m=[32m&quot;text-[10px] uppercase tracking-[0.3em] text-primary&quot;[39m
+            [36m&gt;[39m
+              [0mBilling[0m
+            [36m&lt;/p&gt;[39m
+            [36m&lt;h2[39m
+              [33mclass[39m=[32m&quot;text-xl font-bold text-white-text&quot;[39m
+              [33mid[39m=[32m&quot;completed-orders-title&quot;[39m
+            [36m&gt;[39m
+              [0mCompleted Orders[0m
+            [36m&lt;/h2&gt;[39m
+          [36m&lt;/div&gt;[39m
+          [36m&lt;button[39m
+            [33maria-label[39m=[32m&quot;Close completed orders&quot;[39m
+            [33mclass[39m=[32m&quot;text-silver-text hover:text-white-text transition-colors&quot;[39m
+            [33mtype[39m=[32m&quot;button&quot;[39m
+          [36m&gt;[39m
+            [36m&lt;span[39m
+              [33mclass[39m=[32m&quot;material-symbols-outlined text-2xl&quot;[39m
+            [36m&gt;[39m
+              [0mclose[0m
+            [36m&lt;/span&gt;[39m
+          [36m&lt;/button&gt;[39m
+        [36m&lt;/div&gt;[39m
+        [36m&lt;div[39m
+          [33mclass[39m=[32m&quot;px-8 py-6 max-h-[60vh] overflow-y-auto order-scroll&quot;[39m
+        [36m&gt;[39m
+          [36m&lt;div[39m
+            [33mclass[39m=[32m&quot;space-y-4&quot;[39m
+          [36m&gt;[39m
+            [36m&lt;div[39m
+              [33mclass[39m=[32m&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;[39m
+            [36m&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mOrder[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mabc[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;text-right&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mTable[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-primary&quot;[39m
+                  [36m&gt;[39m
+                    [0mC3[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mItems[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xl font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0m1[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;flex flex-col items-end gap-2&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;input[39m
+                    [33maria-label[39m=[32m&quot;Nombre del cliente&quot;[39m
+                    [33mclass[39m=[32m&quot;w-56 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;[39m
+                    [33mplaceholder[39m=[32m&quot;Nombre del cliente&quot;[39m
+                    [33mtype[39m=[32m&quot;text&quot;[39m
+                    [33mvalue[39m=[32m&quot;Juan&quot;[39m
+                  [36m/&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-[10px] text-red-400&quot;[39m
+                  [36m&gt;[39m
+                    [0mOrder ID inválido[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;button[39m
+                    [33mclass[39m=[32m&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;[39m
+                    [33mtype[39m=[32m&quot;button&quot;[39m
+                  [36m&gt;[39m
+                    [0mFacturar[0m
+                  [36m&lt;/button&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+            [36m&lt;/div&gt;[39m
+            [36m&lt;div[39m
+              [33mclass[39m=[32m&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;[39m
+            [36m&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mOrder[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0m2[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;text-right&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mTable[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-primary&quot;[39m
+                  [36m&gt;[39m
+                    [0mA1[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mItems[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xl font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0m3[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;flex flex-col items-end gap-2&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;input[39m
+                    [33maria-label[39m=[32m&quot;Nombre del cliente&quot;[39m
+                    [33mclass[39m=[32m&quot;w-56 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;[39m
+                    [33mplaceholder[39m=[32m&quot;Nombre del cliente&quot;[39m
+                    [33mtype[39m=[32m&quot;text&quot;[39m
+                    [33mvalue[39m=[32m&quot;&quot;[39m
+                  [36m/&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-[10px] text-red-400&quot;[39m
+                  [36m&gt;[39m
+                    [0mIngresa el nombre del cliente[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;button[39m
+                    [33mclass[39m=[32m&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;[39m
+                    [33mtype[39m=[32m&quot;button&quot;[39m
+                  [36m&gt;[39m
+                    [0mFacturar[0m
+                  [36m&lt;/button&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+            [36m&lt;/div&gt;[39m
+            [36m&lt;div[39m
+              [33mclass[39m=[32m&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;[39m
+            [36m&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mOrder[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0m1[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;text-right&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mTable[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-primary&quot;[39m
+                  [36m&gt;[39m
+                    [0mB2[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mItems[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xl font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0m5[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;flex flex-col items-end gap-2&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;button[39m
+                    [33mclass[39m=[32m&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;[39m
+                    [33mtype[39m=[32m&quot;button&quot;[39m
+                  [36m&gt;[39m
+                    [0mFacturar[0m
+                  [36m&lt;/button&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+            [36m&lt;/div&gt;[39m
+          [36m&lt;/div&gt;[39m
+        [36m&lt;/div&gt;[39m
+      [36m&lt;/div&gt;[39m
+    [36m&lt;/div&gt;[39m
+  [36m&lt;/div&gt;[39m
+[36m&lt;/body&gt;[39m
+
+Ignored nodes: comments, script, style
+[36m&lt;body&gt;[39m
+  [36m&lt;div&gt;[39m
+    [36m&lt;div[39m
+      [33mclass[39m=[32m&quot;fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-6&quot;[39m
+      [33mrole[39m=[32m&quot;presentation&quot;[39m
+    [36m&gt;[39m
+      [36m&lt;div[39m
+        [33maria-labelledby[39m=[32m&quot;completed-orders-title&quot;[39m
+        [33maria-modal[39m=[32m&quot;true&quot;[39m
+        [33mclass[39m=[32m&quot;w-full max-w-2xl glass-panel-dark rounded-3xl border border-white/10 shadow-2xl&quot;[39m
+        [33mrole[39m=[32m&quot;dialog&quot;[39m
+      [36m&gt;[39m
+        [36m&lt;div[39m
+          [33mclass[39m=[32m&quot;flex items-center justify-between px-8 py-6 border-b border-white/10&quot;[39m
+        [36m&gt;[39m
+          [36m&lt;div&gt;[39m
+            [36m&lt;p[39m
+              [33mclass[39m=[32m&quot;text-[10px] uppercase tracking-[0.3em] text-primary&quot;[39m
+            [36m&gt;[39m
+              [0mBilling[0m
+            [36m&lt;/p&gt;[39m
+            [36m&lt;h2[39m
+              [33mclass[39m=[32m&quot;text-xl font-bold text-white-text&quot;[39m
+              [33mid[39m=[32m&quot;completed-orders-title&quot;[39m
+            [36m&gt;[39m
+              [0mCompleted Orders[0m
+            [36m&lt;/h2&gt;[39m
+          [36m&lt;/div&gt;[39m
+          [36m&lt;button[39m
+            [33maria-label[39m=[32m&quot;Close completed orders&quot;[39m
+            [33mclass[39m=[32m&quot;text-silver-text hover:text-white-text transition-colors&quot;[39m
+            [33mtype[39m=[32m&quot;button&quot;[39m
+          [36m&gt;[39m
+            [36m&lt;span[39m
+              [33mclass[39m=[32m&quot;material-symbols-outlined text-2xl&quot;[39m
+            [36m&gt;[39m
+              [0mclose[0m
+            [36m&lt;/span&gt;[39m
+          [36m&lt;/button&gt;[39m
+        [36m&lt;/div&gt;[39m
+        [36m&lt;div[39m
+          [33mclass[39m=[32m&quot;px-8 py-6 max-h-[60vh] overflow-y-auto order-scroll&quot;[39m
+        [36m&gt;[39m
+          [36m&lt;div[39m
+            [33mclass[39m=[32m&quot;space-y-4&quot;[39m
+          [36m&gt;[39m
+            [36m&lt;div[39m
+              [33mclass[39m=[32m&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;[39m
+            [36m&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mOrder[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mabc[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;text-right&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mTable[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-primary&quot;[39m
+                  [36m&gt;[39m
+                    [0mC3[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mItems[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xl font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0m1[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;flex flex-col items-end gap-2&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;input[39m
+                    [33maria-label[39m=[32m&quot;Nombre del cliente&quot;[39m
+                    [33mclass[39m=[32m&quot;w-56 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;[39m
+                    [33mplaceholder[39m=[32m&quot;Nombre del cliente&quot;[39m
+                    [33mtype[39m=[32m&quot;text&quot;[39m
+                    [33mvalue[39m=[32m&quot;Juan&quot;[39m
+                  [36m/&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-[10px] text-red-400&quot;[39m
+                  [36m&gt;[39m
+                    [0mOrder ID inválido[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;button[39m
+                    [33mclass[39m=[32m&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;[39m
+                    [33mtype[39m=[32m&quot;button&quot;[39m
+                  [36m&gt;[39m
+                    [0mFacturar[0m
+                  [36m&lt;/button&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+            [36m&lt;/div&gt;[39m
+            [36m&lt;div[39m
+              [33mclass[39m=[32m&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;[39m
+            [36m&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mOrder[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0m2[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;text-right&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mTable[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-primary&quot;[39m
+                  [36m&gt;[39m
+                    [0mA1[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mItems[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xl font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0m3[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;flex flex-col items-end gap-2&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;input[39m
+                    [33maria-label[39m=[32m&quot;Nombre del cliente&quot;[39m
+                    [33mclass[39m=[32m&quot;w-56 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;[39m
+                    [33mplaceholder[39m=[32m&quot;Nombre del cliente&quot;[39m
+                    [33mtype[39m=[32m&quot;text&quot;[39m
+                    [33mvalue[39m=[32m&quot;&quot;[39m
+                  [36m/&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-[10px] text-red-400&quot;[39m
+                  [36m&gt;[39m
+                    [0mIngresa el nombre del cliente[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;button[39m
+                    [33mclass[39m=[32m&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;[39m
+                    [33mtype[39m=[32m&quot;button&quot;[39m
+                  [36m&gt;[39m
+                    [0mFacturar[0m
+                  [36m&lt;/button&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+            [36m&lt;/div&gt;[39m
+            [36m&lt;div[39m
+              [33mclass[39m=[32m&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;[39m
+            [36m&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mOrder[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0m1[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;text-right&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mTable[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-primary&quot;[39m
+                  [36m&gt;[39m
+                    [0mB2[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mItems[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xl font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0m5[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;flex flex-col items-end gap-2&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;button[39m
+                    [33mclass[39m=[32m&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;[39m
+                    [33mtype[39m=[32m&quot;button&quot;[39m
+                  [36m&gt;[39m
+                    [0mFacturar[0m
+                  [36m&lt;/button&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+            [36m&lt;/div&gt;[39m
+          [36m&lt;/div&gt;[39m
+        [36m&lt;/div&gt;[39m
+      [36m&lt;/div&gt;[39m
+    [36m&lt;/div&gt;[39m
+  [36m&lt;/div&gt;[39m
+[36m&lt;/body&gt;[39m" type="TestingLibraryElementError">
+TestingLibraryElementError: Found multiple elements with the text of: /Nombre del cliente/i
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+&lt;input
+  aria-label=&quot;Nombre del cliente&quot;
+  class=&quot;w-56 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;
+  placeholder=&quot;Nombre del cliente&quot;
+  type=&quot;text&quot;
+  value=&quot;Juan&quot;
+/&gt;
+
+Ignored nodes: comments, script, style
+&lt;input
+  aria-label=&quot;Nombre del cliente&quot;
+  class=&quot;w-56 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;
+  placeholder=&quot;Nombre del cliente&quot;
+  type=&quot;text&quot;
+  value=&quot;&quot;
+/&gt;
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;div
+      class=&quot;fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-6&quot;
+      role=&quot;presentation&quot;
+    &gt;
+      &lt;div
+        aria-labelledby=&quot;completed-orders-title&quot;
+        aria-modal=&quot;true&quot;
+        class=&quot;w-full max-w-2xl glass-panel-dark rounded-3xl border border-white/10 shadow-2xl&quot;
+        role=&quot;dialog&quot;
+      &gt;
+        &lt;div
+          class=&quot;flex items-center justify-between px-8 py-6 border-b border-white/10&quot;
+        &gt;
+          &lt;div&gt;
+            &lt;p
+              class=&quot;text-[10px] uppercase tracking-[0.3em] text-primary&quot;
+            &gt;
+              Billing
+            &lt;/p&gt;
+            &lt;h2
+              class=&quot;text-xl font-bold text-white-text&quot;
+              id=&quot;completed-orders-title&quot;
+            &gt;
+              Completed Orders
+            &lt;/h2&gt;
+          &lt;/div&gt;
+          &lt;button
+            aria-label=&quot;Close completed orders&quot;
+            class=&quot;text-silver-text hover:text-white-text transition-colors&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              class=&quot;material-symbols-outlined text-2xl&quot;
+            &gt;
+              close
+            &lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;px-8 py-6 max-h-[60vh] overflow-y-auto order-scroll&quot;
+        &gt;
+          &lt;div
+            class=&quot;space-y-4&quot;
+          &gt;
+            &lt;div
+              class=&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;
+            &gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Order
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-white-text&quot;
+                  &gt;
+                    abc
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;text-right&quot;
+                &gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Table
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-primary&quot;
+                  &gt;
+                    C3
+                  &lt;/p&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Items
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-xl font-bold text-white-text&quot;
+                  &gt;
+                    1
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;flex flex-col items-end gap-2&quot;
+                &gt;
+                  &lt;input
+                    aria-label=&quot;Nombre del cliente&quot;
+                    class=&quot;w-56 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;
+                    placeholder=&quot;Nombre del cliente&quot;
+                    type=&quot;text&quot;
+                    value=&quot;Juan&quot;
+                  /&gt;
+                  &lt;p
+                    class=&quot;text-[10px] text-red-400&quot;
+                  &gt;
+                    Order ID inválido
+                  &lt;/p&gt;
+                  &lt;button
+                    class=&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;
+                    type=&quot;button&quot;
+                  &gt;
+                    Facturar
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div
+              class=&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;
+            &gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Order
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-white-text&quot;
+                  &gt;
+                    2
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;text-right&quot;
+                &gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Table
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-primary&quot;
+                  &gt;
+                    A1
+                  &lt;/p&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Items
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-xl font-bold text-white-text&quot;
+                  &gt;
+                    3
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;flex flex-col items-end gap-2&quot;
+                &gt;
+                  &lt;input
+                    aria-label=&quot;Nombre del cliente&quot;
+                    class=&quot;w-56 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;
+                    placeholder=&quot;Nombre del cliente&quot;
+                    type=&quot;text&quot;
+                    value=&quot;&quot;
+                  /&gt;
+                  &lt;p
+                    class=&quot;text-[10px] text-red-400&quot;
+                  &gt;
+                    Ingresa el nombre del cliente
+                  &lt;/p&gt;
+                  &lt;button
+                    class=&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;
+                    type=&quot;button&quot;
+                  &gt;
+                    Facturar
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div
+              class=&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;
+            &gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Order
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-white-text&quot;
+                  &gt;
+                    1
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;text-right&quot;
+                &gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Table
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-primary&quot;
+                  &gt;
+                    B2
+                  &lt;/p&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Items
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-xl font-bold text-white-text&quot;
+                  &gt;
+                    5
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;flex flex-col items-end gap-2&quot;
+                &gt;
+                  &lt;button
+                    class=&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;
+                    type=&quot;button&quot;
+                  &gt;
+                    Facturar
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;div
+      class=&quot;fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-6&quot;
+      role=&quot;presentation&quot;
+    &gt;
+      &lt;div
+        aria-labelledby=&quot;completed-orders-title&quot;
+        aria-modal=&quot;true&quot;
+        class=&quot;w-full max-w-2xl glass-panel-dark rounded-3xl border border-white/10 shadow-2xl&quot;
+        role=&quot;dialog&quot;
+      &gt;
+        &lt;div
+          class=&quot;flex items-center justify-between px-8 py-6 border-b border-white/10&quot;
+        &gt;
+          &lt;div&gt;
+            &lt;p
+              class=&quot;text-[10px] uppercase tracking-[0.3em] text-primary&quot;
+            &gt;
+              Billing
+            &lt;/p&gt;
+            &lt;h2
+              class=&quot;text-xl font-bold text-white-text&quot;
+              id=&quot;completed-orders-title&quot;
+            &gt;
+              Completed Orders
+            &lt;/h2&gt;
+          &lt;/div&gt;
+          &lt;button
+            aria-label=&quot;Close completed orders&quot;
+            class=&quot;text-silver-text hover:text-white-text transition-colors&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              class=&quot;material-symbols-outlined text-2xl&quot;
+            &gt;
+              close
+            &lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;px-8 py-6 max-h-[60vh] overflow-y-auto order-scroll&quot;
+        &gt;
+          &lt;div
+            class=&quot;space-y-4&quot;
+          &gt;
+            &lt;div
+              class=&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;
+            &gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Order
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-white-text&quot;
+                  &gt;
+                    abc
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;text-right&quot;
+                &gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Table
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-primary&quot;
+                  &gt;
+                    C3
+                  &lt;/p&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Items
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-xl font-bold text-white-text&quot;
+                  &gt;
+                    1
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;flex flex-col items-end gap-2&quot;
+                &gt;
+                  &lt;input
+                    aria-label=&quot;Nombre del cliente&quot;
+                    class=&quot;w-56 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;
+                    placeholder=&quot;Nombre del cliente&quot;
+                    type=&quot;text&quot;
+                    value=&quot;Juan&quot;
+                  /&gt;
+                  &lt;p
+                    class=&quot;text-[10px] text-red-400&quot;
+                  &gt;
+                    Order ID inválido
+                  &lt;/p&gt;
+                  &lt;button
+                    class=&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;
+                    type=&quot;button&quot;
+                  &gt;
+                    Facturar
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div
+              class=&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;
+            &gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Order
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-white-text&quot;
+                  &gt;
+                    2
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;text-right&quot;
+                &gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Table
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-primary&quot;
+                  &gt;
+                    A1
+                  &lt;/p&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Items
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-xl font-bold text-white-text&quot;
+                  &gt;
+                    3
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;flex flex-col items-end gap-2&quot;
+                &gt;
+                  &lt;input
+                    aria-label=&quot;Nombre del cliente&quot;
+                    class=&quot;w-56 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;
+                    placeholder=&quot;Nombre del cliente&quot;
+                    type=&quot;text&quot;
+                    value=&quot;&quot;
+                  /&gt;
+                  &lt;p
+                    class=&quot;text-[10px] text-red-400&quot;
+                  &gt;
+                    Ingresa el nombre del cliente
+                  &lt;/p&gt;
+                  &lt;button
+                    class=&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;
+                    type=&quot;button&quot;
+                  &gt;
+                    Facturar
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div
+              class=&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;
+            &gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Order
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-white-text&quot;
+                  &gt;
+                    1
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;text-right&quot;
+                &gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Table
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-primary&quot;
+                  &gt;
+                    B2
+                  &lt;/p&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Items
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-xl font-bold text-white-text&quot;
+                  &gt;
+                    5
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;flex flex-col items-end gap-2&quot;
+                &gt;
+                  &lt;button
+                    class=&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;
+                    type=&quot;button&quot;
+                  &gt;
+                    Facturar
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/components/completed-orders/CompletedOrdersModal.test.tsx:177:41
+            </failure>
+        </testcase>
+        <testcase classname="src/components/completed-orders/CompletedOrdersModal.test.tsx" name="CompletedOrdersModal &gt; disables button and shows sending text when invoiceLoadingById is true" time="0.01183872">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/completed-orders/CompletedOrdersToast.test.tsx" timestamp="2026-03-06T06:45:10.228Z" hostname="psofkaec073.sofka.local" tests="2" failures="0" errors="0" skipped="0" time="0.407565319">
+        <testcase classname="src/components/completed-orders/CompletedOrdersToast.test.tsx" name="CompletedOrdersToast &gt; returns null when not visible" time="0.020997063">
+        </testcase>
+        <testcase classname="src/components/completed-orders/CompletedOrdersToast.test.tsx" name="CompletedOrdersToast &gt; renders message when visible" time="0.383647883">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/completed-orders/CompletedOrdersWidget.test.tsx" timestamp="2026-03-06T06:45:10.230Z" hostname="psofkaec073.sofka.local" tests="4" failures="2" errors="0" skipped="0" time="0.79420918">
+        <testcase classname="src/components/completed-orders/CompletedOrdersWidget.test.tsx" name="CompletedOrdersWidget &gt; toggles modal when button is clicked" time="0.498339125">
+        </testcase>
+        <testcase classname="src/components/completed-orders/CompletedOrdersWidget.test.tsx" name="CompletedOrdersWidget &gt; shows toast message after invoicing and clears it after timeout" time="0.057151995">
+            <failure message="Found multiple elements with the text: 1
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m&lt;span[39m
+  [33mclass[39m=[32m&quot;absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 min-w-5 px-1 flex items-center justify-center border border-white/10&quot;[39m
+[36m&gt;[39m
+  [0m1[0m
+[36m&lt;/span&gt;[39m
+
+Ignored nodes: comments, script, style
+[36m&lt;p[39m
+  [33mclass[39m=[32m&quot;text-lg font-bold text-white-text&quot;[39m
+[36m&gt;[39m
+  [0m1[0m
+[36m&lt;/p&gt;[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m&lt;body&gt;[39m
+  [36m&lt;div&gt;[39m
+    [36m&lt;button[39m
+      [33maria-busy[39m=[32m&quot;false&quot;[39m
+      [33maria-label[39m=[32m&quot;Open completed orders&quot;[39m
+      [33mclass[39m=[32m&quot;fixed bottom-6 right-6 z-50 gold-gradient text-midnight shadow-2xl shadow-primary/20 rounded-full h-14 w-14 flex items-center justify-center transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;[39m
+      [33mtype[39m=[32m&quot;button&quot;[39m
+    [36m&gt;[39m
+      [36m&lt;span[39m
+        [33mclass[39m=[32m&quot;material-symbols-outlined text-2xl &quot;[39m
+      [36m&gt;[39m
+        [0mreceipt_long[0m
+      [36m&lt;/span&gt;[39m
+      [36m&lt;span[39m
+        [33mclass[39m=[32m&quot;absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 min-w-5 px-1 flex items-center justify-center border border-white/10&quot;[39m
+      [36m&gt;[39m
+        [0m1[0m
+      [36m&lt;/span&gt;[39m
+    [36m&lt;/button&gt;[39m
+    [36m&lt;div[39m
+      [33mclass[39m=[32m&quot;fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-6&quot;[39m
+      [33mrole[39m=[32m&quot;presentation&quot;[39m
+    [36m&gt;[39m
+      [36m&lt;div[39m
+        [33maria-labelledby[39m=[32m&quot;completed-orders-title&quot;[39m
+        [33maria-modal[39m=[32m&quot;true&quot;[39m
+        [33mclass[39m=[32m&quot;w-full max-w-2xl glass-panel-dark rounded-3xl border border-white/10 shadow-2xl&quot;[39m
+        [33mrole[39m=[32m&quot;dialog&quot;[39m
+      [36m&gt;[39m
+        [36m&lt;div[39m
+          [33mclass[39m=[32m&quot;flex items-center justify-between px-8 py-6 border-b border-white/10&quot;[39m
+        [36m&gt;[39m
+          [36m&lt;div&gt;[39m
+            [36m&lt;p[39m
+              [33mclass[39m=[32m&quot;text-[10px] uppercase tracking-[0.3em] text-primary&quot;[39m
+            [36m&gt;[39m
+              [0mBilling[0m
+            [36m&lt;/p&gt;[39m
+            [36m&lt;h2[39m
+              [33mclass[39m=[32m&quot;text-xl font-bold text-white-text&quot;[39m
+              [33mid[39m=[32m&quot;completed-orders-title&quot;[39m
+            [36m&gt;[39m
+              [0mCompleted Orders[0m
+            [36m&lt;/h2&gt;[39m
+          [36m&lt;/div&gt;[39m
+          [36m&lt;button[39m
+            [33maria-label[39m=[32m&quot;Close completed orders&quot;[39m
+            [33mclass[39m=[32m&quot;text-silver-text hover:text-white-text transition-colors&quot;[39m
+            [33mtype[39m=[32m&quot;button&quot;[39m
+          [36m&gt;[39m
+            [36m&lt;span[39m
+              [33mclass[39m=[32m&quot;material-symbols-outlined text-2xl&quot;[39m
+            [36m&gt;[39m
+              [0mclose[0m
+            [36m&lt;/span&gt;[39m
+          [36m&lt;/button&gt;[39m
+        [36m&lt;/div&gt;[39m
+        [36m&lt;div[39m
+          [33mclass[39m=[32m&quot;px-8 py-6 max-h-[60vh] overflow-y-auto order-scroll&quot;[39m
+        [36m&gt;[39m
+          [36m&lt;div[39m
+            [33mclass[39m=[32m&quot;space-y-4&quot;[39m
+          [36m&gt;[39m
+            [36m&lt;div[39m
+              [33mclass[39m=[32m&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;[39m
+            [36m&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mOrder[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0m1[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;text-right&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mTable[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-primary&quot;[39m
+                  [36m&gt;[39m
+                    [0mT1[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mItems[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xl font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0m2[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;flex flex-col items-end gap-2&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;button[39m
+                    [33mclass[39m=[32m&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;[39m
+                    [33mtype[39m=[32m&quot;button&quot;[39m
+                  [36m&gt;[39m
+                    [0mFacturar[0m
+                  [36m&lt;/button&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+            [36m&lt;/div&gt;[39m
+          [36m&lt;/div&gt;[39m
+        [36m&lt;/div&gt;[39m
+      [36m&lt;/div&gt;[39m
+    [36m&lt;/div&gt;[39m
+  [36m&lt;/div&gt;[39m
+[36m&lt;/body&gt;[39m" type="TestingLibraryElementError">
+TestingLibraryElementError: Found multiple elements with the text: 1
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+&lt;span
+  class=&quot;absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 min-w-5 px-1 flex items-center justify-center border border-white/10&quot;
+&gt;
+  1
+&lt;/span&gt;
+
+Ignored nodes: comments, script, style
+&lt;p
+  class=&quot;text-lg font-bold text-white-text&quot;
+&gt;
+  1
+&lt;/p&gt;
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;button
+      aria-busy=&quot;false&quot;
+      aria-label=&quot;Open completed orders&quot;
+      class=&quot;fixed bottom-6 right-6 z-50 gold-gradient text-midnight shadow-2xl shadow-primary/20 rounded-full h-14 w-14 flex items-center justify-center transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;
+      type=&quot;button&quot;
+    &gt;
+      &lt;span
+        class=&quot;material-symbols-outlined text-2xl &quot;
+      &gt;
+        receipt_long
+      &lt;/span&gt;
+      &lt;span
+        class=&quot;absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 min-w-5 px-1 flex items-center justify-center border border-white/10&quot;
+      &gt;
+        1
+      &lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div
+      class=&quot;fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-6&quot;
+      role=&quot;presentation&quot;
+    &gt;
+      &lt;div
+        aria-labelledby=&quot;completed-orders-title&quot;
+        aria-modal=&quot;true&quot;
+        class=&quot;w-full max-w-2xl glass-panel-dark rounded-3xl border border-white/10 shadow-2xl&quot;
+        role=&quot;dialog&quot;
+      &gt;
+        &lt;div
+          class=&quot;flex items-center justify-between px-8 py-6 border-b border-white/10&quot;
+        &gt;
+          &lt;div&gt;
+            &lt;p
+              class=&quot;text-[10px] uppercase tracking-[0.3em] text-primary&quot;
+            &gt;
+              Billing
+            &lt;/p&gt;
+            &lt;h2
+              class=&quot;text-xl font-bold text-white-text&quot;
+              id=&quot;completed-orders-title&quot;
+            &gt;
+              Completed Orders
+            &lt;/h2&gt;
+          &lt;/div&gt;
+          &lt;button
+            aria-label=&quot;Close completed orders&quot;
+            class=&quot;text-silver-text hover:text-white-text transition-colors&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              class=&quot;material-symbols-outlined text-2xl&quot;
+            &gt;
+              close
+            &lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;px-8 py-6 max-h-[60vh] overflow-y-auto order-scroll&quot;
+        &gt;
+          &lt;div
+            class=&quot;space-y-4&quot;
+          &gt;
+            &lt;div
+              class=&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;
+            &gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Order
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-white-text&quot;
+                  &gt;
+                    1
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;text-right&quot;
+                &gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Table
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-primary&quot;
+                  &gt;
+                    T1
+                  &lt;/p&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Items
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-xl font-bold text-white-text&quot;
+                  &gt;
+                    2
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;flex flex-col items-end gap-2&quot;
+                &gt;
+                  &lt;button
+                    class=&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;
+                    type=&quot;button&quot;
+                  &gt;
+                    Facturar
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/components/completed-orders/CompletedOrdersWidget.test.tsx:61:25
+            </failure>
+        </testcase>
+        <testcase classname="src/components/completed-orders/CompletedOrdersWidget.test.tsx" name="CompletedOrdersWidget &gt; closes modal when invoice returns 0 remaining" time="0.067353157">
+            <failure message="Found multiple elements with the text: 1
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m&lt;span[39m
+  [33mclass[39m=[32m&quot;absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 min-w-5 px-1 flex items-center justify-center border border-white/10&quot;[39m
+[36m&gt;[39m
+  [0m1[0m
+[36m&lt;/span&gt;[39m
+
+Ignored nodes: comments, script, style
+[36m&lt;p[39m
+  [33mclass[39m=[32m&quot;text-lg font-bold text-white-text&quot;[39m
+[36m&gt;[39m
+  [0m1[0m
+[36m&lt;/p&gt;[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m&lt;body&gt;[39m
+  [36m&lt;div&gt;[39m
+    [36m&lt;button[39m
+      [33maria-busy[39m=[32m&quot;false&quot;[39m
+      [33maria-label[39m=[32m&quot;Open completed orders&quot;[39m
+      [33mclass[39m=[32m&quot;fixed bottom-6 right-6 z-50 gold-gradient text-midnight shadow-2xl shadow-primary/20 rounded-full h-14 w-14 flex items-center justify-center transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;[39m
+      [33mtype[39m=[32m&quot;button&quot;[39m
+    [36m&gt;[39m
+      [36m&lt;span[39m
+        [33mclass[39m=[32m&quot;material-symbols-outlined text-2xl &quot;[39m
+      [36m&gt;[39m
+        [0mreceipt_long[0m
+      [36m&lt;/span&gt;[39m
+      [36m&lt;span[39m
+        [33mclass[39m=[32m&quot;absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 min-w-5 px-1 flex items-center justify-center border border-white/10&quot;[39m
+      [36m&gt;[39m
+        [0m1[0m
+      [36m&lt;/span&gt;[39m
+    [36m&lt;/button&gt;[39m
+    [36m&lt;div[39m
+      [33mclass[39m=[32m&quot;fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-6&quot;[39m
+      [33mrole[39m=[32m&quot;presentation&quot;[39m
+    [36m&gt;[39m
+      [36m&lt;div[39m
+        [33maria-labelledby[39m=[32m&quot;completed-orders-title&quot;[39m
+        [33maria-modal[39m=[32m&quot;true&quot;[39m
+        [33mclass[39m=[32m&quot;w-full max-w-2xl glass-panel-dark rounded-3xl border border-white/10 shadow-2xl&quot;[39m
+        [33mrole[39m=[32m&quot;dialog&quot;[39m
+      [36m&gt;[39m
+        [36m&lt;div[39m
+          [33mclass[39m=[32m&quot;flex items-center justify-between px-8 py-6 border-b border-white/10&quot;[39m
+        [36m&gt;[39m
+          [36m&lt;div&gt;[39m
+            [36m&lt;p[39m
+              [33mclass[39m=[32m&quot;text-[10px] uppercase tracking-[0.3em] text-primary&quot;[39m
+            [36m&gt;[39m
+              [0mBilling[0m
+            [36m&lt;/p&gt;[39m
+            [36m&lt;h2[39m
+              [33mclass[39m=[32m&quot;text-xl font-bold text-white-text&quot;[39m
+              [33mid[39m=[32m&quot;completed-orders-title&quot;[39m
+            [36m&gt;[39m
+              [0mCompleted Orders[0m
+            [36m&lt;/h2&gt;[39m
+          [36m&lt;/div&gt;[39m
+          [36m&lt;button[39m
+            [33maria-label[39m=[32m&quot;Close completed orders&quot;[39m
+            [33mclass[39m=[32m&quot;text-silver-text hover:text-white-text transition-colors&quot;[39m
+            [33mtype[39m=[32m&quot;button&quot;[39m
+          [36m&gt;[39m
+            [36m&lt;span[39m
+              [33mclass[39m=[32m&quot;material-symbols-outlined text-2xl&quot;[39m
+            [36m&gt;[39m
+              [0mclose[0m
+            [36m&lt;/span&gt;[39m
+          [36m&lt;/button&gt;[39m
+        [36m&lt;/div&gt;[39m
+        [36m&lt;div[39m
+          [33mclass[39m=[32m&quot;px-8 py-6 max-h-[60vh] overflow-y-auto order-scroll&quot;[39m
+        [36m&gt;[39m
+          [36m&lt;div[39m
+            [33mclass[39m=[32m&quot;space-y-4&quot;[39m
+          [36m&gt;[39m
+            [36m&lt;div[39m
+              [33mclass[39m=[32m&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;[39m
+            [36m&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mOrder[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0m1[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;text-right&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mTable[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-lg font-bold text-primary&quot;[39m
+                  [36m&gt;[39m
+                    [0mT1[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+              [36m&lt;div[39m
+                [33mclass[39m=[32m&quot;flex items-center justify-between&quot;[39m
+              [36m&gt;[39m
+                [36m&lt;div&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xs text-silver-text&quot;[39m
+                  [36m&gt;[39m
+                    [0mItems[0m
+                  [36m&lt;/p&gt;[39m
+                  [36m&lt;p[39m
+                    [33mclass[39m=[32m&quot;text-xl font-bold text-white-text&quot;[39m
+                  [36m&gt;[39m
+                    [0m2[0m
+                  [36m&lt;/p&gt;[39m
+                [36m&lt;/div&gt;[39m
+                [36m&lt;div[39m
+                  [33mclass[39m=[32m&quot;flex flex-col items-end gap-2&quot;[39m
+                [36m&gt;[39m
+                  [36m&lt;button[39m
+                    [33mclass[39m=[32m&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;[39m
+                    [33mtype[39m=[32m&quot;button&quot;[39m
+                  [36m&gt;[39m
+                    [0mFacturar[0m
+                  [36m&lt;/button&gt;[39m
+                [36m&lt;/div&gt;[39m
+              [36m&lt;/div&gt;[39m
+            [36m&lt;/div&gt;[39m
+          [36m&lt;/div&gt;[39m
+        [36m&lt;/div&gt;[39m
+      [36m&lt;/div&gt;[39m
+    [36m&lt;/div&gt;[39m
+  [36m&lt;/div&gt;[39m
+[36m&lt;/body&gt;[39m" type="TestingLibraryElementError">
+TestingLibraryElementError: Found multiple elements with the text: 1
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+&lt;span
+  class=&quot;absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 min-w-5 px-1 flex items-center justify-center border border-white/10&quot;
+&gt;
+  1
+&lt;/span&gt;
+
+Ignored nodes: comments, script, style
+&lt;p
+  class=&quot;text-lg font-bold text-white-text&quot;
+&gt;
+  1
+&lt;/p&gt;
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;button
+      aria-busy=&quot;false&quot;
+      aria-label=&quot;Open completed orders&quot;
+      class=&quot;fixed bottom-6 right-6 z-50 gold-gradient text-midnight shadow-2xl shadow-primary/20 rounded-full h-14 w-14 flex items-center justify-center transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60&quot;
+      type=&quot;button&quot;
+    &gt;
+      &lt;span
+        class=&quot;material-symbols-outlined text-2xl &quot;
+      &gt;
+        receipt_long
+      &lt;/span&gt;
+      &lt;span
+        class=&quot;absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 min-w-5 px-1 flex items-center justify-center border border-white/10&quot;
+      &gt;
+        1
+      &lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div
+      class=&quot;fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-6&quot;
+      role=&quot;presentation&quot;
+    &gt;
+      &lt;div
+        aria-labelledby=&quot;completed-orders-title&quot;
+        aria-modal=&quot;true&quot;
+        class=&quot;w-full max-w-2xl glass-panel-dark rounded-3xl border border-white/10 shadow-2xl&quot;
+        role=&quot;dialog&quot;
+      &gt;
+        &lt;div
+          class=&quot;flex items-center justify-between px-8 py-6 border-b border-white/10&quot;
+        &gt;
+          &lt;div&gt;
+            &lt;p
+              class=&quot;text-[10px] uppercase tracking-[0.3em] text-primary&quot;
+            &gt;
+              Billing
+            &lt;/p&gt;
+            &lt;h2
+              class=&quot;text-xl font-bold text-white-text&quot;
+              id=&quot;completed-orders-title&quot;
+            &gt;
+              Completed Orders
+            &lt;/h2&gt;
+          &lt;/div&gt;
+          &lt;button
+            aria-label=&quot;Close completed orders&quot;
+            class=&quot;text-silver-text hover:text-white-text transition-colors&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              class=&quot;material-symbols-outlined text-2xl&quot;
+            &gt;
+              close
+            &lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;px-8 py-6 max-h-[60vh] overflow-y-auto order-scroll&quot;
+        &gt;
+          &lt;div
+            class=&quot;space-y-4&quot;
+          &gt;
+            &lt;div
+              class=&quot;glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4&quot;
+            &gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Order
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-white-text&quot;
+                  &gt;
+                    1
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;text-right&quot;
+                &gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Table
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-lg font-bold text-primary&quot;
+                  &gt;
+                    T1
+                  &lt;/p&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div
+                class=&quot;flex items-center justify-between&quot;
+              &gt;
+                &lt;div&gt;
+                  &lt;p
+                    class=&quot;text-xs text-silver-text&quot;
+                  &gt;
+                    Items
+                  &lt;/p&gt;
+                  &lt;p
+                    class=&quot;text-xl font-bold text-white-text&quot;
+                  &gt;
+                    2
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div
+                  class=&quot;flex flex-col items-end gap-2&quot;
+                &gt;
+                  &lt;button
+                    class=&quot;gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed&quot;
+                    type=&quot;button&quot;
+                  &gt;
+                    Facturar
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/components/completed-orders/CompletedOrdersWidget.test.tsx:93:25
+            </failure>
+        </testcase>
+        <testcase classname="src/components/completed-orders/CompletedOrdersWidget.test.tsx" name="CompletedOrdersWidget &gt; clears timeout on unmount after invoice" time="0.168060683">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/kitchen/StationLayout.test.tsx" timestamp="2026-03-06T06:45:10.236Z" hostname="psofkaec073.sofka.local" tests="3" failures="0" errors="0" skipped="0" time="0.389903076">
+        <testcase classname="src/components/kitchen/StationLayout.test.tsx" name="StationLayout &gt; renders the station name, code and icon" time="0.367318727">
+        </testcase>
+        <testcase classname="src/components/kitchen/StationLayout.test.tsx" name="StationLayout &gt; displays the current time from Date.toLocaleTimeString" time="0.009514595">
+        </testcase>
+        <testcase classname="src/components/kitchen/StationLayout.test.tsx" name="StationLayout &gt; renders children inside the layout" time="0.007911875">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/01-auth-login-exitoso.test.ts" timestamp="2026-03-06T06:45:10.238Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.006594882">
+        <testcase classname="src/tests/auth/01-auth-login-exitoso.test.ts" name="authService &gt; debe hacer login exitoso y guardar token en localStorage" time="0.004852114">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/02-auth-login-invalidas.test.ts" timestamp="2026-03-06T06:45:10.239Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.008357872">
+        <testcase classname="src/tests/auth/02-auth-login-invalidas.test.ts" name="authService &gt; debe lanzar error cuando credenciales son inválidas" time="0.006304076">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/03-auth-login-error-red.test.ts" timestamp="2026-03-06T06:45:10.240Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.011138403">
+        <testcase classname="src/tests/auth/03-auth-login-error-red.test.ts" name="authService &gt; debe lanzar error cuando hay error de red" time="0.008053325">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/04-auth-login-remember-false.test.ts" timestamp="2026-03-06T06:45:10.241Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.01072569">
+        <testcase classname="src/tests/auth/04-auth-login-remember-false.test.ts" name="authService &gt; debe guardar token sin expiración cuando rememberMe es false" time="0.008324526">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/05-auth-login-remember-true.test.ts" timestamp="2026-03-06T06:45:10.241Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.007919567">
+        <testcase classname="src/tests/auth/05-auth-login-remember-true.test.ts" name="authService &gt; debe guardar token con expiración cuando rememberMe es true" time="0.005993139">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/06-auth-logout-token.test.ts" timestamp="2026-03-06T06:45:10.242Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.004622782">
+        <testcase classname="src/tests/auth/06-auth-logout-token.test.ts" name="authService &gt; debe remover token de localStorage" time="0.003222653">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/07-auth-getToken.test.ts" timestamp="2026-03-06T06:45:10.243Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.005129386">
+        <testcase classname="src/tests/auth/07-auth-getToken.test.ts" name="authService &gt; debe retornar el token guardado" time="0.003716557">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/08-auth-getToken-null.test.ts" timestamp="2026-03-06T06:45:10.243Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.005459541">
+        <testcase classname="src/tests/auth/08-auth-getToken-null.test.ts" name="authService &gt; debe retornar null cuando no hay token" time="0.003849962">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/09-auth-isAuthenticated-true.test.ts" timestamp="2026-03-06T06:45:10.244Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.005810524">
+        <testcase classname="src/tests/auth/09-auth-isAuthenticated-true.test.ts" name="authService &gt; debe retornar true cuando hay token válido" time="0.004081505">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/10-auth-isAuthenticated-false.test.ts" timestamp="2026-03-06T06:45:10.246Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.006029732">
+        <testcase classname="src/tests/auth/10-auth-isAuthenticated-false.test.ts" name="authService &gt; debe retornar false cuando no hay token" time="0.004257856">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/11-auth-isAuthenticated-expirado.test.ts" timestamp="2026-03-06T06:45:10.246Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.01354893">
+        <testcase classname="src/tests/auth/11-auth-isAuthenticated-expirado.test.ts" name="authService &gt; debe retornar false cuando el token está expirado" time="0.009492323">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/12-auth-register-exitoso.test.ts" timestamp="2026-03-06T06:45:10.248Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.005801326">
+        <testcase classname="src/tests/auth/12-auth-register-exitoso.test.ts" name="authService &gt; debe hacer registro exitoso" time="0.004162499">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/13-auth-register-error.test.ts" timestamp="2026-03-06T06:45:10.249Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.00544247">
+        <testcase classname="src/tests/auth/13-auth-register-error.test.ts" name="authService &gt; debe manejar error cuando el servidor devuelve error 400" time="0.003893888">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/14-auth-register-error-red.test.ts" timestamp="2026-03-06T06:45:10.251Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.00859745">
+        <testcase classname="src/tests/auth/14-auth-register-error-red.test.ts" name="authService &gt; debe lanzar error cuando hay error de red en register" time="0.006652139">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/15-auth-register-request.test.ts" timestamp="2026-03-06T06:45:10.251Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.013706619">
+        <testcase classname="src/tests/auth/15-auth-register-request.test.ts" name="authService &gt; debe hacer request con los datos correctos al endpoint register" time="0.011546195">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/16-useAuth-inicial.test.ts" timestamp="2026-03-06T06:45:10.253Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.029716753">
+        <testcase classname="src/tests/auth/16-useAuth-inicial.test.ts" name="useAuth &gt; debe iniciar con isAuthenticated false cuando no hay token" time="0.022496688">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/17-useAuth-inicial-token.test.ts" timestamp="2026-03-06T06:45:10.254Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.035779198">
+        <testcase classname="src/tests/auth/17-useAuth-inicial-token.test.ts" name="useAuth &gt; debe iniciar con isAuthenticated true cuando hay token" time="0.03357987">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/18-useAuth-login.test.ts" timestamp="2026-03-06T06:45:10.255Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.053723848">
+        <testcase classname="src/tests/auth/18-useAuth-login.test.ts" name="useAuth &gt; debe hacer login exitosamente y crear sesión" time="0.046668545">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/19-useAuth-login-error.test.ts" timestamp="2026-03-06T06:45:10.256Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.033481883">
+        <testcase classname="src/tests/auth/19-useAuth-login-error.test.ts" name="useAuth &gt; debe manejar error de login SIN crear sesión" time="0.030412824">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/20-useAuth-login-loading.test.ts" timestamp="2026-03-06T06:45:10.257Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.02536579">
+        <testcase classname="src/tests/auth/20-useAuth-login-loading.test.ts" name="useAuth &gt; debe manejar estado de loading durante login" time="0.022807325">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/21-useAuth-logout.test.ts" timestamp="2026-03-06T06:45:10.258Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.027865796">
+        <testcase classname="src/tests/auth/21-useAuth-logout.test.ts" name="useAuth &gt; debe hacer logout correctamente Y limpiar sesión" time="0.025547259">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/22-useAuth-register.test.ts" timestamp="2026-03-06T06:45:10.258Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.025399087">
+        <testcase classname="src/tests/auth/22-useAuth-register.test.ts" name="useAuth &gt; debe hacer registro exitosamente" time="0.023196684">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/23-useAuth-register-error.test.ts" timestamp="2026-03-06T06:45:10.259Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.029678845">
+        <testcase classname="src/tests/auth/23-useAuth-register-error.test.ts" name="useAuth &gt; debe manejar error de red durante registro" time="0.027447342">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/24-useAuth-register-loading.test.ts" timestamp="2026-03-06T06:45:10.260Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.035444275">
+        <testcase classname="src/tests/auth/24-useAuth-register-loading.test.ts" name="useAuth &gt; debe manejar estado de loading durante registro" time="0.033234844">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/25-LoginView-formulario.test.tsx" timestamp="2026-03-06T06:45:10.262Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.353166167">
+        <testcase classname="src/tests/auth/25-LoginView-formulario.test.tsx" name="LoginView &gt; debe renderizar el formulario de login" time="0.350466198">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/26-LoginView-titulo.test.tsx" timestamp="2026-03-06T06:45:10.264Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.072660648">
+        <testcase classname="src/tests/auth/26-LoginView-titulo.test.tsx" name="LoginView &gt; debe mostrar el título de FoodTech Login" time="0.067705025">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/27-LoginView-enlace.test.tsx" timestamp="2026-03-06T06:45:10.265Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.33907664">
+        <testcase classname="src/tests/auth/27-LoginView-enlace.test.tsx" name="LoginView &gt; debe mostrar el enlace para registrarse" time="0.33704582">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/28-LoginView-modo-registro.test.tsx" timestamp="2026-03-06T06:45:10.267Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.510008894">
+        <testcase classname="src/tests/auth/28-LoginView-modo-registro.test.tsx" name="LoginView &gt; debe cambiar a modo registro al hacer click en el toggle" time="0.507717031">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/29-LoginView-volver-login.test.tsx" timestamp="2026-03-06T06:45:10.269Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.57611631">
+        <testcase classname="src/tests/auth/29-LoginView-volver-login.test.tsx" name="LoginView &gt; debe volver a modo login al hacer click en toggle desde registro" time="0.573690695">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/30-LoginView-limpiar-campos.test.tsx" timestamp="2026-03-06T06:45:10.271Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.42222812">
+        <testcase classname="src/tests/auth/30-LoginView-limpiar-campos.test.tsx" name="LoginView &gt; debe limpiar campos al cambiar de modo" time="0.419138194">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/31-LoginView-email.test.tsx" timestamp="2026-03-06T06:45:10.272Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.054818618">
+        <testcase classname="src/tests/auth/31-LoginView-email.test.tsx" name="LoginView &gt; debe actualizar el email al escribir" time="0.052116841">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/32-LoginView-password.test.tsx" timestamp="2026-03-06T06:45:10.273Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.072132137">
+        <testcase classname="src/tests/auth/32-LoginView-password.test.tsx" name="LoginView &gt; debe actualizar la contraseña al escribir" time="0.06942295">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/33-LoginView-username.test.tsx" timestamp="2026-03-06T06:45:10.275Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.377584039">
+        <testcase classname="src/tests/auth/33-LoginView-username.test.tsx" name="LoginView &gt; debe mostrar username en modo registro" time="0.374685323">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/34-LoginView-submit-login.test.tsx" timestamp="2026-03-06T06:45:10.276Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.065291171">
+        <testcase classname="src/tests/auth/34-LoginView-submit-login.test.tsx" name="LoginView &gt; debe llamar login al hacer submit en modo login" time="0.063777495">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/35-LoginView-rememberme.test.tsx" timestamp="2026-03-06T06:45:10.278Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.076274029">
+        <testcase classname="src/tests/auth/35-LoginView-rememberme.test.tsx" name="LoginView &gt; debe llamar login con rememberMe al hacer submit con checkbox marcado" time="0.074307616">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/36-LoginView-submit-register.test.tsx" timestamp="2026-03-06T06:45:10.280Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.452262255">
+        <testcase classname="src/tests/auth/36-LoginView-submit-register.test.tsx" name="LoginView &gt; debe llamar register al hacer submit en modo registro" time="0.448922868">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/37-LoginView-demo.test.tsx" timestamp="2026-03-06T06:45:10.282Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.07224266">
+        <testcase classname="src/tests/auth/37-LoginView-demo.test.tsx" name="LoginView &gt; debe usar demo token al hacer submit en modo demo" time="0.070094795">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/38-LoginView-boton.test.tsx" timestamp="2026-03-06T06:45:10.283Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.052375736">
+        <testcase classname="src/tests/auth/38-LoginView-boton.test.tsx" name="LoginView &gt; debe mostrar Iniciar sesión cuando no está cargando" time="0.050370644">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/39-LoginView-registrarse.test.tsx" timestamp="2026-03-06T06:45:10.285Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.456759868">
+        <testcase classname="src/tests/auth/39-LoginView-registrarse.test.tsx" name="LoginView &gt; debe mostrar Registrarse en modo registro" time="0.453998134">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/40-LoginView-error.test.tsx" timestamp="2026-03-06T06:45:10.287Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.057721397">
+        <testcase classname="src/tests/auth/40-LoginView-error.test.tsx" name="LoginView &gt; debe mostrar mensaje de error cuando hay error" time="0.055146088">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/41-LoginView-loading.test.tsx" timestamp="2026-03-06T06:45:10.289Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.061488847">
+        <testcase classname="src/tests/auth/41-LoginView-loading.test.tsx" name="LoginView &gt; debe mostrar Iniciando sesión... cuando está cargando" time="0.059232764">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/43-authService-coverage.test.ts" timestamp="2026-03-06T06:45:10.291Z" hostname="psofkaec073.sofka.local" tests="3" failures="0" errors="0" skipped="0" time="0.011768012">
+        <testcase classname="src/tests/auth/43-authService-coverage.test.ts" name="authService - coverage extra &gt; debe manejar error con status diferente a 401" time="0.007402313">
+        </testcase>
+        <testcase classname="src/tests/auth/43-authService-coverage.test.ts" name="authService - coverage extra &gt; debe manejar error desconocido en login" time="0.001389147">
+        </testcase>
+        <testcase classname="src/tests/auth/43-authService-coverage.test.ts" name="authService - coverage extra &gt; debe manejar error desconocido en register" time="0.001048089">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/44-validacion-negocio.test.ts" timestamp="2026-03-06T06:45:10.292Z" hostname="psofkaec073.sofka.local" tests="10" failures="0" errors="0" skipped="0" time="0.014451433">
+        <testcase classname="src/tests/auth/44-validacion-negocio.test.ts" name="VALIDACION: Reglas de Negocio - Auth &gt; VALIDAR: Token expirado no permite acceso" time="0.005764516">
+        </testcase>
+        <testcase classname="src/tests/auth/44-validacion-negocio.test.ts" name="VALIDACION: Reglas de Negocio - Auth &gt; VALIDAR: Logout limpia token" time="0.000645188">
+        </testcase>
+        <testcase classname="src/tests/auth/44-validacion-negocio.test.ts" name="VALIDACION: Reglas de Negocio - Auth &gt; VALIDAR: getToken retorna null cuando no hay token" time="0.000353547">
+        </testcase>
+        <testcase classname="src/tests/auth/44-validacion-negocio.test.ts" name="VALIDACION: Reglas de Negocio - Auth &gt; VALIDAR: isAuthenticated retorna false sin token" time="0.000353779">
+        </testcase>
+        <testcase classname="src/tests/auth/44-validacion-negocio.test.ts" name="VALIDACION: Reglas de Negocio - Auth &gt; VALIDAR: Login exitoso guarda token" time="0.001360199">
+        </testcase>
+        <testcase classname="src/tests/auth/44-validacion-negocio.test.ts" name="VALIDACION: Reglas de Negocio - Auth &gt; VALIDAR: Login con error NO guarda token" time="0.002097867">
+        </testcase>
+        <testcase classname="src/tests/auth/44-validacion-negocio.test.ts" name="VALIDACION: Reglas de Negocio - Auth &gt; VALIDAR: RememberMe guarda expiry" time="0.000500836">
+        </testcase>
+        <testcase classname="src/tests/auth/44-validacion-negocio.test.ts" name="VALIDACION: Reglas de Negocio - Auth &gt; VALIDAR: Sin rememberMe NO guarda expiry" time="0.000420068">
+        </testcase>
+        <testcase classname="src/tests/auth/44-validacion-negocio.test.ts" name="VALIDACION: Reglas de Negocio - Auth &gt; VALIDAR: isAuthenticated retorna true con token válido" time="0.000407641">
+        </testcase>
+        <testcase classname="src/tests/auth/44-validacion-negocio.test.ts" name="VALIDACION: Reglas de Negocio - Auth &gt; VALIDAR: getToken retorna token guardado" time="0.000362428">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/45-verificar-arquitectura.test.ts" timestamp="2026-03-06T06:45:10.298Z" hostname="psofkaec073.sofka.local" tests="2" failures="0" errors="0" skipped="0" time="0.011374256">
+        <testcase classname="src/tests/auth/45-verificar-arquitectura.test.ts" name="VERIFICAR: Arquitectura - Llamada a puerto API &gt; VERIFICAR: Login hace fetch al endpoint correcto" time="0.008139053">
+        </testcase>
+        <testcase classname="src/tests/auth/45-verificar-arquitectura.test.ts" name="VERIFICAR: Arquitectura - Llamada a puerto API &gt; VERIFICAR: Register hace fetch al endpoint correcto" time="0.001041595">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/46-validar-negocio.test.ts" timestamp="2026-03-06T06:45:10.299Z" hostname="psofkaec073.sofka.local" tests="3" failures="0" errors="0" skipped="0" time="0.010390856">
+        <testcase classname="src/tests/auth/46-validar-negocio.test.ts" name="VALIDAR: Reglas de Negocio - Seguridad &gt; VALIDAR: Token expirado NO permite acceso - como &quot;saldo negativo&quot; en seguridad" time="0.004782961">
+        </testcase>
+        <testcase classname="src/tests/auth/46-validar-negocio.test.ts" name="VALIDAR: Reglas de Negocio - Seguridad &gt; VALIDAR: Login con credenciales inválidas NO crea sesión" time="0.003123984">
+        </testcase>
+        <testcase classname="src/tests/auth/46-validar-negocio.test.ts" name="VALIDAR: Reglas de Negocio - Seguridad &gt; VALIDAR: Sesión sin token es inválida - como cuenta bloqueada" time="0.000470853">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/47-edge-cases.test.ts" timestamp="2026-03-06T06:45:10.302Z" hostname="psofkaec073.sofka.local" tests="8" failures="0" errors="0" skipped="0" time="0.066318837">
+        <testcase classname="src/tests/auth/47-edge-cases.test.ts" name="EDGE CASES: authService &gt; EDGE: Login con email vacío debe fallar" time="0.045096004">
+        </testcase>
+        <testcase classname="src/tests/auth/47-edge-cases.test.ts" name="EDGE CASES: authService &gt; EDGE: Login con password vacío debe fallar" time="0.004180629">
+        </testcase>
+        <testcase classname="src/tests/auth/47-edge-cases.test.ts" name="EDGE CASES: authService &gt; EDGE: Login con email inválido debe fallar" time="0.004357404">
+        </testcase>
+        <testcase classname="src/tests/auth/47-edge-cases.test.ts" name="EDGE CASES: authService &gt; EDGE: getToken con sessionStorage vacío retorna null" time="0.000991091">
+        </testcase>
+        <testcase classname="src/tests/auth/47-edge-cases.test.ts" name="EDGE CASES: authService &gt; EDGE: isAuthenticated con token vacío string vacío" time="0.001072171">
+        </testcase>
+        <testcase classname="src/tests/auth/47-edge-cases.test.ts" name="EDGE CASES: authService &gt; EDGE: Token con expiry en el futuro exactamente ahora es válido" time="0.001747699">
+        </testcase>
+        <testcase classname="src/tests/auth/47-edge-cases.test.ts" name="EDGE CASES: authService &gt; EDGE: Múltiples logout no rompen nada" time="0.000640054">
+        </testcase>
+        <testcase classname="src/tests/auth/47-edge-cases.test.ts" name="EDGE CASES: authService &gt; EDGE: Login dos veces seguidas sobrescribe token" time="0.001425916">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/auth/48-integracion.test.ts" timestamp="2026-03-06T06:45:10.306Z" hostname="psofkaec073.sofka.local" tests="4" failures="0" errors="0" skipped="0" time="0.041597548">
+        <testcase classname="src/tests/auth/48-integracion.test.ts" name="INTEGRACIÓN: useAuth - Casos Reales &gt; INTEGRACIÓN: Login y logout completos funcionan" time="0.024235531">
+        </testcase>
+        <testcase classname="src/tests/auth/48-integracion.test.ts" name="INTEGRACIÓN: useAuth - Casos Reales &gt; INTEGRACIÓN: Error de red muestra mensaje apropiado" time="0.004226904">
+        </testcase>
+        <testcase classname="src/tests/auth/48-integracion.test.ts" name="INTEGRACIÓN: useAuth - Casos Reales &gt; INTEGRACIÓN: Registro exitoso retorna true" time="0.005891431">
+        </testcase>
+        <testcase classname="src/tests/auth/48-integracion.test.ts" name="INTEGRACIÓN: useAuth - Casos Reales &gt; INTEGRACIÓN: Loading state cambia correctamente" time="0.004123195">
         </testcase>
     </testsuite>
 </testsuites>
