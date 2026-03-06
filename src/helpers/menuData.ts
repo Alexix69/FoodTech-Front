@@ -1,10 +1,6 @@
 import type { Product } from '../models/Product';
 import { ProductType } from '../models/Product';
 
-/**
- * Datos de productos del menú gourmet (simulados)
- * En un caso real, esto vendría del backend
- */
 export const MENU_PRODUCTS: Product[] = [
   // Bebidas Gourmet
   {
@@ -13,6 +9,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.DRINK,
     description: 'Gin Hendricks con tónica Fever-Tree y pepino',
     image: '/src/assets/Gin Tonic Premium.jpg',
+    price: 18,
   },
   {
     id: '2',
@@ -20,6 +17,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.DRINK,
     description: 'Rioja Gran Reserva 2015',
     image: '/src/assets/Vino Tinto Reserva.jpg',
+    price: 45,
   },
   {
     id: '3',
@@ -27,6 +25,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.DRINK,
     description: 'Moët & Chandon Imperial',
     image: '/src/assets/Champagne Brut.jpg',
+    price: 75,
   },
   {
     id: '4',
@@ -34,6 +33,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.DRINK,
     description: 'Vodka Grey Goose con vermut seco',
     image: '/src/assets/Martini Clásico.jpg',
+    price: 22,
   },
   {
     id: '5',
@@ -41,6 +41,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.DRINK,
     description: 'Bourbon premium con angostura y naranja',
     image: '/src/assets/Whisky Old Fashioned.jpg',
+    price: 24,
   },
   {
     id: '6',
@@ -48,6 +49,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.DRINK,
     description: 'Agua mineral italiana con gas',
     image: '/src/assets/Agua San Pellegrino.jpg',
+    price: 6,
   },
 
   // Platos Calientes Gourmet
@@ -57,6 +59,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.HOT_DISH,
     description: 'Arroz carnaroli con trufa negra y parmigiano reggiano',
     image: '/src/assets/Risotto de Trufa Negra.jpg',
+    price: 32,
   },
   {
     id: '8',
@@ -64,6 +67,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.HOT_DISH,
     description: 'Filete envuelto en hojaldre con foie gras',
     image: '/src/assets/Solomillo Wellington.jpg',
+    price: 48,
   },
   {
     id: '9',
@@ -71,6 +75,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.HOT_DISH,
     description: 'Con verduras mediterráneas y aceite de albahaca',
     image: '/src/assets/Lubina al Horno.jpg',
+    price: 36,
   },
   {
     id: '10',
@@ -78,6 +83,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.HOT_DISH,
     description: 'Con reducción de frutos rojos y puré de manzana',
     image: '/src/assets/Magret de Pato.jpg',
+    price: 38,
   },
   {
     id: '11',
@@ -85,6 +91,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.HOT_DISH,
     description: 'Pasta fresca rellena con salsa de azafrán',
     image: '/src/assets/Ravioli de Langosta.jpg',
+    price: 42,
   },
   {
     id: '12',
@@ -92,6 +99,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.HOT_DISH,
     description: 'Con hierbas provenzales y patatas confitadas',
     image: '/src/assets/Costillar de Cordero.jpg',
+    price: 40,
   },
 
   // Ensaladas Gourmet
@@ -101,6 +109,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.COLD_DISH,
     description: 'Con tomates heirloom, rúcula y reducción balsámica',
     image: '/src/assets/Ensalada de Burrata.jpg',
+    price: 19,
   },
   {
     id: '14',
@@ -108,6 +117,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.COLD_DISH,
     description: 'Con parmesano, rúcula y aceite de trufa',
     image: '/src/assets/Carpaccio de Res.png',
+    price: 21,
   },
   {
     id: '15',
@@ -115,6 +125,7 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.COLD_DISH,
     description: 'Con aguacate, sésamo y salsa ponzu',
     image: '/src/assets/Tartar de Atún.png',
+    price: 23,
   },
   {
     id: '16',
@@ -122,6 +133,6 @@ export const MENU_PRODUCTS: Product[] = [
     type: ProductType.COLD_DISH,
     description: 'Con atún fresco, huevo, aceitunas y anchoas',
     image: '/src/assets/Ensalada Nicoise.png',
+    price: 20,
   },
-  
 ];

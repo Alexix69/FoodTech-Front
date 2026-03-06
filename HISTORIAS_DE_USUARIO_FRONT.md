@@ -536,3 +536,142 @@ Scenario: Mesero puede forzar actualización inmediata
   Then el sistema consulta inmediatamente el estado actual
   And muestra la información más reciente
 ```
+
+---
+
+# HU COMPLETADAS
+
+## HU-FRONT-010: Iniciar Sesión (Login)
+
+**Como** usuario del sistema de restaurante  
+**Quiero** iniciar sesión con mis credenciales  
+**Para** acceder al sistema y gestionar pedidos
+
+### Criterios de Aceptación
+
+#### Escenario 1: Login exitoso con credenciales válidas
+
+```gherkin
+Scenario: Usuario inicia sesión con email y password correctos
+  Given que el usuario tiene una cuenta registrada
+  When el usuario ingresa email y password correctos
+  Then el sistema inicia sesión exitosamente
+  And guarda el token de autenticación
+  And redirige a la vista principal
+```
+
+#### Escenario 2: Login con credenciales inválidas
+
+```gherkin
+Scenario: Usuario intenta login con password incorrecto
+  Given que el usuario tiene una cuenta registrada
+  When el usuario ingresa email correcto pero password incorrecto
+  Then el sistema muestra error "Credenciales inválidas"
+  And no inicia sesión
+```
+
+#### Escenario 3: Login con rememberMe
+
+```gherkin
+Scenario: Usuario marca "recordarme" para sesión persistente
+  Given que el usuario tiene una cuenta registrada
+  When el usuario marca la opción "recordarme"
+  And inicia sesión
+  Then el sistema guarda token con fecha de expiración
+  And la sesión persiste después de cerrar el navegador
+```
+
+#### Escenario 4: Modo demo sin cuenta
+
+```gherkin
+Scenario: Usuario accede con modo demo
+  Given que el usuario no tiene cuenta
+  When el usuario activa el modo demo
+  Then el sistema permite acceso sin autenticación
+  And crea una sesión de demo
+```
+
+---
+
+## HU-FRONT-011: Cerrar Sesión (Logout)
+
+**Como** usuario autenticado  
+**Quiero** cerrar sesión  
+**Para** salir del sistema y proteger mi cuenta
+
+### Criterios de Aceptación
+
+#### Escenario 1: Logout exitoso
+
+```gherkin
+Scenario: Usuario hace click en cerrar sesión
+  Given que el usuario está autenticado
+  When el usuario hace click en "Cerrar Sesión"
+  Then el sistema elimina el token de autenticación
+  And redirige a la página de login
+```
+
+#### Escenario 2: Token expirado obliga logout
+
+```gherkin
+Scenario: Sesión expira por tiempo
+  Given que el usuario tiene una sesión activa
+  When el token de autenticación expira
+  Then el sistema cierra sesión automáticamente
+  And redirige a la página de login
+```
+
+---
+
+## HU-FRONT-012: Registro de Usuario
+
+**Como** nuevo usuario del sistema  
+**Quiero** registrarme con mis datos  
+**Para** poder acceder al sistema y gestionar pedidos
+
+### Criterios de Aceptación
+
+#### Escenario 1: Registro exitoso
+
+```gherkin
+Scenario: Nuevo usuario se registra exitosamente
+  Given que el usuario no tiene cuenta
+  When el usuario ingresa email, username y password
+  And completa el registro
+  Then el sistema crea la cuenta
+  And inicia sesión automáticamente
+```
+
+#### Escenario 2: Registro con email duplicado
+
+```gherkin
+Scenario: Usuario intenta registrar con email existente
+  Given que ya existe una cuenta con ese email
+  When el usuario intenta registrarse con ese email
+  Then el sistema muestra error
+  And no crea la cuenta
+```
+
+#### Escenario 3: Toggle entre login y registro
+
+```gherkin
+Scenario: Usuario cambia entre modo login y registro
+  Given que está en la página de login
+  When el usuario hace click en "Regístrate"
+  Then el formulario cambia a modo registro
+  And puede completar el registro
+```
+
+---
+
+# Pendientes
+
+- [ ] HU-FRONT-001: Visualizar disponibilidad de mesas en tiempo real
+- [ ] HU-FRONT-002: Construir pedido por categorías de productos
+- [ ] HU-FRONT-003: Construir pedido con múltiples productos
+- [ ] HU-FRONT-004: Modificar pedido antes de enviarlo
+- [ ] HU-FRONT-005: Enviar pedido completo a cocina
+- [ ] HU-FRONT-006: Monitoreo y visualización del estado y progreso de órdenes
+- [ ] HU-FRONT-007: Visualizar tareas asignadas a estación de trabajo
+- [ ] HU-FRONT-008: Filtrar tareas por estado en estación
+- [ ] HU-FRONT-009: Actualización automática de estados

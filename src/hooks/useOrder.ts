@@ -37,6 +37,7 @@ export const useOrder = () => {
           name: product.name,
           type: product.type,
           quantity: 1,
+          price: product.price || 0,
         },
       ];
     });

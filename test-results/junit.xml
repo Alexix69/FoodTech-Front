@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="20" failures="0" errors="0" time="0.537017413">
+    <testsuite name="src/App.test.tsx" timestamp="2026-02-25T00:14:14.433Z" hostname="psofkaec073.sofka.local" tests="2" failures="0" errors="0" skipped="0" time="0.421645618">
+        <testcase classname="src/App.test.tsx" name="App &gt; renders login page when not authenticated" time="0.286943937">
+            <system-err>
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/App.test.tsx" name="App &gt; renders navigation when authenticated" time="0.131867314">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/helpers/orderCalculator.test.ts" timestamp="2026-02-25T00:14:14.437Z" hostname="psofkaec073.sofka.local" tests="3" failures="0" errors="0" skipped="0" time="0.006218229">
+        <testcase classname="src/helpers/orderCalculator.test.ts" name="calculateTotalPrice &gt; retorna 0 para pedido vacío" time="0.002291385">
+        </testcase>
+        <testcase classname="src/helpers/orderCalculator.test.ts" name="calculateTotalPrice &gt; retorna el precio total multiplicando quantity por price" time="0.000502957">
+        </testcase>
+        <testcase classname="src/helpers/orderCalculator.test.ts" name="calculateTotalPrice &gt; retorna precio directo si hay un solo producto" time="0.00045106">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/hooks/useAuth.test.ts" timestamp="2026-02-25T00:14:14.439Z" hostname="psofkaec073.sofka.local" tests="6" failures="0" errors="0" skipped="0" time="0.055855762">
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; debe iniciar con isAuthenticated false cuando no hay token" time="0.030833254">
+        </testcase>
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; debe iniciar con isAuthenticated true cuando hay token" time="0.003722493">
+        </testcase>
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; debe hacer login exitosamente y crear sesión" time="0.007048954">
+        </testcase>
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; debe manejar error de login SIN crear sesión" time="0.00449113">
+        </testcase>
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; debe hacer logout correctamente Y limpiar sesión" time="0.003199707">
+        </testcase>
+        <testcase classname="src/hooks/useAuth.test.ts" name="useAuth &gt; debe manejar estado de loading durante login" time="0.002601057">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/hooks/useOrder.test.ts" timestamp="2026-02-25T00:14:14.443Z" hostname="psofkaec073.sofka.local" tests="1" failures="0" errors="0" skipped="0" time="0.037557305">
+        <testcase classname="src/hooks/useOrder.test.ts" name="useOrder &gt; agrega producto nuevo al pedido" time="0.033754504">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/services/authService.test.ts" timestamp="2026-02-25T00:14:14.444Z" hostname="psofkaec073.sofka.local" tests="8" failures="0" errors="0" skipped="0" time="0.015740499">
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; login &gt; debe hacer login exitoso y guardar token en localStorage" time="0.00537711">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; login &gt; debe lanzar error cuando credenciales son inválidas" time="0.003274788">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; login &gt; debe lanzar error cuando hay error de red" time="0.001190927">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; logout &gt; debe remover token de localStorage" time="0.000841906">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; getToken &gt; debe retornar el token guardado" time="0.000542585">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; getToken &gt; debe retornar null cuando no hay token" time="0.000365463">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; isAuthenticated &gt; debe retornar true cuando hay token" time="0.000381056">
+        </testcase>
+        <testcase classname="src/services/authService.test.ts" name="authService &gt; isAuthenticated &gt; debe retornar false cuando no hay token" time="0.000318137">
+        </testcase>
+    </testsuite>
+</testsuites>

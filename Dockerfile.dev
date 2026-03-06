@@ -1,0 +1,21 @@
+# FoodTech Front - Dockerfile para Desarrollo Local
+# Uso: docker build -f Dockerfile.dev -t foodtech-dev .
+
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copiar package files
+COPY package.json package-lock.json* ./
+
+# Instalar todas las dependencias
+RUN npm ci
+
+# Copiar código fuente
+COPY . .
+
+# Exponer puerto de Vite
+EXPOSE 5173
+
+# Comando para desarrollo
+CMD ["npm", "run", "dev", "--", "--host", "--port", "5173"]

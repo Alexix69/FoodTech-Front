@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { LogoutButton } from './LogoutButton';
 
 export function Navigation() {
   const navLinks = [
@@ -40,6 +41,9 @@ export function Navigation() {
               <span className="hidden md:inline">{link.label}</span>
             </NavLink>
           ))}
+          
+          {/* Logout */}
+          <LogoutButton />
         </div>
       </div>
     </nav>

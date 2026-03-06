@@ -31,6 +31,16 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+      - name: Run Tests with Coverage
+        run: npm test -- --coverage
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 30
+
       - name: Build project
         run: npm run build
 

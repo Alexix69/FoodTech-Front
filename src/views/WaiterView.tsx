@@ -9,6 +9,7 @@ import { OrderSummary } from '../components/waiter/OrderSummary';
 import { KitchenStatus } from '../components/waiter/KitchenStatus';
 import { ProductType } from '../models/Product';
 import { MENU_PRODUCTS } from '../helpers/menuData';
+import { calculateTotalPrice } from '../helpers/orderCalculator';
 
 /**
  * Vista principal del mesero
@@ -78,6 +79,7 @@ export const WaiterView = () => {
   };
 
   const orderProductNames = orderProducts.map((p) => p.name);
+  const totalPrice = calculateTotalPrice(orderProducts);
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -145,6 +147,7 @@ export const WaiterView = () => {
         <OrderSummary
           products={orderProducts}
           totalItems={totalItems}
+          totalPrice={totalPrice}
           isSubmitting={isSubmitting}
           onRemoveProduct={removeProduct}
           onSubmit={handleSubmitOrder}

@@ -3,6 +3,7 @@ import type { OrderProduct } from '../../models/Product';
 interface OrderSummaryProps {
   products: OrderProduct[];
   totalItems: number;
+  totalPrice: number;
   isSubmitting: boolean;
   onRemoveProduct: (productName: string) => void;
   onSubmit: () => void;
@@ -14,6 +15,7 @@ interface OrderSummaryProps {
 export const OrderSummary = ({
   products,
   totalItems,
+  totalPrice,
   isSubmitting,
   onRemoveProduct,
   onSubmit,
@@ -73,9 +75,13 @@ export const OrderSummary = ({
 
           {/* Total Items */}
           <div data-testid="order-total" className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-white/10">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mb-2">
               <span className="text-white-text text-sm sm:text-base font-bold">Total de Items:</span>
               <span data-testid="total-items-count" className="text-primary font-bold text-xl sm:text-2xl">{totalItems}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-white-text text-sm sm:text-base font-bold">Total a Pagar:</span>
+              <span data-testid="total-price-count" className="text-gold font-bold text-xl sm:text-2xl">${totalPrice.toFixed(2)}</span>
             </div>
           </div>
 
