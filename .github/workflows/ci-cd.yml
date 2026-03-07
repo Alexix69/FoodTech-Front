@@ -5,7 +5,7 @@ name: FoodTech CI/CD
 
 on:
   push:
-    branches: [main, develop, 'release/**', 'hotfix/**']
+    branches: [main, develop]
   pull_request:
     branches: [main, develop]
 
