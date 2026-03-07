@@ -82,6 +82,16 @@ jobs:
           path: coverage
           retention-days: 30
 
+      - name: 🚀 Deploy Coverage to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./coverage
+          publish_branch: gh-pages
+          user_name: 'github-actions[bot]'
+          user_email: '41898282+github-actions[bot]@users.noreply.github.com'
+
   # ==========================================
   # JOB 3: INTEGRATION TESTS (Caja Negra)
   # E2E con Cypress mocks - sin backend real
