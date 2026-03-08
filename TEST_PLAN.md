@@ -3,15 +3,128 @@
 
 ---
 
-## 1. RESUMEN EJECUTIVO
+#  HU COMPLETADAS
 
-| Item | Detalle |
-|------|----------|
-| **Proyecto** | FoodTech Front (Restaurant Management App) |
-| **Tecnología** | React 19, Vite, Vitest, TailwindCSS |
-| **Fecha** | Marzo 2026 |
-| **Versión** | 1.0.0 |
-| **Estado** | ✅ Pipeline CI/CD Configurado |
+## HU-FRONT-010: Iniciar Sesión (Login)
+
+**Como** usuario del sistema de restaurante  
+**Quiero** iniciar sesión con mis credenciales  
+**Para** acceder al sistema y gestionar pedidos
+
+### Criterios de Aceptación
+
+#### Escenario 1: Login exitoso con credenciales válidas
+
+```gherkin
+Scenario: Usuario inicia sesión con email y password correctos
+  Given que el usuario tiene una cuenta registrada
+  When el usuario ingresa email y password correctos
+  Then el sistema inicia sesión exitosamente
+  And guarda el token de autenticación
+  And redirige a la vista principal
+```
+
+#### Escenario 2: Login con credenciales inválidas
+
+```gherkin
+Scenario: Usuario intenta login con password incorrecto
+  Given que el usuario tiene una cuenta registrada
+  When el usuario ingresa email correcto pero password incorrecto
+  Then el sistema muestra error "Credenciales inválidas"
+  And no inicia sesión
+```
+
+#### Escenario 3: Login con rememberMe
+
+```gherkin
+Scenario: Usuario marca "recordarme" para sesión persistente
+  Given que el usuario tiene una cuenta registrada
+  When el usuario marca la opción "recordarme"
+  And inicia sesión
+  Then el sistema guarda token con fecha de expiración
+  And la sesión persiste después de cerrar el navegador
+```
+
+#### Escenario 4: Modo demo sin cuenta
+
+```gherkin
+Scenario: Usuario accede con modo demo
+  Given que el usuario no tiene cuenta
+  When el usuario activa el modo demo
+  Then el sistema permite acceso sin autenticación
+  And crea una sesión de demo
+```
+
+---
+
+## HU-FRONT-011: Cerrar Sesión (Logout)
+
+**Como** usuario autenticado  
+**Quiero** cerrar sesión  
+**Para** salir del sistema y proteger mi cuenta
+
+### Criterios de Aceptación
+
+#### Escenario 1: Logout exitoso
+
+```gherkin
+Scenario: Usuario hace click en cerrar sesión
+  Given que el usuario está autenticado
+  When el usuario hace click en "Cerrar Sesión"
+  Then el sistema elimina el token de autenticación
+  And redirige a la página de login
+```
+
+#### Escenario 2: Token expirado obliga logout
+
+```gherkin
+Scenario: Sesión expira por tiempo
+  Given que el usuario tiene una sesión activa
+  When el token de autenticación expira
+  Then el sistema cierra sesión automáticamente
+  And redirige a la página de login
+```
+
+---
+
+## HU-FRONT-012: Registro de Usuario
+
+**Como** nuevo usuario del sistema  
+**Quiero** registrarme con mis datos  
+**Para** poder acceder al sistema y gestionar pedidos
+
+### Criterios de Aceptación
+
+#### Escenario 1: Registro exitoso
+
+```gherkin
+Scenario: Nuevo usuario se registra exitosamente
+  Given que el usuario no tiene cuenta
+  When el usuario ingresa email, username y password
+  And completa el registro
+  Then el sistema crea la cuenta
+  And inicia sesión automáticamente
+```
+
+#### Escenario 2: Registro con email duplicado
+
+```gherkin
+Scenario: Usuario intenta registrar con email existente
+  Given que ya existe una cuenta con ese email
+  When el usuario intenta registrarse con ese email
+  Then el sistema muestra error
+  And no crea la cuenta
+```
+
+#### Escenario 3: Toggle entre login y registro
+
+```gherkin
+Scenario: Usuario cambia entre modo login y registro
+  Given que está en la página de login
+  When el usuario hace click en "Regístrate"
+  Then el formulario cambia a modo registro
+  And puede completar el registro
+```
 
 ---
 
@@ -228,20 +341,6 @@ describe('API Integration (Caja Negra)', () => {
 })
 ```
 
----
-
-### DIFERENCIA TÉCNICA: Componente vs Integración
-
-| Aspecto | Component (Blanca) | Integration (Negra) |
-|---------|---------------------|---------------------|
-| **Conocimiento** | Conoce código interno | No conoce interno |
-| **Dependencias** | Mockeadas | Reales |
-| **Ejecución** | Fuera del container | Dentro del container |
-| **Velocidad** | < 1 min | ~3 min |
-| **Qué prueba** | Funciones aisladas | Flujo completo |
-| **Ejemplo** | `authService.login()` | `POST /api/auth/register` |
-
----
 
 ## 4. TEST CASES - FoodTech
 
@@ -301,53 +400,14 @@ describe('API Integration (Caja Negra)', () => {
 | TB-02 | Login con API real | Integration | ✅ |
 | TB-03 | Logout con API real | Integration | ✅ |
 
----
 
-## 5. CAJA BLANCA vs CAJA NEGRA - JUSTIFICACIÓN
-
-### ¿Por qué Test 11 (Token Expirado) es CAJA BLANCA?
-
-```typescript
-// CONOCE implementación interna
-it('debe retornar false cuando el token está expirado', () => {
-  // Setup: Conoce que usa localStorage
-  localStorage.setItem('auth_token', 'expired-token')
-  localStorage.setItem('auth_token_expiry', expiredDate.toString())
-  
-  // Verifica implementación directa
-  expect(authService.isAuthenticated()).toBe(false)
-})
-```
-- ✅ **CONOCE:** Usa localStorage, conoce estructura interna
-- ✅ **MOCKEADO:** No hay llamada real a API
-
-### ¿Por qué TB-01 (Crear usuario API) es CAJA NEGRA?
-
-```typescript
-// NO CONOCE implementación interna  
-it('debe crear usuario exitosamente desde la API', async () => {
-  // Solo sabe: input (datos) → output (respuesta)
-  const response = await fetch('/api/auth/register', { 
-    method: 'POST',
-    body: JSON.stringify({ email, username, password })
-  })
-  
-  // NO sabe: cómo se guarda, dónde, qué estructura usa
-  expect(response.ok).toBe(true)
-})
-```
-- ✅ **NO CONOCE:** Solo sabe que la API responde
-- ✅ **EJECUTA EN:** Contenedor Docker real
-
----
 
 ## 6. EVIDENCIA DE EJECUCIÓN
 
-![alt text](image.png)
+url-actions: https://github.com/Alexix69/FoodTech-Front/actions
 
-![alt text](<Captura desde 2026-03-07 16-36-25.png>)
+url-repo: https://github.com/Alexix69/FoodTech-Front
 
-![alt text](image-1.png)
 
 ### Pipeline Status (última ejecución)
 | Job | Status | Tiempo |
@@ -364,166 +424,6 @@ authService.ts     | 97.36% | 88.88%
 useAuth.ts        | 85.00% | 75.00%
 LoginView.tsx     | 90.00% | 80.00%
 ```
----
-# 7 HU COMPLETADAS
-
-## HU-FRONT-010: Iniciar Sesión (Login)
-
-**Como** usuario del sistema de restaurante  
-**Quiero** iniciar sesión con mis credenciales  
-**Para** acceder al sistema y gestionar pedidos
-
-### Criterios de Aceptación
-
-#### Escenario 1: Login exitoso con credenciales válidas
-
-```gherkin
-Scenario: Usuario inicia sesión con email y password correctos
-  Given que el usuario tiene una cuenta registrada
-  When el usuario ingresa email y password correctos
-  Then el sistema inicia sesión exitosamente
-  And guarda el token de autenticación
-  And redirige a la vista principal
-```
-
-#### Escenario 2: Login con credenciales inválidas
-
-```gherkin
-Scenario: Usuario intenta login con password incorrecto
-  Given que el usuario tiene una cuenta registrada
-  When el usuario ingresa email correcto pero password incorrecto
-  Then el sistema muestra error "Credenciales inválidas"
-  And no inicia sesión
-```
-
-#### Escenario 3: Login con rememberMe
-
-```gherkin
-Scenario: Usuario marca "recordarme" para sesión persistente
-  Given que el usuario tiene una cuenta registrada
-  When el usuario marca la opción "recordarme"
-  And inicia sesión
-  Then el sistema guarda token con fecha de expiración
-  And la sesión persiste después de cerrar el navegador
-```
-
-#### Escenario 4: Modo demo sin cuenta
-
-```gherkin
-Scenario: Usuario accede con modo demo
-  Given que el usuario no tiene cuenta
-  When el usuario activa el modo demo
-  Then el sistema permite acceso sin autenticación
-  And crea una sesión de demo
-```
-
----
-
-## HU-FRONT-011: Cerrar Sesión (Logout)
-
-**Como** usuario autenticado  
-**Quiero** cerrar sesión  
-**Para** salir del sistema y proteger mi cuenta
-
-### Criterios de Aceptación
-
-#### Escenario 1: Logout exitoso
-
-```gherkin
-Scenario: Usuario hace click en cerrar sesión
-  Given que el usuario está autenticado
-  When el usuario hace click en "Cerrar Sesión"
-  Then el sistema elimina el token de autenticación
-  And redirige a la página de login
-```
-
-#### Escenario 2: Token expirado obliga logout
-
-```gherkin
-Scenario: Sesión expira por tiempo
-  Given que el usuario tiene una sesión activa
-  When el token de autenticación expira
-  Then el sistema cierra sesión automáticamente
-  And redirige a la página de login
-```
-
----
-
-## HU-FRONT-012: Registro de Usuario
-
-**Como** nuevo usuario del sistema  
-**Quiero** registrarme con mis datos  
-**Para** poder acceder al sistema y gestionar pedidos
-
-### Criterios de Aceptación
-
-#### Escenario 1: Registro exitoso
-
-```gherkin
-Scenario: Nuevo usuario se registra exitosamente
-  Given que el usuario no tiene cuenta
-  When el usuario ingresa email, username y password
-  And completa el registro
-  Then el sistema crea la cuenta
-  And inicia sesión automáticamente
-```
-
-#### Escenario 2: Registro con email duplicado
-
-```gherkin
-Scenario: Usuario intenta registrar con email existente
-  Given que ya existe una cuenta con ese email
-  When el usuario intenta registrarse con ese email
-  Then el sistema muestra error
-  And no crea la cuenta
-```
-
-#### Escenario 3: Toggle entre login y registro
-
-```gherkin
-Scenario: Usuario cambia entre modo login y registro
-  Given que está en la página de login
-  When el usuario hace click en "Regístrate"
-  Then el formulario cambia a modo registro
-  And puede completar el registro
-```
-
-
-
-## 8. HUMAN CHECK - VALIDACIÓN HITL
-
-### Pregunta 1: "¿Es esto realmente una prueba de integración?"
-
-**Respuesta:**
-> "TB-01 es INTEGRACIÓN porque:
-1. NO conoce implementación interna (Caja Negra)
-2. Se EJECUTA DENTRO DEL CONTENEDOR
-3. Usa API real, no mocks
-4. Prueba el FLUJO COMPLETO: Request → API → Response"
-
-### Pregunta 2: "¿Cómo detectan vulnerabilidades en la imagen?"
-
-**Respuesta:**
-> "Usamos Trivy en el pipeline:
-```yaml
-security-scan:
-  uses: aquasecurity/trivy-action@master
-  with:
-    image-ref: 'foodtech:${{ github.sha }}'
-```
-Escanea CVEs y muestra reporte en GitHub."
-
-### Pregunta 3: "¿Qué delegaron a la IA?"
-
-**Respuesta:**
-> "La IA generó la ESTRUCTURA del Dockerfile y pipeline YAML.
-HUMANO validó:
-- Usuario no-root: ✅
-- Multi-stage: ✅
-- Puerto correcto: ✅
-- Health check: ✅
-- Jobs separados: ✅"
-
 ---
 
 ## 9. GITHUBFLOW & RELEASE
@@ -549,7 +449,7 @@ feature/login → develop → PR → release/v1.0 → main (TAG)
 
 ---
 
-## 10. COMANDOS PARA EVALUADOR
+## 10. COMANDOS
 
 ```bash
 # Ejecutar tests
