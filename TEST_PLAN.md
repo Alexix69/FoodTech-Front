@@ -3,8 +3,6 @@
 
 ---
 
-#  HU COMPLETADAS
-
 ## HU-FRONT-010: Iniciar Sesión (Login)
 
 **Como** usuario del sistema de restaurante  
@@ -128,7 +126,7 @@ Scenario: Usuario cambia entre modo login y registro
 
 ---
 
-## 2. LOS 7 PRINCIPIOS DE TESTING - APLICADOS
+## LOS 7 PRINCIPIOS DE TESTING - APLICADOS
 
 ### Principio 1: Las pruebas demuestran la presencia de defectos, no su ausencia
 > "Demuestra que hay defectos, no que no los hay"
@@ -251,10 +249,8 @@ security-scan:
   name: 🔒 Security Scan
   runs: docker scan, trivy
 ```
-
 ---
-
-## 3. ESTRATEGIA MULTINIVEL
+## ESTRATEGIA MULTINIVEL
 
 ### Pirámide de Testing - FoodTech
 
@@ -269,9 +265,7 @@ security-scan:
  /              \ COMPONENT (Caja Blanca)
  /________________\ - Services, Hooks, UI Aislados
 ```
-
 ---
-
 ### NIVEL 1: COMPONENT TESTS (Caja Blanca)
 **Definición:** Tests que conocen la implementación interna. Aíslan el componente sin dependencias externas.
 
@@ -342,7 +336,7 @@ describe('API Integration (Caja Negra)', () => {
 ```
 
 
-## 4. TEST CASES - FoodTech
+## TEST CASES - FoodTech
 
 ### 4.1 Test Suite: Authentication (Caja Blanca)
 
@@ -402,7 +396,7 @@ describe('API Integration (Caja Negra)', () => {
 
 
 
-## 6. EVIDENCIA DE EJECUCIÓN
+## EVIDENCIA DE EJECUCIÓN
 
 url-actions: https://github.com/Alexix69/FoodTech-Front/actions
 
@@ -426,7 +420,7 @@ LoginView.tsx     | 90.00% | 80.00%
 ```
 ---
 
-## 9. GITHUBFLOW & RELEASE
+## GITHUBFLOW & RELEASE
 
 ### Ramas implementadas
 ```
