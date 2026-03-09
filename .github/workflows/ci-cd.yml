@@ -5,7 +5,7 @@ name: FoodTech CI/CD
 
 on:
   push:
-    branches: [main, develop, 'release/**', 'hotfix/**']
+    branches: [main, develop]
   pull_request:
     branches: [main, develop]
 
@@ -73,6 +73,14 @@ jobs:
       - name: 📈 Coverage Report
         run: npm run test:coverage
         continue-on-error: true
+
+      - name: 📤 Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage
+          retention-days: 30
 
   # ==========================================
   # JOB 3: INTEGRATION TESTS (Caja Negra)
