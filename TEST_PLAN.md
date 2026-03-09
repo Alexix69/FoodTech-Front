@@ -1,5 +1,5 @@
 # Plan de Validación del Sistema
-## FoodTech Frontend – Resumen para Stakeholders
+## FoodTech Frontend
 
 **Versión:** 1.0  
 **Fecha:** 2026-03-06 
