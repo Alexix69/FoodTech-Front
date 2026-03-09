@@ -1,4 +1,4 @@
-**# Plan de Validación del Sistema
+# Plan de Validación del Sistema
 ## FoodTech Frontend – Resumen para Stakeholders
 
 **Versión:** 1.0  
@@ -161,4 +161,4 @@ La implementación de este plan de pruebas permite:
 
 El plan de pruebas definido para **FoodTech Frontend** busca asegurar que las funcionalidades críticas del sistema funcionen correctamente antes de cada entrega.
 
-Este enfoque permite mantener un alto nivel de **calidad, seguridad y confiabilidad en la plataforma**, reduciendo riesgos para el negocio y mejorando la experiencia de los usuarios.**
+Este enfoque permite mantener un alto nivel de **calidad, seguridad y confiabilidad en la plataforma**, reduciendo riesgos para el negocio y mejorando la experiencia de los usuarios.
