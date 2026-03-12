@@ -31,13 +31,6 @@ Durante este ciclo se validarán las funcionalidades principales relacionadas co
 
 Estas funcionalidades son críticas para asegurar que **solo usuarios autorizados puedan utilizar el sistema**.
 
-## Funcionalidades fuera de alcance
-
-- Integración con sistemas de pago
-- Integraciones externas que no afectan el acceso al sistema
-
----
-
 # 3. Historias de usuario cubiertas
 
 Las pruebas están enfocadas en validar los siguientes escenarios principales de uso del sistema.
