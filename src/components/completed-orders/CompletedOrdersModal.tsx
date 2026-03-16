@@ -5,7 +5,7 @@ interface CompletedOrdersModalProps {
   isOpen: boolean;
   onClose: () => void;
   orders: CompletedOrder[];
-  onInvoice: (orderId: number, nombreCliente: string) => Promise<number> | number;
+  onInvoice: (orderId: number) => Promise<number> | number;
   loading?: boolean;
   error?: string | null;
   invoiceLoadingById?: Record<string, boolean>;
@@ -27,10 +27,6 @@ export const CompletedOrdersModal = ({
 }: CompletedOrdersModalProps) => {
   const contentRef = useRef<HTMLDivElement | null>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
-  const [customerNames, setCustomerNames] = useState<Record<string, string>>({});
-  const [showNameInput, setShowNameInput] = useState<Record<string, boolean>>(
-    {}
-  );
   const [nameErrors, setNameErrors] = useState<Record<string, string>>({});
 
   const sortedOrders = useMemo(() => {
@@ -189,65 +185,24 @@ export const CompletedOrdersModal = ({
                       </p>
                     </div>
                     <div className="flex flex-col items-end gap-2">
-                      {showNameInput[order.id] && (
-                        <input
-                          type="text"
-                          value={customerNames[order.id] || ''}
-                          onChange={(event) => {
-                            const value = event.target.value;
-                            setCustomerNames((prev) => ({
-                              ...prev,
-                              [order.id]: value,
-                            }));
-                            if (value.trim()) {
-                              setNameErrors((prev) => ({
-                                ...prev,
-                                [order.id]: '',
-                              }));
-                            }
-                          }}
-                          placeholder="Nombre del cliente"
-                          aria-label="Nombre del cliente"
-                          className="w-56 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
-                        />
-                      )}
-                      {(nameErrors[order.id] || invoiceErrorById[order.id]) && (
+                      {invoiceErrorById[order.id] && (
                         <p className="text-[10px] text-red-400">
-                          {nameErrors[order.id] || invoiceErrorById[order.id]}
+                          {invoiceErrorById[order.id]}
                         </p>
                       )}
                       <button
                         type="button"
                         onClick={async () => {
-                          const nameValue = customerNames[order.id]?.trim() || '';
-                          if (!nameValue) {
-                            setShowNameInput((prev) => ({
-                              ...prev,
-                              [order.id]: true,
-                            }));
-                            setNameErrors((prev) => ({
-                              ...prev,
-                              [order.id]: 'Ingresa el nombre del cliente',
-                            }));
-                            return;
-                          }
-
                           const numericOrderId = Number(order.id);
                           if (Number.isNaN(numericOrderId)) {
-                            setNameErrors((prev) => ({
-                              ...prev,
-                              [order.id]: 'Order ID inválido',
-                            }));
+                            // Ignorar id invalido internamente o manejar si es necesario
                             return;
                           }
 
                           try {
-                            await onInvoice(numericOrderId, nameValue);
+                            await onInvoice(numericOrderId);
                           } catch {
-                            setNameErrors((prev) => ({
-                              ...prev,
-                              [order.id]: 'No se pudo solicitar la factura',
-                            }));
+                            // Error manejado en componente padre / hook
                           }
                         }}
                         disabled={invoiceLoadingById[order.id]}
