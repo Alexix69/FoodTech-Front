@@ -115,7 +115,7 @@ export const OrderSummary = ({
 
           {/* Botón Enviar */}
           <button
-            data-testid="submit-order-btn"
+            data-testid="send-to-kitchen-btn"
             onClick={onSubmit}
             disabled={isSubmitting}
             className="w-full mt-4 sm:mt-6 lg:mt-8 py-3 sm:py-4 lg:py-5 gold-gradient hover:brightness-110 active:scale-[0.98] transition-all rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-black tracking-[0.15em] sm:tracking-[0.2em] uppercase shadow-2xl shadow-primary/20 flex items-center justify-center gap-2 sm:gap-3 text-midnight disabled:opacity-50 disabled:cursor-not-allowed"

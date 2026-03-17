@@ -53,3 +53,23 @@ Feature: HU-010 Login
     Given que el usuario tiene una cuenta registrada
     When el usuario introduce email/password con espacios en blanco
     Then el sistema debe limpiar los campos y autenticar correctamente si es válido
+
+  ## Escenario Automatizado: Login exitoso
+  Given el usuario navega a la página de login
+  When ingresa credenciales válidas (usuario demo, contraseña demo)
+  And pulsa el botón de login
+  Then accede al sistema y la sesión se persiste
+  And se muestra la vista principal
+
+  ## Escenario Automatizado: Login inválido
+  Given el usuario navega a la página de login
+  When ingresa credenciales inválidas (usuario demo, contraseña incorrecta)
+  And pulsa el botón de login
+  Then se muestra un mensaje de error
+  And no se accede al sistema
+
+  ## Vinculación Técnica
+  - Script E2E: tests/e2e/login.spec.ts
+  - Endpoint: /api/auth/login
+  - Datos de prueba: usuario demo, contraseña demo
+  - Integración: pipeline CI/CD ejecuta pruebas E2E en contenedor
