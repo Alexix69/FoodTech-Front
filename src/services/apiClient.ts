@@ -2,6 +2,15 @@
  * Configuración base de la API
  */
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const DEMO_TOKEN = 'demo-token-12345';
+
+const getAuthHeader = (): Record<string, string> => {
+  const token = localStorage.getItem('auth_token');
+  if (!token || token === DEMO_TOKEN) {
+    return {};
+  }
+  return { Authorization: `Bearer ${token}` };
+};
 
 /**
  * Cliente HTTP simple con manejo de errores
@@ -18,6 +27,7 @@ class ApiClient {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        ...getAuthHeader(),
       },
     });
 
@@ -33,6 +43,7 @@ class ApiClient {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...getAuthHeader(),
       },
       body: JSON.stringify(data),
     });
@@ -49,6 +60,7 @@ class ApiClient {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...getAuthHeader(),
       },
       body: JSON.stringify(data),
     });
@@ -63,6 +75,7 @@ class ApiClient {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
+        ...getAuthHeader(),
       },
     });
 
