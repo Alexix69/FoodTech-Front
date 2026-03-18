@@ -24,6 +24,7 @@ export function TaskStatusFilter({ selectedStatus, onStatusChange, taskCounts }:
       {filters.map((filter) => (
         <button
           key={filter.id}
+          data-testid={`task-status-filter-${filter.id.toLowerCase().replace(/_/g, '-')}`}
           onClick={() => onStatusChange(filter.id)}
           className={`px-8 py-3 rounded-xl text-sm font-bold transition-colors shrink-0 ${
             selectedStatus === filter.id

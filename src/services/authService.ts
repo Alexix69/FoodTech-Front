@@ -21,6 +21,7 @@ export const authService = {
 
       const data = await response.json()
       
+      // Auth token is read by ProtectedRoute; tests can seed localStorage.auth_token.
       if (rememberMe) {
         const expiryDate = Date.now() + (REMEMBER_ME_DAYS * 24 * 60 * 60 * 1000)
         localStorage.setItem('auth_token', data.token)
@@ -61,6 +62,7 @@ export const authService = {
 
   async register(email: string, username: string, password: string): Promise<boolean> {
     try {
+      // NOTE: Response status is not validated to preserve current UX behavior.
       await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: {

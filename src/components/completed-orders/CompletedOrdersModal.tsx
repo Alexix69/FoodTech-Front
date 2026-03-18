@@ -99,6 +99,7 @@ export const CompletedOrdersModal = ({
 
   return (
     <div
+      data-testid="completed-orders-overlay"
       role="presentation"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) {
@@ -109,6 +110,7 @@ export const CompletedOrdersModal = ({
     >
       <div
         ref={contentRef}
+        data-testid="completed-orders-modal"
         role="dialog"
         aria-modal="true"
         aria-labelledby="completed-orders-title"
@@ -129,6 +131,7 @@ export const CompletedOrdersModal = ({
           <button
             type="button"
             onClick={onClose}
+            data-testid="completed-orders-close-btn"
             className="text-silver-text hover:text-white-text transition-colors"
             aria-label="Close completed orders"
           >
@@ -138,7 +141,7 @@ export const CompletedOrdersModal = ({
 
         <div className="px-8 py-6 max-h-[60vh] overflow-y-auto order-scroll">
           {loading ? (
-            <div className="flex items-center justify-center min-h-[200px]">
+            <div data-testid="completed-orders-loading" className="flex items-center justify-center min-h-[200px]">
               <div className="text-center">
                 <span className="material-symbols-outlined text-5xl text-primary animate-pulse mb-3">
                   refresh
@@ -147,24 +150,25 @@ export const CompletedOrdersModal = ({
               </div>
             </div>
           ) : error ? (
-            <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
+            <div data-testid="completed-orders-error" className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-red-400">error</span>
                 <p className="text-sm text-red-400">{error}</p>
               </div>
             </div>
           ) : sortedOrders.length === 0 ? (
-            <div className="text-center py-12">
+            <div data-testid="completed-orders-empty" className="text-center py-12">
               <span className="material-symbols-outlined text-6xl text-silver-text/30 mb-4 block">
                 receipt_long
               </span>
               <p className="text-silver-text text-sm">No completed orders.</p>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div data-testid="completed-orders-list" className="space-y-4">
               {sortedOrders.map((order) => (
                 <div
                   key={order.id}
+                  data-testid={`completed-order-card-${order.id}`}
                   className="glass-panel-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4"
                 >
                   <div className="flex items-center justify-between">
@@ -191,6 +195,7 @@ export const CompletedOrdersModal = ({
                     <div className="flex flex-col items-end gap-2">
                       {showNameInput[order.id] && (
                         <input
+                          data-testid={`customer-name-input-${order.id}`}
                           type="text"
                           value={customerNames[order.id] || ''}
                           onChange={(event) => {
@@ -212,7 +217,10 @@ export const CompletedOrdersModal = ({
                         />
                       )}
                       {(nameErrors[order.id] || invoiceErrorById[order.id]) && (
-                        <p className="text-[10px] text-red-400">
+                        <p
+                          data-testid={`customer-name-error-${order.id}`}
+                          className="text-[10px] text-red-400"
+                        >
                           {nameErrors[order.id] || invoiceErrorById[order.id]}
                         </p>
                       )}
@@ -250,6 +258,7 @@ export const CompletedOrdersModal = ({
                             }));
                           }
                         }}
+                        data-testid={`invoice-btn-${order.id}`}
                         disabled={invoiceLoadingById[order.id]}
                         className="gold-gradient text-midnight font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
                       >

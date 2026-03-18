@@ -32,7 +32,7 @@ export function HotKitchenView() {
       {/* Contenido */}
       <div className="flex-1 overflow-y-auto p-10 order-scroll">
         {error && (
-          <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 mb-6">
+          <div data-testid="hot-kitchen-error" className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 mb-6">
             <div className="flex items-center gap-2">
               <span className="material-symbols-outlined text-red-400">error</span>
               <p className="text-sm text-red-400">{error}</p>
@@ -41,7 +41,7 @@ export function HotKitchenView() {
         )}
 
         {loading && tasks.length === 0 ? (
-          <div className="flex items-center justify-center min-h-[400px]">
+          <div data-testid="hot-kitchen-loading" className="flex items-center justify-center min-h-[400px]">
             <div className="text-center">
               <span className="material-symbols-outlined text-6xl text-primary animate-pulse mb-4">refresh</span>
               <p className="text-silver-text">Cargando tareas...</p>

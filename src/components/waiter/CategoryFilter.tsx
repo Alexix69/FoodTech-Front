@@ -18,12 +18,15 @@ export const CategoryFilter = ({
     { key: ProductType.HOT_DISH, label: 'Platos Principales' },
     { key: ProductType.COLD_DISH, label: 'Ensaladas' },
   ];
+  const toTestId = (key: ProductType | 'ALL') =>
+    `category-filter-${String(key).toLowerCase().replace(/_/g, '-')}`;
 
   return (
     <div className="flex gap-3 mb-10 overflow-x-auto pb-2">
       {categories.map((category) => (
         <button
           key={category.key}
+          data-testid={toTestId(category.key)}
           onClick={() => onSelectCategory(category.key)}
           className={`
             px-8 py-3 rounded-xl text-sm font-bold shrink-0 transition-colors

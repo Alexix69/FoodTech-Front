@@ -23,6 +23,7 @@ export const LoginView = () => {
     e.preventDefault()
 
     if (demoMode) {
+      // Demo token is used by ProtectedRoute; tests can seed localStorage with the same value.
       localStorage.setItem('auth_token', 'demo-token-12345')
       navigate('/mesero')
       return
@@ -59,7 +60,7 @@ export const LoginView = () => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form data-testid="login-form" onSubmit={handleSubmit} className="space-y-6">
 
           {/* Email (login y registro) */}
           <div>
@@ -67,6 +68,7 @@ export const LoginView = () => {
               {!isRegisterMode ? "Email / Username" : "Email" } 
             </label>
             <input
+              data-testid="email-input"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -86,6 +88,7 @@ export const LoginView = () => {
                 Username
               </label>
               <input
+                data-testid="username-input"
                 id="username"
                 type="text"
                 value={username}
@@ -106,6 +109,7 @@ export const LoginView = () => {
               Contraseña
             </label>
             <input
+              data-testid="password-input"
               id="password"
               type="password"
               value={password}
@@ -121,7 +125,7 @@ export const LoginView = () => {
 
           {/* Error */}
           {error && (
-            <div className="text-red-400 text-sm text-center">
+            <div data-testid="error-message" className="text-red-400 text-sm text-center">
               {error}
             </div>
           )}
@@ -130,6 +134,7 @@ export const LoginView = () => {
           {!isRegisterMode && !demoMode && (
             <div className="flex items-center gap-3">
               <input
+                data-testid="remember-me-checkbox"
                 type="checkbox"
                 id="rememberMe"
                 checked={rememberMe}
@@ -145,6 +150,7 @@ export const LoginView = () => {
           {/* Demo mode */}
           <div className="flex items-center gap-3">
             <input
+              data-testid="demo-mode-checkbox"
               type="checkbox"
               id="demoMode"
               checked={demoMode}
@@ -161,6 +167,7 @@ export const LoginView = () => {
 
           {/* Button */}
           <button
+            data-testid="submit-btn"
             type="submit"
             disabled={isLoading}
             className="w-full py-3 rounded-xl bg-primary text-black font-semibold
@@ -175,6 +182,7 @@ export const LoginView = () => {
           {/* Toggle Login/Register */}
           <div className="text-center">
             <button
+              data-testid="toggle-mode-btn"
               type="button"
               onClick={toggleMode}
               className="text-sm text-primary hover:underline"

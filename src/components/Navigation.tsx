@@ -29,6 +29,7 @@ export function Navigation() {
             <NavLink
               key={link.path}
               to={link.path}
+              data-testid={`nav-${link.path.replace('/', '').replace('/', '-').toLowerCase()}`}
               className={({ isActive }: { isActive: boolean }) =>
                 `px-4 py-2 rounded-lg font-medium text-sm transition-all flex items-center gap-2 ${
                   isActive
