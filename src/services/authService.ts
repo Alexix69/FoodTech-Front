@@ -13,7 +13,7 @@ export const authService = {
       })
 
       if (!response.ok) {
-        if (response.status === 401) {
+        if (response.status === 401 || response.status === 400) {
           throw new Error('Credenciales inválidas')
         }
         throw new Error(`Error: ${response.status}`)
