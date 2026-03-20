@@ -110,7 +110,7 @@ El ciclo de pruebas se considerará exitoso cuando se cumplan las siguientes con
 - Las validaciones de seguridad del acceso de usuarios funcionen correctamente.
 - Las pruebas definidas para los flujos principales se ejecuten sin fallos.
 
----
+--- 
 
 # 6. Control de calidad automático
 
