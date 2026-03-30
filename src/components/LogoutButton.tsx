@@ -12,6 +12,7 @@ export const LogoutButton = () => {
 
   return (
     <button
+      data-testid="logout-btn"
       onClick={handleLogout}
       className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm
                  text-silver-text hover:text-red-400 hover:bg-white/5 

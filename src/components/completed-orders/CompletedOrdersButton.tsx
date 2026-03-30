@@ -11,6 +11,7 @@ export const CompletedOrdersButton = ({
 }: CompletedOrdersButtonProps) => {
   return (
     <button
+      data-testid="completed-orders-toggle"
       type="button"
       onClick={onToggle}
       aria-busy={isLoading}

@@ -44,6 +44,10 @@ export const WaiterView = () => {
   const [selectedCategory, setSelectedCategory] = useState<
     ProductType | 'ALL'
   >('ALL');
+  const [orderFeedback, setOrderFeedback] = useState<{
+    type: 'info' | 'success' | 'error';
+    message: string;
+  } | null>(null);
 
   /**
    * Sincroniza el estado de las mesas con las tareas cada vez que cambian
@@ -57,6 +61,7 @@ export const WaiterView = () => {
    */
   const handleSubmitOrder = async () => {
     if (!selectedTable) {
+      setOrderFeedback({ type: 'info', message: 'Por favor selecciona una mesa' });
       alert('Por favor selecciona una mesa');
       return;
     }
@@ -70,10 +75,15 @@ export const WaiterView = () => {
       // Refrescar tareas
       await refreshTasks();
 
+      setOrderFeedback({
+        type: 'success',
+        message: `✅ ${response.message}\n\nMesa: ${response.tableNumber}\nTareas creadas: ${response.tasksCreated}`,
+      });
       alert(
         `✅ ${response.message}\n\nMesa: ${response.tableNumber}\nTareas creadas: ${response.tasksCreated}`
       );
     } else if (error) {
+      setOrderFeedback({ type: 'error', message: `❌ Error: ${error}` });
       alert(`❌ Error: ${error}`);
     }
   };
@@ -83,6 +93,16 @@ export const WaiterView = () => {
 
   return (
     <div className="flex h-screen overflow-hidden">
+      {orderFeedback && (
+        <div
+          data-testid="order-feedback"
+          data-feedback-type={orderFeedback.type}
+          className="sr-only"
+          aria-live="polite"
+        >
+          {orderFeedback.message}
+        </div>
+      )}
       {/* Panel Izquierdo - Mesas */}
       <TableSelector
         tables={tables}

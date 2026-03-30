@@ -11,6 +11,7 @@ export const CompletedOrdersToast = ({
 
   return (
     <div
+      data-testid="completed-orders-toast"
       role="status"
       aria-live="polite"
       className="fixed bottom-24 right-6 z-50 bg-charcoal/95 border border-primary/30 text-white-text text-xs rounded-xl px-4 py-3 shadow-2xl shadow-primary/10 backdrop-blur"
