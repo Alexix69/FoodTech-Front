@@ -23,6 +23,9 @@ describe('LoginView', () => {
       isLoading: false,
       error: null,
       isAuthenticated: false,
+      role: null,
+      logout: vi.fn(),
+      assignRole: vi.fn(),
     }))
   })
 
@@ -40,12 +43,15 @@ describe('LoginView', () => {
     
     const passwordInput = document.querySelector('input[id="password"]') as HTMLInputElement
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
+
+    const roleSelect = document.querySelector('select[id="role"]') as HTMLSelectElement
+    fireEvent.change(roleSelect, { target: { value: 'MESERO' } })
     
     const form = document.querySelector('form') as HTMLFormElement
     fireEvent.submit(form)
     
     await waitFor(() => {
-      expect(mockRegister).toHaveBeenCalledWith('test@email.com', 'testuser', 'password123')
+      expect(mockRegister).toHaveBeenCalledWith('test@email.com', 'testuser', 'password123', 'MESERO')
     })
   })
 })

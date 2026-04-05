@@ -4,14 +4,18 @@ import { TaskCard } from './TaskCard';
 interface TaskListProps {
   tasks: Task[];
   onStartPreparation: (taskId: number) => void;
+  onCompleteTask?: (taskId: number) => void;
   startingTaskId: number | null;
+  completingTaskId?: number | null;
   emptyMessage?: string;
 }
 
 export function TaskList({
   tasks,
   onStartPreparation,
+  onCompleteTask,
   startingTaskId,
+  completingTaskId = null,
   emptyMessage = 'Sin Tareas Pendientes'
 }: TaskListProps) {
   if (tasks.length === 0) {
@@ -30,7 +34,9 @@ export function TaskList({
           key={task.id}
           task={task}
           onStartPreparation={onStartPreparation}
+          onCompleteTask={onCompleteTask}
           isStarting={startingTaskId === task.id}
+          isCompleting={completingTaskId === task.id}
         />
       ))}
     </div>

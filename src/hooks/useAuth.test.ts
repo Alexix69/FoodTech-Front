@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
 import { useAuth } from './useAuth'
+import { UserRole, ROLE_HOME_ROUTES } from '../models/UserRole'
 
 declare global {
   interface Global {
@@ -9,14 +10,17 @@ declare global {
   var global: Global
 }
 
+const mockNavigate = vi.fn()
+
 vi.mock('react-router-dom', () => ({
-  useNavigate: () => vi.fn(),
+  useNavigate: () => mockNavigate,
 }))
 
 describe('useAuth', () => {
   beforeEach(() => {
     localStorage.clear()
     vi.restoreAllMocks()
+    mockNavigate.mockReset()
   })
 
   describe('initial state', () => {
@@ -156,6 +160,87 @@ describe('useAuth', () => {
       })
 
       expect(result.current.isLoading).toBe(false)
+    })
+  })
+
+  describe('role-based navigation', () => {
+    it('debe establecer role en estado tras login exitoso', async () => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ token: 'tok', role: UserRole.COCINERO })
+      })
+
+      const { result } = renderHook(() => useAuth())
+
+      await act(async () => {
+        await result.current.login('cocinero@test.com', 'password')
+      })
+
+      expect(result.current.role).toBe(UserRole.COCINERO)
+    })
+
+    it('debe navegar a /cocina tras login como COCINERO', async () => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ token: 'tok', role: UserRole.COCINERO })
+      })
+
+      const { result } = renderHook(() => useAuth())
+
+      await act(async () => {
+        await result.current.login('cocinero@test.com', 'password')
+      })
+
+      expect(mockNavigate).toHaveBeenCalledWith(ROLE_HOME_ROUTES[UserRole.COCINERO])
+    })
+
+    it('debe navegar a /registro?userId=5&step=role cuando login retorna ROLE_NOT_ASSIGNED', async () => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 403,
+        json: () => Promise.resolve({ error: 'ROLE_NOT_ASSIGNED', userId: 5 })
+      })
+
+      const { result } = renderHook(() => useAuth())
+
+      await act(async () => {
+        await result.current.login('user@test.com', 'password')
+      })
+
+      expect(mockNavigate).toHaveBeenCalledWith('/registro?userId=5&step=role')
+    })
+
+    it('debe limpiar role en estado tras logout', async () => {
+      localStorage.setItem('auth_token', 'tok')
+      localStorage.setItem('auth_role', UserRole.MESERO)
+
+      const { result } = renderHook(() => useAuth())
+
+      act(() => {
+        result.current.logout()
+      })
+
+      expect(result.current.role).toBeNull()
+    })
+
+    it('debe navegar a ruta del rol tras registro exitoso', async () => {
+      global.fetch = vi.fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve({ message: 'ok' })
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve({ token: 'tok', role: UserRole.BARTENDER })
+        })
+
+      const { result } = renderHook(() => useAuth())
+
+      await act(async () => {
+        await result.current.register('b@test.com', 'bartender', 'password', UserRole.BARTENDER)
+      })
+
+      expect(mockNavigate).toHaveBeenCalledWith(ROLE_HOME_ROUTES[UserRole.BARTENDER])
     })
   })
 })

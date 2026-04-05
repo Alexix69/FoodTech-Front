@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { UserRole } from '../models/UserRole'
 
 declare global {
   interface Global {
@@ -144,16 +145,17 @@ describe('authService', () => {
       expect(result).toBe(true)
     })
 
-    it('debe retornar true aunque el servidor devuelva error 400 (comportamiento actual)', async () => {
+it('debe lanzar error con mensaje del servidor cuando respuesta no es ok (V-04 fix)', async () => {
       global.fetch = vi.fn().mockResolvedValue({
         ok: false,
-        status: 400
+        status: 400,
+        json: () => Promise.resolve({ message: 'El usuario ya existe' })
       })
 
       const { authService } = await import('./authService')
-      const result = await authService.register('test@email.com', 'existinguser', 'password123')
-
-      expect(result).toBe(true)
+      await expect(
+        authService.register('test@email.com', 'existinguser', 'password123', UserRole.MESERO)
+      ).rejects.toThrow('El usuario ya existe')
     })
 
     it('debe lanzar error cuando hay error de red', async () => {
@@ -174,7 +176,7 @@ describe('authService', () => {
       global.fetch = mockFetch
 
       const { authService } = await import('./authService')
-      await authService.register('test@email.com', 'testuser', 'testpass')
+      await authService.register('test@email.com', 'testuser', 'testpass', UserRole.COCINERO)
 
       expect(mockFetch).toHaveBeenCalledWith(
         expect.stringContaining('/auth/register'),
@@ -184,8 +186,70 @@ describe('authService', () => {
           body: JSON.stringify({
             email: 'test@email.com',
             username: 'testuser',
-            password: 'testpass'
+            password: 'testpass',
+            role: UserRole.COCINERO
           })
+        })
+      )
+    })
+  })
+
+  describe('login role storage', () => {
+    it('debe guardar auth_role en localStorage tras login exitoso', async () => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ token: 'jwt-token', role: UserRole.COCINERO })
+      })
+
+      const { authService } = await import('./authService')
+      await authService.login('cocinero@test.com', 'password')
+
+      expect(localStorage.getItem('auth_role')).toBe(UserRole.COCINERO)
+    })
+  })
+
+  describe('logout role cleanup', () => {
+    it('debe remover auth_role de localStorage al hacer logout', async () => {
+      localStorage.setItem('auth_role', UserRole.MESERO)
+
+      const { authService } = await import('./authService')
+      authService.logout()
+
+      expect(localStorage.getItem('auth_role')).toBeNull()
+    })
+  })
+
+  describe('getRole', () => {
+    it('debe retornar null cuando auth_role no está en localStorage', async () => {
+      const { authService } = await import('./authService')
+      expect(authService.getRole()).toBeNull()
+    })
+
+    it('debe retornar el UserRole cuando auth_role es válido', async () => {
+      localStorage.setItem('auth_role', UserRole.BARTENDER)
+
+      const { authService } = await import('./authService')
+      expect(authService.getRole()).toBe(UserRole.BARTENDER)
+    })
+  })
+
+  describe('assignRole', () => {
+    it('debe llamar PATCH /api/users/{userId}/role con cuerpo correcto', async () => {
+      const mockFetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ token: 'new-token', role: UserRole.MESERO })
+      })
+      global.fetch = mockFetch
+
+      const { authService } = await import('./authService')
+      await authService.assignRole(42, UserRole.MESERO)
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        expect.stringContaining('/api/users/42/role'),
+        expect.objectContaining({
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ role: UserRole.MESERO })
         })
       )
     })

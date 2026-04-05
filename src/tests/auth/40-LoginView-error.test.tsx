@@ -20,6 +20,9 @@ describe('LoginView', () => {
       isLoading: false,
       error: 'Credenciales inválidas',
       isAuthenticated: false,
+      role: null,
+      logout: vi.fn(),
+      assignRole: vi.fn(),
     }))
   })
 

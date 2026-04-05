@@ -1,15 +1,13 @@
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
-import { AccessDenied } from './AccessDenied'
 import type { ReactNode } from 'react'
-import type { UserRole } from '../models/UserRole'
+import { ROLE_HOME_ROUTES } from '../models/UserRole'
 
-interface ProtectedRouteProps {
+interface PublicRouteProps {
   children: ReactNode
-  allowedRoles?: UserRole[]
 }
 
-export const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {
+export const PublicRoute = ({ children }: PublicRouteProps) => {
   const { isAuthenticated, isLoading, role } = useAuth()
 
   if (isLoading) {
@@ -20,12 +18,8 @@ export const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) 
     )
   }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />
-  }
-
-  if (allowedRoles && role && !allowedRoles.includes(role)) {
-    return <AccessDenied />
+  if (isAuthenticated && role) {
+    return <Navigate to={ROLE_HOME_ROUTES[role]} replace />
   }
 
   return <>{children}</>

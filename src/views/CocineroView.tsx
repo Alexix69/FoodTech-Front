@@ -1,0 +1,109 @@
+import { useState } from 'react'
+import { StationLayout } from '../components/kitchen/StationLayout'
+import { TaskList } from '../components/kitchen/TaskList'
+import { useStationTasks } from '../hooks/useStationTasks'
+import { Station, TaskStatus } from '../models/Task'
+
+type Tab = 'PENDING' | 'IN_PREPARATION' | 'COMPLETED'
+
+const TABS: { id: Tab; label: string }[] = [
+  { id: 'PENDING', label: 'Pendientes' },
+  { id: 'IN_PREPARATION', label: 'En Preparación' },
+  { id: 'COMPLETED', label: 'Completadas' },
+]
+
+export function CocineroView() {
+  const [selectedTab, setSelectedTab] = useState<Tab>('PENDING')
+
+  const hot = useStationTasks(Station.HOT_KITCHEN)
+  const cold = useStationTasks(Station.COLD_KITCHEN)
+
+  const pendingTasks = [...hot.pendingTasks, ...cold.pendingTasks]
+    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+
+  const inPrepTasks = [...hot.inPrepTasks, ...cold.inPrepTasks]
+  const completedTasks = [...hot.completedTasks, ...cold.completedTasks]
+
+  const loading = hot.loading || cold.loading
+
+  const handleStart = async (taskId: number) => {
+    const task = [...hot.allTasks, ...cold.allTasks].find(t => t.id === taskId)
+    if (!task) return
+    if (task.station === Station.HOT_KITCHEN) {
+      await hot.startTaskPreparation(taskId)
+    } else {
+      await cold.startTaskPreparation(taskId)
+    }
+  }
+
+  const handleComplete = async (taskId: number) => {
+    const task = [...hot.allTasks, ...cold.allTasks].find(t => t.id === taskId)
+    if (!task) return
+    if (task.station === Station.HOT_KITCHEN) {
+      await hot.completeTask(taskId)
+    } else {
+      await cold.completeTask(taskId)
+    }
+  }
+
+  const startingTaskId = hot.startingTaskId ?? cold.startingTaskId
+  const completingTaskId = hot.completingTaskId ?? cold.completingTaskId
+
+  const tasksByTab = {
+    PENDING: pendingTasks,
+    IN_PREPARATION: inPrepTasks,
+    COMPLETED: completedTasks,
+  }
+
+  const tabCounts = {
+    PENDING: pendingTasks.length,
+    IN_PREPARATION: inPrepTasks.length,
+    COMPLETED: completedTasks.length,
+  }
+
+  if (loading && pendingTasks.length === 0 && inPrepTasks.length === 0) {
+    return (
+      <StationLayout stationName="Cocina" stationCode="HOT_KITCHEN + COLD_KITCHEN" icon="local_fire_department">
+        <div className="flex items-center justify-center min-h-[400px]">
+          <span className="material-symbols-outlined text-6xl text-primary animate-pulse">refresh</span>
+        </div>
+      </StationLayout>
+    )
+  }
+
+  return (
+    <StationLayout stationName="Cocina" stationCode="HOT_KITCHEN + COLD_KITCHEN" icon="local_fire_department">
+      <div className="flex gap-3 px-10 py-6 overflow-x-auto border-b border-white/5 bg-charcoal/50">
+        {TABS.map(tab => (
+          <button
+            key={tab.id}
+            data-testid={`tab-${tab.id.toLowerCase().replace(/_/g, '-')}`}
+            onClick={() => setSelectedTab(tab.id)}
+            className={`px-8 py-3 rounded-xl text-sm font-bold transition-colors shrink-0 ${
+              selectedTab === tab.id
+                ? 'gold-gradient text-midnight shadow-lg shadow-primary/20'
+                : 'bg-white/5 text-silver-text hover:bg-white/10 hover:text-white-text border border-white/5'
+            }`}
+          >
+            {tab.label}
+            {tabCounts[tab.id] > 0 && (
+              <span className="ml-2 text-xs opacity-75">({tabCounts[tab.id]})</span>
+            )}
+          </button>
+        ))}
+      </div>
+
+      <div className="flex-1 overflow-y-auto p-10">
+        <TaskList
+          tasks={tasksByTab[selectedTab]}
+          onStartPreparation={handleStart}
+          onCompleteTask={selectedTab === TaskStatus.IN_PREPARATION ? handleComplete : undefined}
+          startingTaskId={startingTaskId}
+          completingTaskId={completingTaskId}
+          emptyMessage={`Sin tareas ${TABS.find(t => t.id === selectedTab)?.label.toLowerCase()}`}
+        />
+      </div>
+    </StationLayout>
+  )
+}
+

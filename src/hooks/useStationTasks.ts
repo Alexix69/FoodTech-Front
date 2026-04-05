@@ -5,75 +5,78 @@ import type { Station } from '../models/Task';
 import { taskService } from '../services/taskService';
 
 export function useStationTasks(station: Station, pollingInterval = 5000) {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
-  const [selectedStatus, setSelectedStatus] = useState<string>('ALL');
+  const [allTasks, setAllTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [startingTaskId, setStartingTaskId] = useState<number | null>(null);
+  const [completingTaskId, setCompletingTaskId] = useState<number | null>(null);
 
-  // Obtener tareas de la estación
   const fetchTasks = useCallback(async () => {
     try {
       setError(null);
       const data = await taskService.getTasksByStation(station);
-      setTasks(data);
+      setAllTasks(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al cargar tareas');
-      console.error('Error fetching tasks:', err);
     } finally {
       setLoading(false);
     }
   }, [station]);
 
-  // Filtrar tareas según estado seleccionado
-  useEffect(() => {
-    if (selectedStatus === 'ALL') {
-      setFilteredTasks(tasks);
-    } else {
-      setFilteredTasks(tasks.filter(task => task.status === selectedStatus));
-    }
-  }, [tasks, selectedStatus]);
-
-  // Polling automático
   useEffect(() => {
     fetchTasks();
-    const intervalId = setInterval(fetchTasks, pollingInterval);
-    return () => clearInterval(intervalId);
+    if (pollingInterval > 0) {
+      const intervalId = setInterval(fetchTasks, pollingInterval);
+      return () => clearInterval(intervalId);
+    }
   }, [fetchTasks, pollingInterval]);
 
-  // Iniciar preparación de tarea
+  const pendingTasks = allTasks
+    .filter(t => t.status === TaskStatus.PENDING)
+    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+
+  const inPrepTasks = allTasks.filter(t => t.status === TaskStatus.IN_PREPARATION);
+
+  const completedTasks = allTasks.filter(t => t.status === TaskStatus.COMPLETED);
+
   const startTaskPreparation = async (taskId: number) => {
     try {
       setStartingTaskId(taskId);
       setError(null);
       await taskService.startTask(taskId);
-      await fetchTasks(); // Refrescar inmediatamente
+      await fetchTasks();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al iniciar preparación');
-      console.error('Error starting task:', err);
     } finally {
       setStartingTaskId(null);
     }
   };
 
-  // Calcular contadores por estado
-  const taskCounts = {
-    all: tasks.length,
-    pending: tasks.filter(t => t.status === TaskStatus.PENDING).length,
-    inPreparation: tasks.filter(t => t.status === TaskStatus.IN_PREPARATION).length,
-    completed: tasks.filter(t => t.status === TaskStatus.COMPLETED).length
+  const completeTask = async (taskId: number) => {
+    try {
+      setCompletingTaskId(taskId);
+      setError(null);
+      await taskService.completeTask(taskId);
+      await fetchTasks();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error al completar tarea');
+    } finally {
+      setCompletingTaskId(null);
+    }
   };
 
   return {
-    tasks: filteredTasks,
-    selectedStatus,
-    setSelectedStatus,
+    allTasks,
+    pendingTasks,
+    inPrepTasks,
+    completedTasks,
     loading,
     error,
     startingTaskId,
+    completingTaskId,
     startTaskPreparation,
-    taskCounts,
-    refreshTasks: fetchTasks
+    completeTask,
+    refreshTasks: fetchTasks,
   };
 }
+

@@ -20,6 +20,9 @@ describe('LoginView', () => {
       isLoading: false,
       error: null,
       isAuthenticated: false,
+      role: null,
+      logout: vi.fn(),
+      assignRole: vi.fn(),
     }))
   })
 

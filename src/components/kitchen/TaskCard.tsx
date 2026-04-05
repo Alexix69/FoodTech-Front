@@ -1,14 +1,17 @@
 import type { Task } from '../../models/Task';
 import { TaskStatus } from '../../models/Task';
 import { ProductType } from '../../models/Product';
+import { groupProductsByName } from '../../helpers/groupProducts';
 
 interface TaskCardProps {
   task: Task;
   onStartPreparation: (taskId: number) => void;
+  onCompleteTask?: (taskId: number) => void;
   isStarting?: boolean;
+  isCompleting?: boolean;
 }
 
-export function TaskCard({ task, onStartPreparation, isStarting = false }: TaskCardProps) {
+export function TaskCard({ task, onStartPreparation, onCompleteTask, isStarting = false, isCompleting = false }: TaskCardProps) {
   const getStatusStyles = () => {
     switch (task.status) {
       case TaskStatus.PENDING:
@@ -50,6 +53,7 @@ export function TaskCard({ task, onStartPreparation, isStarting = false }: TaskC
 
   const statusBadge = getStatusBadge();
   const canStart = task.status === TaskStatus.PENDING;
+  const canComplete = task.status === TaskStatus.IN_PREPARATION;
 
   return (
     <div 
@@ -86,7 +90,7 @@ export function TaskCard({ task, onStartPreparation, isStarting = false }: TaskC
       <div data-testid="task-products" className="bg-white/5 rounded-xl p-4 flex-1">
         <p className="text-[10px] uppercase tracking-widest text-silver-text mb-3">Productos</p>
         <div className="space-y-3">
-          {task.products.map((product, index) => (
+          {groupProductsByName(task.products).map((product, index) => (
             <div 
               key={index} 
               data-testid={`task-product-${index}`}
@@ -96,9 +100,11 @@ export function TaskCard({ task, onStartPreparation, isStarting = false }: TaskC
             >
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-primary text-lg">
-                  {getProductIcon(product.type)}
+                  {getProductIcon(task.products.find(p => p.name === product.name)?.type ?? '')}
                 </span>
-                <p className="text-sm font-medium text-white-text">{product.name}</p>
+                <p className="text-sm font-medium text-white-text">
+                  {product.quantity > 1 ? `${product.name} [${product.quantity}]` : product.name}
+                </p>
               </div>
             </div>
           ))}
@@ -118,11 +124,16 @@ export function TaskCard({ task, onStartPreparation, isStarting = false }: TaskC
         </button>
       )}
 
-      {task.status === TaskStatus.IN_PREPARATION && (
-        <div className="bg-primary/10 border border-primary/20 rounded-lg px-3 py-2 flex items-center gap-2">
-          <span className="material-symbols-outlined text-primary text-sm">info</span>
-          <p className="text-[10px] text-primary font-medium">Se completará automáticamente</p>
-        </div>
+      {canComplete && onCompleteTask && (
+        <button
+          data-testid={`complete-task-btn-${task.id}`}
+          onClick={() => onCompleteTask(task.id)}
+          disabled={isCompleting}
+          className="w-full py-3.5 gold-gradient rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 text-midnight shadow-lg hover:shadow-primary/20 disabled:opacity-50"
+        >
+          <span className="material-symbols-outlined text-sm">check_circle</span>
+          {isCompleting ? 'Completando...' : 'Completar'}
+        </button>
       )}
     </div>
   );

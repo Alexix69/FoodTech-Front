@@ -1,18 +1,22 @@
 import { NavLink } from 'react-router-dom';
 import { LogoutButton } from './LogoutButton';
+import { useAuth } from '../hooks/useAuth';
+import { UserRole } from '../models/UserRole';
+
+const ALL_NAV_LINKS = [
+  { path: '/mesero', label: 'Mesero', icon: 'restaurant_menu', role: UserRole.MESERO },
+  { path: '/cocina', label: 'Cocina', icon: 'local_fire_department', role: UserRole.COCINERO },
+  { path: '/barra', label: 'Barra', icon: 'local_bar', role: UserRole.BARTENDER },
+];
 
 export function Navigation() {
-  const navLinks = [
-    { path: '/mesero', label: 'Mesero', icon: 'restaurant_menu' },
-    { path: '/barra', label: 'Barra', icon: 'local_bar' },
-    { path: '/cocina-caliente', label: 'Cocina Caliente', icon: 'local_fire_department' },
-    { path: '/cocina-fria', label: 'Cocina Fría', icon: 'ac_unit' }
-  ];
+  const { role } = useAuth();
+
+  const navLinks = ALL_NAV_LINKS.filter(link => link.role === role);
 
   return (
     <nav className="fixed top-0 left-0 right-0 h-16 bg-charcoal border-b border-white/10 z-50">
       <div className="h-full px-8 flex items-center justify-between">
-        {/* Logo */}
         <div className="flex items-center gap-3">
           <div className="size-10 gold-gradient rounded-lg flex items-center justify-center">
             <span className="material-symbols-outlined text-midnight text-2xl font-bold">restaurant</span>
@@ -23,7 +27,6 @@ export function Navigation() {
           </div>
         </div>
 
-        {/* Nav Links */}
         <div className="flex items-center gap-2">
           {navLinks.map((link) => (
             <NavLink
@@ -42,8 +45,7 @@ export function Navigation() {
               <span className="hidden md:inline">{link.label}</span>
             </NavLink>
           ))}
-          
-          {/* Logout */}
+
           <LogoutButton />
         </div>
       </div>

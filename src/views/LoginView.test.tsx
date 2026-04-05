@@ -1,18 +1,24 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { LoginView } from '../views/LoginView'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, MemoryRouter } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
+import { UserRole } from '../models/UserRole'
 
 const mockLogin = vi.fn()
 const mockRegister = vi.fn()
+const mockAssignRole = vi.fn()
 
 const createMockUseAuth = (overrides = {}) => ({
   login: mockLogin,
   register: mockRegister,
+  assignRole: mockAssignRole,
   isLoading: false,
   error: null,
   isAuthenticated: false,
+  role: null,
+  token: null,
+  logout: vi.fn(),
   ...overrides,
 })
 
@@ -165,12 +171,15 @@ describe('LoginView', () => {
       
       const passwordInput = document.querySelector('input[id="password"]') as HTMLInputElement
       fireEvent.change(passwordInput, { target: { value: 'password123' } })
+
+      const roleSelect = document.querySelector('select[id="role"]') as HTMLSelectElement
+      fireEvent.change(roleSelect, { target: { value: 'MESERO' } })
       
       const form = document.querySelector('form') as HTMLFormElement
       fireEvent.submit(form)
       
       await waitFor(() => {
-        expect(mockRegister).toHaveBeenCalledWith('test@email.com', 'testuser', 'password123')
+        expect(mockRegister).toHaveBeenCalledWith('test@email.com', 'testuser', 'password123', 'MESERO')
       })
     })
 
@@ -223,6 +232,63 @@ describe('LoginView', () => {
       renderWithRouter(<LoginView />)
       
       expect(screen.getByText('Iniciando sesión...')).toBeInTheDocument()
+    })
+  })
+
+  describe('Role dropdown in register mode', () => {
+    it('debe mostrar select de rol en modo registro', () => {
+      renderWithRouter(<LoginView />)
+      fireEvent.click(screen.getByRole('button', { name: /Regístrate/i }))
+
+      expect(document.querySelector('select#role')).toBeInTheDocument()
+    })
+
+    it('el select de rol no tiene valor seleccionado por defecto', () => {
+      renderWithRouter(<LoginView />)
+      fireEvent.click(screen.getByRole('button', { name: /Regístrate/i }))
+
+      const select = document.querySelector('select#role') as HTMLSelectElement
+      expect(select.value).toBe('')
+    })
+
+    it('muestra error "Debe seleccionar un rol para continuar" al submit sin rol', async () => {
+      renderWithRouter(<LoginView />)
+      fireEvent.click(screen.getByRole('button', { name: /Regístrate/i }))
+
+      const emailInput = document.querySelector('input[id="email"]') as HTMLInputElement
+      fireEvent.change(emailInput, { target: { value: 'test@email.com' } })
+      const usernameInput = document.querySelector('input[id="username"]') as HTMLInputElement
+      fireEvent.change(usernameInput, { target: { value: 'testuser' } })
+      const passwordInput = document.querySelector('input[id="password"]') as HTMLInputElement
+      fireEvent.change(passwordInput, { target: { value: 'password123' } })
+
+      const form = document.querySelector('form') as HTMLFormElement
+      fireEvent.submit(form)
+
+      await waitFor(() => {
+        expect(screen.getByText('Debe seleccionar un rol para continuar')).toBeInTheDocument()
+      })
+    })
+
+    it('en modo ?step=role muestra campos readonly y botón Actualizar', () => {
+      render(
+        <MemoryRouter initialEntries={['/registro?userId=5&step=role']}>
+          <LoginView />
+        </MemoryRouter>
+      )
+
+      expect(screen.getByRole('button', { name: /Actualizar/i })).toBeInTheDocument()
+      expect(document.querySelector('input[id="password"]')).not.toBeInTheDocument()
+    })
+
+    it('en modo ?step=role no muestra campo password', () => {
+      render(
+        <MemoryRouter initialEntries={['/registro?userId=5&step=role']}>
+          <LoginView />
+        </MemoryRouter>
+      )
+
+      expect(document.querySelector('input[id="password"]')).not.toBeInTheDocument()
     })
   })
 })

@@ -3,8 +3,13 @@ import { useCompletedOrders } from '../../hooks/useCompletedOrders';
 import { CompletedOrdersButton } from './CompletedOrdersButton';
 import { CompletedOrdersModal } from './CompletedOrdersModal';
 import { CompletedOrdersToast } from './CompletedOrdersToast';
+import { useAuth } from '../../hooks/useAuth';
+import { UserRole } from '../../models/UserRole';
 
 export const CompletedOrdersWidget = () => {
+  const { role } = useAuth();
+
+  if (role !== UserRole.MESERO) return null;
   const {
     completedOrders,
     count,

@@ -16,6 +16,8 @@ describe('App', () => {
 
   it('renders navigation when authenticated', () => {
     localStorage.setItem('auth_token', 'test-token')
+    localStorage.setItem('auth_role', 'MESERO')
+    window.history.pushState({}, '', '/mesero')
     render(<App />)
     expect(screen.getByRole('navigation')).toBeInTheDocument()
   })

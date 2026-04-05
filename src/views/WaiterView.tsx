@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTables } from '../hooks/useTables';
 import { useOrder } from '../hooks/useOrder';
-import { useKitchenTasks } from '../hooks/useKitchenTasks';
 import { TableSelector } from '../components/waiter/TableSelector';
 import { CategoryFilter } from '../components/waiter/CategoryFilter';
 import { ProductGrid } from '../components/waiter/ProductGrid';
@@ -11,12 +10,7 @@ import { ProductType } from '../models/Product';
 import { MENU_PRODUCTS } from '../helpers/menuData';
 import { calculateTotalPrice } from '../helpers/orderCalculator';
 
-/**
- * Vista principal del mesero
- * Orquesta todos los componentes y la lógica de negocio
- */
 export const WaiterView = () => {
-  // Estado de mesas
   const {
     tables,
     selectedTable,
@@ -26,7 +20,6 @@ export const WaiterView = () => {
     syncTablesWithTasks,
   } = useTables();
 
-  // Estado del pedido
   const {
     orderProducts,
     totalItems,
@@ -37,10 +30,6 @@ export const WaiterView = () => {
     submitOrder,
   } = useOrder();
 
-  // Estado de cocina
-  const { tasks, isLoading, refreshTasks } = useKitchenTasks();
-
-  // Categoría seleccionada
   const [selectedCategory, setSelectedCategory] = useState<
     ProductType | 'ALL'
   >('ALL');
@@ -49,16 +38,6 @@ export const WaiterView = () => {
     message: string;
   } | null>(null);
 
-  /**
-   * Sincroniza el estado de las mesas con las tareas cada vez que cambian
-   */
-  useEffect(() => {
-    syncTablesWithTasks(tasks);
-  }, [tasks, syncTablesWithTasks]);
-
-  /**
-   * Maneja el envío del pedido
-   */
   const handleSubmitOrder = async () => {
     if (!selectedTable) {
       setOrderFeedback({ type: 'info', message: 'Por favor selecciona una mesa' });
@@ -69,11 +48,8 @@ export const WaiterView = () => {
     const response = await submitOrder(selectedTable.number);
 
     if (response) {
-      // Marcar mesa como ocupada
       markTableAsOccupied(selectedTable.id, response.orderId);
-
-      // Refrescar tareas
-      await refreshTasks();
+      syncTablesWithTasks([]);
 
       setOrderFeedback({
         type: 'success',
@@ -103,16 +79,16 @@ export const WaiterView = () => {
           {orderFeedback.message}
         </div>
       )}
-      {/* Panel Izquierdo - Mesas */}
+      
       <TableSelector
         tables={tables}
         selectedTableId={selectedTableId}
         onSelectTable={selectTable}
       />
 
-      {/* Contenido Principal */}
+      
       <main className="flex-1 flex flex-col overflow-hidden bg-midnight">
-        {/* Header */}
+        
         <header className="h-24 border-b border-white/5 px-10 flex items-center justify-between shrink-0 bg-charcoal">
           <div className="flex items-center gap-8">
             <div>
@@ -143,15 +119,15 @@ export const WaiterView = () => {
           </div>
         </header>
 
-        {/* Contenido con scroll */}
+        
         <div className="flex-1 overflow-y-auto p-10 order-scroll">
-          {/* Categorías */}
+          
           <CategoryFilter
             selectedCategory={selectedCategory}
             onSelectCategory={setSelectedCategory}
           />
 
-          {/* Grid de Productos */}
+          
           <ProductGrid
             products={MENU_PRODUCTS}
             selectedCategory={selectedCategory}
@@ -161,9 +137,9 @@ export const WaiterView = () => {
         </div>
       </main>
 
-      {/* Panel Derecho */}
+      
       <aside className="w-[420px] bg-charcoal border-l border-white/5 flex flex-col shrink-0">
-        {/* Resumen de Orden */}
+        
         <OrderSummary
           products={orderProducts}
           totalItems={totalItems}
@@ -173,11 +149,11 @@ export const WaiterView = () => {
           onSubmit={handleSubmitOrder}
         />
 
-        {/* Estado de Cocina */}
+        
         <KitchenStatus
-          tasks={tasks}
-          isLoading={isLoading}
-          onRefresh={refreshTasks}
+          tasks={[]}
+          isLoading={false}
+          onRefresh={() => {}}
         />
       </aside>
     </div>
