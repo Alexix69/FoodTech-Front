@@ -48,6 +48,7 @@ export function CocineroView() {
 
   const startingTaskId = hot.startingTaskId ?? cold.startingTaskId
   const completingTaskId = hot.completingTaskId ?? cold.completingTaskId
+  const error = hot.error || cold.error
 
   const tasksByTab = {
     PENDING: pendingTasks,
@@ -73,6 +74,14 @@ export function CocineroView() {
 
   return (
     <StationLayout stationName="Cocina" stationCode="HOT_KITCHEN + COLD_KITCHEN" icon="local_fire_department">
+      {error && (
+        <div data-testid="kitchen-error" className="mx-10 mt-6 bg-red-500/10 border border-red-500/20 rounded-xl p-4">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-red-400">error</span>
+            <p className="text-sm text-red-400">{error}</p>
+          </div>
+        </div>
+      )}
       <div className="flex gap-3 px-10 py-6 overflow-x-auto border-b border-white/5 bg-charcoal/50">
         {TABS.map(tab => (
           <button
