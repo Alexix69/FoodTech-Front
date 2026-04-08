@@ -8,8 +8,6 @@ import { UserRole } from '../../models/UserRole';
 
 export const CompletedOrdersWidget = () => {
   const { role } = useAuth();
-
-  if (role !== UserRole.MESERO) return null;
   const {
     completedOrders,
     count,
@@ -31,6 +29,8 @@ export const CompletedOrdersWidget = () => {
       }
     };
   }, []);
+
+  if (role !== UserRole.MESERO) return null;
 
   const handleToggle = () => {
     setIsOpen((prev) => !prev);

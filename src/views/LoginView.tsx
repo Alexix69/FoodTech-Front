@@ -11,22 +11,16 @@ export const LoginView = () => {
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
   const [demoMode, setDemoMode] = useState(false)
-  const [isRegisterMode, setIsRegisterMode] = useState(false)
-  const [selectedRole, setSelectedRole] = useState<UserRole | ''>('')
-  const [roleError, setRoleError] = useState('')
-
   const [searchParams] = useSearchParams()
   const stepRole = searchParams.get('step') === 'role'
   const userIdParam = searchParams.get('userId')
 
+  const [isRegisterMode, setIsRegisterMode] = useState(stepRole)
+  const [selectedRole, setSelectedRole] = useState<UserRole | ''>('')
+  const [roleError, setRoleError] = useState('')
+
   const { login, register, assignRole, isLoading, error, isAuthenticated } = useAuth()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    if (stepRole) {
-      setIsRegisterMode(true)
-    }
-  }, [stepRole])
 
   useEffect(() => {
     if (isAuthenticated && !stepRole) {

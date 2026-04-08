@@ -3,7 +3,6 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { LoginView } from '../views/LoginView'
 import { BrowserRouter, MemoryRouter } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
-import { UserRole } from '../models/UserRole'
 
 const mockLogin = vi.fn()
 const mockRegister = vi.fn()
