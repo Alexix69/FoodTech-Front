@@ -1,7 +1,7 @@
-/**
- * Configuración base de la API
- */
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+if (!BASE_URL) {
+  throw new Error('VITE_API_BASE_URL is not defined');
+}
 const DEMO_TOKEN = 'demo-token-12345';
 
 const getAuthHeader = (): Record<string, string> => {
@@ -12,9 +12,6 @@ const getAuthHeader = (): Record<string, string> => {
   return { Authorization: `Bearer ${token}` };
 };
 
-/**
- * Cliente HTTP simple con manejo de errores
- */
 class ApiClient {
   private baseUrl: string;
 
@@ -87,4 +84,4 @@ class ApiClient {
   }
 }
 
-export const apiClient = new ApiClient(API_BASE_URL);
+export const apiClient = new ApiClient(BASE_URL);

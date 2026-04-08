@@ -1,6 +1,3 @@
-/**
- * Tipos de productos según las estaciones de cocina
- */
 export const ProductType = {
   DRINK: 'DRINK',
   HOT_DISH: 'HOT_DISH',
@@ -9,9 +6,6 @@ export const ProductType = {
 
 export type ProductType = (typeof ProductType)[keyof typeof ProductType];
 
-/**
- * Modelo de producto del menú
- */
 export interface Product {
   id: string;
   name: string;
@@ -21,9 +15,6 @@ export interface Product {
   price: number;
 }
 
-/**
- * Producto en el pedido con cantidad
- */
 export interface OrderProduct {
   name: string;
   type: ProductType;

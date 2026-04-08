@@ -9,9 +9,6 @@ interface ProductGridProps {
   onAddProduct: (product: Product) => void;
 }
 
-/**
- * Grid de productos del menú
- */
 export const ProductGrid = ({
   products,
   selectedCategory,

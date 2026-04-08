@@ -18,9 +18,6 @@ interface OrderGroup {
   orderStatus?: OrderStatusResponse;
 }
 
-/**
- * Panel con el estado de las tareas en cocina
- */
 export const KitchenStatus = ({
   tasks,
   isLoading,
@@ -28,9 +25,6 @@ export const KitchenStatus = ({
 }: KitchenStatusProps) => {
   const [orderStatuses, setOrderStatuses] = useState<Map<number, OrderStatusResponse>>(new Map());
 
-  /**
-   * Agrupa las tareas por orden
-   */
   const groupTasksByOrder = (): OrderGroup[] => {
     const groups = new Map<number, OrderGroup>();
 
@@ -49,9 +43,6 @@ export const KitchenStatus = ({
     return Array.from(groups.values()).sort((a, b) => b.orderId - a.orderId);
   };
 
-  /**
-   * Obtiene el estado de todas las órdenes únicas
-   */
   useEffect(() => {
     const uniqueOrderIds = [...new Set(tasks.map((t) => t.orderId))];
     
@@ -60,11 +51,9 @@ export const KitchenStatus = ({
       
       await Promise.all(
         uniqueOrderIds.map(async (orderId) => {
-          try {
-            const status = await orderService.getOrderStatus(orderId);
+          const status = await orderService.getOrderStatus(orderId).catch(() => null);
+          if (status) {
             statusMap.set(orderId, status);
-          } catch (error) {
-            console.error(`Error fetching status for order ${orderId}:`, error);
           }
         })
       );
@@ -77,11 +66,8 @@ export const KitchenStatus = ({
     }
   }, [tasks]);
 
-  /**
-   * Calcula el progreso de una orden basado en las estaciones
-   */
   const calculateProgress = (orderTasks: Task[]): number => {
-    const stationsCount = 3; // BAR, HOT_KITCHEN, COLD_KITCHEN
+    const stationsCount = 3;
     const stations = [Station.BAR, Station.HOT_KITCHEN, Station.COLD_KITCHEN];
     
     let completedStations = 0;
@@ -99,9 +85,6 @@ export const KitchenStatus = ({
     return (completedStations / stationsCount) * 100;
   };
 
-  /**
-   * Obtiene el mensaje de estado basado en el OrderStatus
-   */
   const getStatusLabel = (orderStatus?: OrderStatusResponse): { label: string; color: string } => {
     if (!orderStatus) {
       return { label: 'Cargando...', color: 'text-silver-text' };
@@ -119,9 +102,6 @@ export const KitchenStatus = ({
     }
   };
 
-  /**
-   * Obtiene el estilo del contenedor según el estado
-   */
   const getContainerStyle = (orderStatus?: OrderStatusResponse): string => {
     if (!orderStatus) {
       return 'bg-white/5 border-white/10';
@@ -184,7 +164,6 @@ export const KitchenStatus = ({
                 data-order-status={group.orderStatus?.status}
                 className={`p-4 border rounded-2xl ${containerStyle}`}
               >
-                {/* Header */}
                 <div className="flex justify-between items-center mb-3">
                   <span data-testid="kitchen-order-header" className="text-xs font-bold text-white-text">
                     #{group.orderId} • {group.tableNumber}
@@ -205,7 +184,6 @@ export const KitchenStatus = ({
                   </div>
                 </div>
 
-                {/* Lista de Productos */}
                 <div data-testid="kitchen-order-products" className="flex flex-wrap gap-1 mb-3">
                   {group.tasks.flatMap((task) => task.products).map((product, idx) => (
                     <span
@@ -219,7 +197,6 @@ export const KitchenStatus = ({
                   ))}
                 </div>
 
-                {/* Barra de Progreso */}
                 {group.orderStatus?.status !== OrderStatus.COMPLETED && (
                   <>
                     <div data-testid="kitchen-progress-bar" className="w-full h-1 bg-white/10 rounded-full overflow-hidden mb-3">
@@ -236,14 +213,12 @@ export const KitchenStatus = ({
                   </>
                 )}
 
-                {/* Mensaje para orden completada */}
                 {group.orderStatus?.status === OrderStatus.COMPLETED && (
                   <p data-testid="kitchen-order-completed-msg" className="text-[10px] text-silver-text">
                     Recoger en estación de entrega
                   </p>
                 )}
 
-                {/* Mensaje para orden en cola */}
                 {group.orderStatus?.status === OrderStatus.PENDING && (
                   <p data-testid="kitchen-order-pending-msg" className="text-[10px] text-silver-text">
                     Siguiente para preparación

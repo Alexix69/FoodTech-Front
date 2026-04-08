@@ -9,9 +9,6 @@ interface OrderSummaryProps {
   onSubmit: () => void;
 }
 
-/**
- * Panel lateral con resumen del pedido
- */
 export const OrderSummary = ({
   products,
   totalItems,
@@ -33,7 +30,6 @@ export const OrderSummary = ({
         )}
       </div>
 
-      {/* Lista de Productos */}
       {hasProducts ? (
         <>
           <div data-testid="order-products-list" className="space-y-4 sm:space-y-6 max-h-[200px] sm:max-h-[250px] lg:max-h-[300px] overflow-y-auto order-scroll pr-2 sm:pr-4">
@@ -73,7 +69,6 @@ export const OrderSummary = ({
             ))}
           </div>
 
-          {/* Total Items */}
           <div data-testid="order-total" className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-white/10">
             <div className="flex justify-between items-center mb-2">
               <span className="text-white-text text-sm sm:text-base font-bold">Total de Items:</span>
@@ -85,7 +80,6 @@ export const OrderSummary = ({
             </div>
           </div>
 
-          {/* Botón Enviar */}
           <button
             data-testid="submit-order-btn"
             onClick={onSubmit}

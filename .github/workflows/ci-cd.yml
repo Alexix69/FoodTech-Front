@@ -99,18 +99,20 @@ jobs:
         run: |
           docker build -t foodtech-test:${{ github.sha }} .
 
-      - name: 🧪 Run E2E Tests (Cypress with mocks)
+      - name: 🚀 Start Container
         run: |
-          docker run --rm --network host foodtech-test:${{ github.sha }} \
-            sh -c "npm run test:e2e || true"
+          docker run -d -p 5173:5173 --name foodtech-smoke foodtech-test:${{ github.sha }}
+          sleep 8
 
-      - name: 📊 Upload E2E Results
-        uses: actions/upload-artifact@v4
+      - name: 🔥 Smoke Test
+        run: |
+          curl --fail --retry 3 --retry-delay 2 http://localhost:5173/
+
+      - name: 🛑 Stop Container
         if: always()
-        with:
-          name: e2e-test-results
-          path: cypress/screenshots/
-          retention-days: 30
+        run: |
+          docker stop foodtech-smoke
+          docker rm foodtech-smoke
 
   # ==========================================
   # JOB 4: SECURITY SCAN

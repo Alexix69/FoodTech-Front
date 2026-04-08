@@ -65,7 +65,6 @@ export function TaskCard({ task, onStartPreparation, onCompleteTask, isStarting 
       data-station={task.station}
       className={`glass-panel-dark group p-4 rounded-2xl transition-all flex flex-col gap-4 ${getStatusStyles()}`}
     >
-      {/* Header */}
       <div className="flex justify-between items-start px-1">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -86,7 +85,6 @@ export function TaskCard({ task, onStartPreparation, onCompleteTask, isStarting 
         </div>
       </div>
 
-      {/* Productos */}
       <div data-testid="task-products" className="bg-white/5 rounded-xl p-4 flex-1">
         <p className="text-[10px] uppercase tracking-widest text-silver-text mb-3">Productos</p>
         <div className="space-y-3">
@@ -111,7 +109,6 @@ export function TaskCard({ task, onStartPreparation, onCompleteTask, isStarting 
         </div>
       </div>
 
-      {/* Acciones */}
       {canStart && (
         <button
           data-testid={`start-task-btn-${task.id}`}

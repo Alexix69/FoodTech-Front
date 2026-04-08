@@ -1,12 +1,15 @@
 import { UserRole } from '../models/UserRole'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+if (!BASE_URL) {
+  throw new Error('VITE_API_BASE_URL is not defined');
+}
 const REMEMBER_ME_DAYS = 30
 export const authService = {
   async login(email: string, password: string, rememberMe: boolean = false): Promise<boolean> {
     
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+      const response = await fetch(`${BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -75,7 +78,7 @@ export const authService = {
 
   async register(email: string, username: string, password: string, role?: UserRole): Promise<boolean> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+      const response = await fetch(`${BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +113,7 @@ export const authService = {
 
   async assignRole(userId: number, role: UserRole): Promise<{ token: string; role: UserRole }> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/users/${userId}/role`, {
+      const response = await fetch(`${BASE_URL}/api/users/${userId}/role`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
