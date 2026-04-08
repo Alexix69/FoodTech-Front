@@ -5,12 +5,12 @@ name: FoodTech CI/CD
 
 on:
   push:
-    branches: [main, develop, 'release/**', 'hotfix/**']
+    branches: [main, develop, "release/**", "hotfix/**"]
   pull_request:
     branches: [main, develop]
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: "20"
 
 jobs:
   # ==========================================
@@ -27,7 +27,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: 📦 Install dependencies
         run: npm ci
@@ -54,7 +54,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: 📦 Install dependencies
         run: npm ci
@@ -90,7 +90,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: 📦 Install dependencies
         run: npm ci
@@ -130,9 +130,9 @@ jobs:
       - name: 🔍 Docker Scan (Trivy)
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'foodtech:${{ github.sha }}'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
+          image-ref: "foodtech:${{ github.sha }}"
+          format: "sarif"
+          output: "trivy-results.sarif"
         continue-on-error: true
 
       - name: 📤 Upload Security Results
@@ -159,7 +159,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: 📦 Install dependencies
         run: npm ci
